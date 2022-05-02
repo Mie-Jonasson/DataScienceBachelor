@@ -26,3 +26,24 @@ This folder contains:
 Grade: 12
 
 ## 2_Semester
+On the second semester of Data Science we had a math subject, a programming subject and a subject with three small group-work projects.
+
+### Applied_Statistics - Applied Statistics
+This folder contains:
+- Extensive Exam Notes with definitions and R-coding in R-markdown
+- Exam submission
+
+Grade: 
+
+### Algorithms - Algorithms and Data Structures
+This folder contains:
+- Extensive Exam Notes on analysis of algorithms and basic data structures
+- Exam submission
+
+Grade:
+
+### First_Year_Project - First Year Project
+This folder contains:
+- something
+
+Grade:
