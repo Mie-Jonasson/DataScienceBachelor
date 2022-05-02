@@ -1,0 +1,12 @@
+Induction:
+I) Base case
+How do I prove the base case? 
+For example if stated ‘for n≥0’ the base case will be 0.
+Then we prove the statement to be true for the case of 0.
+
+II) Assumption of the case of k being true
+We write up the statement for the value of k, and state that we assume this case to be true for a k ≥ 0. (Also called the Inductive hypothesis)
+
+III) Proof of, if k being true, then k+1 is true as well
+Now we write up the statement for k+1, where we put in the assumption statement from the above step. Then we prove that both sides are equal to each other. (Regularly by trying to get the LHS to be the RHS)
+(This is, btw, the inductive step)
