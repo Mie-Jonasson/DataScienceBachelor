@@ -1,0 +1,519 @@
+---
+title: "Applied Statistics"
+subtitle: "2. Semester BDS - Spring 2022"
+author: "M. Jonasson"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4 
+---
+# R commands
+- **Require(\<package\>)** : Loads a package
+- **summary(\<dataset\>)** : Returns types of variables and numerical summary
+- **\<dataset\>$\<column\>** : returns the specified column
+- **subset(\<dataset\>,\<column\>==something)** : Creates subset fulfilling requirement
+- **na.omit(\<dataset\>)** : Removes any NA values in the dataset
+- **dim(\<dataset\>)** : Returns dimensions of a dataframe
+- **data.frame(\<atomic vectors\>)** : Creates a dataframe with vectors as columns
+- **pie(table(\<dataset\>$\<column\>))** : Creates a pie-chart from the given column
+- **par(mfrow=c(\<no.rows\>,\<no.columns\>))** : Creates a frame for subplots
+- **which(\<boolean of atomic vector\>)** : Returns the index/indices fulfilling the boolean
+- **format(\<value\>,scientific=F,digits=b)** : Displays 'b' significant digits
+
+## Useful Functions
+- Rolling n die with k sides each
+```{r include=F}
+dice.roller <- function(n,k) {ceiling(runif(n)*k)}
+```
+
+- Plotting a histogram of n samples from a normal distribution & exponential
+```{r include=F}
+plot.norm.samples <- function(n) {
+  samples <- rnorm(n)
+  d <- n %/% 10
+  hist(samples, freq=FALSE,main='Normally Distributed samples',ylab='density',xlab='sample value',col=rainbow(d/2),breaks=d)
+  xs <- seq(-4,4,0.1)
+  normline <- dnorm(xs)
+  lines(xs,normline,lwd=3)
+}
+sample.and.plot.exp <- function(n) {
+  samples <- rexp(n,rate=1)
+  d <- n %/% 10
+  hist(samples, freq=FALSE,main='Exponentially Distributed samples',ylab='density',xlab='sample value',col=rainbow(d/2),breaks=d)
+  xs <- seq(0,10,0.01)
+  expline <- dexp(xs)
+  lines(xs,expline,lwd=3)
+}
+```
+
+- Simulating a Random Variable with F(x)
+```{r include=F}
+F_inv <- function(u) {
+    return(sqrt(u))
+}
+n <- 100
+x_samples <- F_inv(runif(n))
+```
+
+
+
+
+# Probability
+## Basic Probability Definitions:
+
+Probability is the mathematical framework used for machine learning and statistics.
+
+Deals with Random Events.
+
+#### Basics:
+- **Outcome** : The result of an experiment
+- **Sample Space** : A set of all possible outcomes : $\Omega = \{O_1,O_2,...,O_n\}$
+- **Event** : A subset of the sample space $\Omega$ : $A=\{O_1,..,O_m\}$ : 'Event A *occurs*'
+
+#### Math Symbols:
+- $\in$ : denotes a 'thing' as belonging to a set/sample space/event
+- $\notin$ : Opposite of above symbol
+- $\wedge$ : 'AND' (Only True if both are True)
+- $\vee$ : 'OR' (True if either is true)
+- $\cap$ : 'AND' for union of events
+- $\cup$ : 'OR' for union of events
+- $Ø$ : denotes an empty set
+- $\subseteq$ : denotes one set as being a subset of another set
+- $|$ : (See Probability Function -> Discrete -> P of Conditional Probability)
+
+#### Combining Events:
+- **Intersection** : Where two events occur *together* : $A \cap B = \{w \in \Omega | w \in A \wedge w \in B\}$
+- **Union** : Where *any* of two events occur : $A \cup B = \{w \in \Omega | w \in A \vee w \in B\}$
+- **Complement** : Where an event does *not* occur : $A^C = \{w \in \Omega | w \notin A\}$
+- **Disjoint** : When two events have no intersection : $A \cap B = Ø$
+- **Implies** : When all outcomes of one event are within a different event : $A \subseteq B$
+- **Independence** : Two events have no dependence on each other : $P(A|B)=P(A)$ : i.e. does not matter if B happens or not 
+
+##### DeMorgan's Law
+\[(A \cup B)^C = A^C \cap B^C\]
+\[(A \cap B)^C = A^C \cup B^C\]
+
+##### Product of sample spaces
+F.ex. throwing two coins instead of one -> Produces a sample space of tuples!
+\[\Omega = \Omega_1 \times \Omega_2=\{(w_1,w_2)|w_1 \in \Omega_1 , w_2 \in \Omega_2\}\]
+
+#### Proving Independence
+\[P(A|B)=P(A)\] \[P(B|A)=P(B)\] \[P(A \cap B) = P(A)P(B)\] 
+Prove Either where $A$ may be replaced by $A^C$ or $B$ by $B^C$
+
+If one is true, all are true -> SYMMERTRIC property
+
+
+
+
+
+## Probability Function
+### In a *Discrete* Setting
+Discrete = A finite sample space.
+
+##### Definition of P (Probability function):
+
+A function that assigns a probability to any event in the sample space such that:
+\[P(\Omega)=1\]
+
+#### Additive property:
+\[P(A \cup B) = P(A) + P(B)\]
+If A & B are disjoint events of $\Omega$.
+This works for ANY number of unions of disjoint events.
+
+**General rule:**
+\[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]
+Because the intersection is added twice if the events intersect, thus we subtract it.
+
+#### P of product sample space
+For $\Omega = \Omega_1 \times \Omega_2 \times ... \times \Omega_n$
+Where all $\Omega_i$ have the same sample space of **independent** experiments, we get:
+\[P(w_1,w_2,...,w_n) = P(w_1) * P(w_2) * ... * P(w_n) = p_1 * p_2 * ... * p_n\]
+
+#### P of Conditional Probability
+$P(A | C)$ is the probability of A, given that C occurs:
+\[P(A|C)=\frac{P(A \cap C)}{P(C)}\]
+I.e. how big a fraction does the **intersection** between A & C cover of C?
+You can think of this as if you assign C as the new 'whole sample space' $\Omega$ and calculate the new probability of A
+
+##### Multiplication rule
+\[P(A \cap C) = P(A|C) * P(C)\]
+
+#### Bayes' Rule
+\[P(B|A)=\frac{P(A|B)*P(B)}{P(A)}\]
+
+#### Probability of m Independent Events
+\[P(A_1 \cap A_2 \cap ... \cap A_m) = P(A_1)P(A_2)...P(A_m)\]
+
+### Cardinality
+I do not understand
+
+### In a *Continuous* Setting
+\[P(a \leq X \leq b)=\int_a^b f(x) dx\]
+suffices:
+\[f(x) \geq 0\] 
+\[\int_{-\infty}^{\infty} f(x) = 1\]
+
+#### Quantiles
+A quantile is the smallest $q_p$ that suffices:
+\[F(q_p)=P(X \leq q_p) = p\]
+
+**Median**
+The 50th percentile
+
+
+
+
+
+## Distribution Functions
+### Probability Mass Function *(Discrete case)*
+Given as the function p, for which:
+\[p(a)=P(X = a) \qquad -\infty < a < \infty\]
+
+### Cumulative Distribution Function
+**Discrete**
+
+Given as the function F, for which:
+\[F(a)=P(X \leq a) \qquad -\infty < a < \infty\]
+
+**Continuous**
+
+Given as the function F, for which:
+\[F(a)=P(X \leq a) \qquad -\infty < a < \infty\]
+And is also described by:
+\[F(a)=\int_{-\infty}^a f(x) dx\]
+
+### Probability Density Function *(Continuous case)*
+Given as the function f, for which:
+\[f(a) = P(a - \epsilon \leq X \leq a + \epsilon) \qquad -\infty < a < \infty\]
+Probability of a single point is: $P(X=a)=0$ Thus we calculate 'close to a'
+
+
+
+
+
+### Distributions (Discrete)
+#### Bernoulli
+Denoted $Ber(p)$ with
+\[p_X(1)=P(X=1)=p \qquad p_X(0)=P(X=0)=1-p\]
+
+- **p** : Probability of succes
+- **type** : Distribution of single succes/failure experiment
+
+#### Binomial 
+Denoted $Bin(n,p)$ with
+\[p_X(k)=P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}\]
+
+- **k** : Number of successes out of n : $k \in \{0, 1, 2, ..., n\}$
+- **n** : Number of times doing the Bernoulli experiment
+- **p** : Probability of succes
+- **type** : A repeated Succes/Failure experiment
+
+##### Binomial Coefficient
+Number of ways to get k successes out of n trials:
+\[C(n,k)=\binom{n}{k} = \frac{n!}{k!(n-k)!}\]
+
+#### Geometric
+Denoted $Geo(p)$ with
+\[p_X(k)=P(X=k)=(1-p)^{k-1}*p\]
+
+- **k** : Number of trials at the point of succes : $k \in \{1, 2, 3, 4, ...\}$
+- **p** : Probability of succes
+- **type** : Probability of *FIRST* succes at kth attempt
+
+\[E[X] = \sum_{k=1}^{\infty} k p (1-p)^{k-1} = \frac{1}{p}\]
+
+
+
+
+### Distributions (Continuous)
+#### Uniform
+Denoted $U(\alpha,\beta)$ with
+\[f(x)=\begin{cases}
+\frac{1}{\beta-\alpha} & \text{for $\alpha \leq x \leq \beta$} \\
+0 & \text{otherwise}
+\end{cases}\]
+\[F(x) = \begin{cases}
+0 & \text{for $x < \alpha$} \\
+\frac{x-\alpha}{\beta-\alpha} & \text{for $\alpha \leq x \leq \beta$} \\
+1 & \text{for $\beta < x$}
+\end{cases}\]
+
+- **$\alpha$** : Lower bound for the interval 
+- **$\beta$** : Upper bound for the interval
+- **type** : Equally Likely for any observation $\alpha \leq X \leq \beta$
+
+#### Exponential 
+Denoted $Exp(\lambda)$ with
+\[f(x) = \begin{cases}
+0 & \text{for $x < 0$} \\
+\lambda * e^{-\lambda*x} & \text{for $0 \leq x$}
+\end{cases}\]
+\[F(a)=\begin{cases}
+0 & \text{for $a < 0$} \\
+1-e^{-\lambda * a} \qquad & \text{for $0 \leq a$}
+\end{cases}\]
+
+- **$\lambda$** : Low, slow fall \& low start : High, rapid fall \& high start
+- **type** : Exponentially decreasing probability for positive observations
+
+\[E[X] = \int_0^{\infty} x \lambda e^{-\lambda x} dx = \frac{1}{\lambda}\]
+
+
+#### Normal
+Denoted $N(\mu,\sigma^2)$ with
+\[f(x)=\frac{1}{\sigma \sqrt{2 \pi}}*e^{-\frac{(x-\mu)^2}{2 \sigma^2}}\]
+\[F(a)=\int_{-\infty}^a f(x) dx\]
+
+- **$\mu$** : Mean of the Gaussian Bell Curve
+- **$\sigma^2$** : Standard Deviation of Gaussian Bell Curve
+- **$\sigma$** : Variance of Gaussian Bell Curve
+- **type** : Probability centered around the mean, and with endless possibilities (long tails)
+
+\[E[X] = \int_{-\infty}^{\infty} \frac{x}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}} dx = \mu \]
+\[Var[X] = \int_{-\infty}^{\infty} \frac{(x - \mu)^2}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}} dx = \sigma^2\]
+
+#### Gamma Distribution
+I dont know... See lecture 7
+
+
+
+
+
+
+## Simulation
+If we want to do an experiment involving Random Variables, we call them:
+
+- Probabilistic Model
+- Stochastic Model
+
+A **Stochastic Simulation** will offer us a *REALIZATION* of our Random Variable
+
+How to do it:
+
+- Obtain Strictly increasing CDF : $F(x)$
+- Sample from $U(0,1)$ - realization (sample) denoted $u$
+- Return $F^{inv}(u)$
+
+**EXAMPLE**
+\[F(x) = \begin{cases}
+0 & \text{for $x < 0$} \\
+x^2 & \text{for $0 \leq x \leq 1$} \\
+1 & \text{for $1 < x$}
+\end{cases}\]
+then we isolate x in:
+\[F(x)=u \qquad x^2 = u \qquad x = \sqrt{u}\]
+and now we can sample a random $U(0,1)$ and find corresponding x (by taking $\sqrt{u}$)
+
+
+
+
+## Computations with random variables
+### Expected value
+
+- You can think about it as the 'center of gravity' for a Random Variable
+- Expected value does not necessarily exist for all distributions
+- Can be estimated using the mean of samples
+
+\[E[X] = \sum_i a_iP(X=a_i) = \sum_i a_ip(a_i)\]
+\[E[X] = \int_{-\infty}^{\infty} x f(x) dx\]
+
+#### For Change of Varible (see below)
+For $Y=g(X)$ :
+\[E[g(X)] = \sum_i g(a_i) P(X=a_i)\]
+\[E[g(X)] = \int_{-\infty}^{\infty} g(x) f(x) dx\]
+
+*Change of units*
+\[E[r X + s] = r E[X] + s\]
+
+*Jensen's Inequality*
+\[g(E[X]) \leq E[g(X)]\]
+
+##### For 2-dim Change of Variable
+Let $g(X,Y)$ be a function $\mathbb{R}^2 \to \mathbb{R}$
+\[E[g(X,Y)]=\sum_i \sum_j g(a_i,b_j) P(X=a_i, Y=b_j)\]
+\[E[g(X,Y)]=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(a_i,b_j) f(x,y) dx dy\]
+
+#### Linearity of $E[X]$
+\[E[rX + sY] = r E[X] + s E[Y]\]
+
+
+
+
+
+### Change of Variable
+Is when we define a random variable in a depence on a different random variable.
+for example $Y =  X^2$ :
+\[F_Y(a) = P(X^2 \leq a) = P(X \leq \sqrt{a})\]
+Which we then can use to determine $F_Y(a)$ and $f_Y(y)=\frac{d}{dy}F_Y(y)$
+
+##### Distribution function of $Y = \frac{1}{X}$
+\[f_Y(y) = \frac{d}{dY} F_Y(y) = \frac{1}{y^2} f_X \left( \frac{1}{y} \right)\]
+
+##### Distribution function of $Y = rX + s$ (Change of Units)
+\[F_Y(y) = F_X\left(\frac{y-s}{r}\right) , f_Y(y) = \frac{1}{r} f_X\left(\frac{y-s}{r}\right)\]
+
+#### Jensen's Inequality
+\[g(E[X]) \leq E[g(X)]\]
+
+##### Distribution of **Maximum**
+for $Z=max\{X_1,X_2,...,X_n\}$
+\[F_Z(a) = (F_X(a))^n\]
+
+##### Distribution of **Minimum**
+for $V=min\{X_1,X_2,...,X_n\}$
+\[F_V(a) = 1-(1-F_X(a))^n\]
+
+##### Distribution of **sum** of X \& Y
+Where we define $Z=X+Y$
+\[p_Z(c) = \sum_j p_X(c-b_j)p_Y(b_j)\]
+for all possible values $b_j$ of $Y$
+\[f_Z(z)=\int_{-\infty}^{\infty} f_X(z-y)f_Y(y) dy\]
+This is the *convolution* of the probability functions.
+Sum of normally distributed Random variables is also normally distributed
+
+##### Distribution of **product** of X \& Y
+Where we define $Z=XY$
+\[f_Z(z)=\int_{-\infty}^{\infty} f_Y\left(\frac{z}{x}\right)f_X(x) \frac{1}{|x|} dx\]
+
+##### Distribution of **quotient** of X \& Y
+Where we define $Z=\frac{X}{Y}$
+\[f_Z(z)=\int_{-\infty}^{\infty} f_X(zx) f_Y(x) |x| dx\]
+
+##### **Independence** under change of Variable
+If $X_1,X_2,...,X_n$ are independent, then for $Y_i=g(X_i)$ all $Y_i$ will also be independent
+
+Independence implies Uncorrelated! (See Covariance)
+
+
+
+### Variance
+Expected spread around the mean
+\[Var[X] = E[(X-E[X])^2] \]
+\[Var[X] = E[X^2] - E[X]^2\]
+
+##### Under Change of Units
+\[Var[rX + s] = r^2 Var[X]\]
+
+
+
+### Covariance
+Appears when we attempt to compute $Var(X+Y) = Var(X) + Var(Y) + 2 * Cov(X,Y)$ for a joint distribution:
+\[Cov(X,Y) = E[(X-E[X])(Y-E[Y])] \]
+\[Cov(X,Y) = E[XY] - E[X]E[Y]\]
+
+- **$Cov(X,Y) > 0$** : X and Y are *positively* correlated
+- **$Cov(X,Y) < 0$** : X and Y are *negatively* correlated
+- **$Cov(X,Y) = 0$** : X and Y are *uncorrelated*
+
+If X & Y are independent ---> they will be *uncorrelated* (not opposite way though)
+
+##### Under Change of Units
+\[Cov(rX + s, tY + u) = rt Cov(X,Y)\]
+
+
+
+### Correlation Coefficient
+Varies between $-1 \leq \rho(X,Y) \leq 1$
+\[\rho(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}\]
+
+- Dimensionless
+- most correlated when $|X|=|Y|$
+
+
+
+
+
+
+
+
+## Joint Distributions
+### Joint Probability Mass Function
+\[p(a,b)=P(X=a,Y=b)\]
+
+#### Discrete case
+In a *Discrete* setting we can create a table!
+**Example** below where X=Sum(die1,die2) and Y=Max(die1,die2)
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "  
+|  a  |  b=1  |  b=2  |  b=3  |  b=4  |  b=5  |  b=6  |  PX(a) |
+|-----|-------|-------|-------|-------|-------|-------|--------|
+|  2  | 1/36  |   0   |   0   |   0   |   0   |   0   |  1/36  |
+|  3  |   0   | 2/36  |   0   |   0   |   0   |   0   |  2/36  |
+|  4  |   0   | 1/36  | 2/36  |   0   |   0   |   0   |  3/36  |
+|  5  |   0   |   0   | 2/36  | 2/36  |   0   |   0   |  4/36  |
+|  6  |   0   |   0   | 1/36  | 2/36  | 2/36  |   0   |  5/36  |
+|  7  |   0   |   0   |   0   | 2/36  | 2/36  | 2/36  |  6/36  |
+|  8  |   0   |   0   |   0   | 1/36  | 2/36  | 2/36  |  5/36  |
+|  9  |   0   |   0   |   0   |   0   | 2/36  | 2/36  |  4/36  |
+| 10  |   0   |   0   |   0   |   0   | 1/36  | 2/36  |  3/36  |
+| 11  |   0   |   0   |   0   |   0   |   0   | 2/36  |  2/36  |
+| 12  |   0   |   0   |   0   |   0   |   0   | 1/36  |  1/36  |
+|PY(b)| 1/26  | 3/36  | 5/36  | 7/36  | 9/36  | 11/36 |   1    |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+##### Reading the table
+
+- **$p(a_i,b_i)$** at field $(a_i,b_j)$ of the table is probability of that combination
+- **$p_X(a)$** is a column with probabilities of each $a_i$ : computed by summing over the rows : MARGINAL distribution
+- **$p_Y(b)$** is a row with probabilities of each $b_i$ : computed by summing over the columns : MARGINAL distribution
+- **$F(X \leq a_i , Y \leq b_i)$** is found by summing all fields where both are true
+
+#### Continuous Case
+Can be thought of as looking at a Probability Curve in 3 dimensions
+\[\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y) dx dy = 1\]
+\[F(a,b) = \int_{-\infty}^{a} \int_{-\infty}^{b} f(x,y) dx dy \qquad f(x,y) = \frac{\partial^2}{\partial x \partial y} F(x,y)\]
+
+#### Independence in Joint Distribution
+X & Y are independent if:
+\[P(X \leq a , Y \leq b) = P(X \leq a)P(Y \leq b) \qquad \quad F(a,b)=F_X(a)F_Y(b)\]
+For all values a & b. 
+
+In a generalized setting:
+\[P(X_1=a_1,X_2=a_2,...,X_n=a_n) = \prod_{i=1}^n P(X_i=a_i)\]
+\[f(x_1,x_2,...,x_n) = \prod_{i=1}^n f_{X_i}(x_i)\]
+
+
+
+
+
+## Law of Large Numbers
+When we take MANY measurements of the same random variable, our estimation of the mean will end up 
+being more and more similar to the true mean. 
+
+For $\bar{X}_n$ being the average of n independent random variables with 
+the same expectation $\mu$ and variance $\sigma^2$
+\[E[\bar{X}_n] = \mu \qquad Var(\bar{X}_n)=\frac{\sigma^2}{n}\]
+
+### Chebyshev's Inequality
+\[P(|Y-E[Y]| \geq a) \leq \frac{1}{a^2} Var(Y)\]
+
+##### Weak Law
+\[\lim_{n \to \infty} P(|\bar{X}_n-\mu| > \epsilon) = 0\]
+
+##### Strong Law
+\[P(\lim_{n \to \infty} \bar{X}_n = \mu) = 1\]
+
+
+
+## Central Limit Theorem
+If we let the number of samples from any distribution with finite positive variance
+go towards $\infty$ we can normalize it to have the distribution of a standard normal distribution $N(0,1)$
+\[Z_n = \sqrt{n} \frac{\bar{X}_n-\mu}{\sigma}\]
+And more formally we define distribution function of $F_{Z_n}(a)$ as converging into $\Phi(a)$ 
+\[\lim_{n \to \infty} F_{Z_n}(a) = \Phi(a)\]
+
+**CLT is best when:**
+
+- *n* is Large
+- distribution is *symmetric*
+- distribution is *continuous*
+
+
+
+
+
+
+# Statistics
