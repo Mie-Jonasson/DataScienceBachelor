@@ -11,7 +11,7 @@ This folder contains:
 
 Grade: 12
 
-### Linear_Algebre - Linear Algebra and Optimization
+### Linear_Algebra - Linear Algebra and Optimization
 This folder contains:
 - A folder with .JPG Images of my Exam Submission (re-done at home)
 - PDF containing extensive notes on solving exam questions
