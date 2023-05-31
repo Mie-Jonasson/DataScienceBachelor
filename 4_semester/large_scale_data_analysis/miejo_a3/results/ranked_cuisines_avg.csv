@@ -1,0 +1,7 @@
+,cuisine,avg(bad_bad_review_with_auth_pct),avg(rank)
+0,South American Cuisine,13.310548375405846,1.2142857142857142
+1,Asian Cuisine,8.536128832271766,2.7142857142857144
+2,Middle Eastern / African Cuisine,7.533637451779849,3.0
+3,European Cuisine,6.079933772364769,3.642857142857143
+4,Unknown,4.462931935634457,4.4
+5,American Cuisine,4.091874099768016,5.1875

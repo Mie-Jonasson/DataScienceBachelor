@@ -1,0 +1,14 @@
+name: Weather_miejo
+
+conda_env: LSDA.yaml
+
+entry_points:
+  main:
+    command: "python main.py"
+  train:
+    command: "python training.py"
+  predict:
+    parameters:
+      Speed: {type: float}
+      Direction: {type: str}
+    command: "python experiment.py {Speed} {Direction}"

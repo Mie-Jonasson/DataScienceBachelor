@@ -1,0 +1,18 @@
+state,1,2,3,4,5,6
+AB,South American Cuisine,European Cuisine,Middle Eastern / African Cuisine,Asian Cuisine,Unknown,American Cuisine
+AZ,South American Cuisine,Middle Eastern / African Cuisine,Asian Cuisine,European Cuisine,Unknown,American Cuisine
+CA,South American Cuisine,Asian Cuisine,Middle Eastern / African Cuisine,European Cuisine,Unknown,American Cuisine
+CO,Unknown,,,,,
+DE,South American Cuisine,Asian Cuisine,European Cuisine,American Cuisine,Unknown,Middle Eastern / African Cuisine
+FL,South American Cuisine,Asian Cuisine,Middle Eastern / African Cuisine,European Cuisine,Unknown,American Cuisine
+ID,Middle Eastern / African Cuisine,European Cuisine,South American Cuisine,Asian Cuisine,Unknown,American Cuisine
+IL,South American Cuisine,Unknown,European Cuisine,Asian Cuisine,American Cuisine,Middle Eastern / African Cuisine
+IN,South American Cuisine,Middle Eastern / African Cuisine,Asian Cuisine,Unknown,European Cuisine,American Cuisine
+LA,South American Cuisine,Asian Cuisine,Middle Eastern / African Cuisine,European Cuisine,Unknown,American Cuisine
+MO,Middle Eastern / African Cuisine,South American Cuisine,Asian Cuisine,Unknown,European Cuisine,American Cuisine
+MT,American Cuisine,,,,,
+NC,American Cuisine,,,,,
+NJ,South American Cuisine,Asian Cuisine,Middle Eastern / African Cuisine,European Cuisine,Unknown,American Cuisine
+NV,South American Cuisine,Asian Cuisine,European Cuisine,Middle Eastern / African Cuisine,Unknown,American Cuisine
+PA,South American Cuisine,Middle Eastern / African Cuisine,Asian Cuisine,European Cuisine,Unknown,American Cuisine
+TN,South American Cuisine,Asian Cuisine,Middle Eastern / African Cuisine,European Cuisine,Unknown,American Cuisine
