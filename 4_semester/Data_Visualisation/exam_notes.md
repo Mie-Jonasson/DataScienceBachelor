@@ -3,7 +3,7 @@
 ## **Part I - Foundations**
 - Lectures: 1-3
 - Chapters: 1-2
-- Cheatsheet: Visual_Vocabulary.pdf
+- Cheat Sheet: Visual_Vocabulary.pdf
 
 ---
 ### *What is a visualization?*
@@ -60,6 +60,7 @@ One good tool is to use visual vocabulary overviews as the one located in this f
 ## **Part II - Visual Perception**
 - Lectures: 4
 - Chapters: 5 + additional reading
+- Cheat Sheet: -
 ---
 ### *What is the visual hierarchy?*
 The *Hierarchy of elementary perceptual tasks* was put together by two statisticians to rank how easy it is for humans to accurately estimate numbers based on different visual properties. 
@@ -140,7 +141,7 @@ The gestalt principles is a ranking of how different properties helps us in deco
 ---
 ---
 
-## **Part III - Information Design**
+## **Part III - Visualization Choices**
 - Lectures: 5-6
 - Chapters: 5 
 - Cheat Sheet: Building_Charts_Cheatsheet.pdf
@@ -197,9 +198,75 @@ When it comes to **network layouts** we have several different algorithms to hel
     - Consider using edge-bends to display "highways" between clusters.
 
 ---
+---
 
+## **Part IV - I Am Now a Designer**
+- Lectures: 7-8
+- Chapters: -
+- Cheat Sheet: Beautiful_Charts_Cheatsheet.pdf
+---
+### *What are the design ideas we should consider in information design?*
+One thing we might consider is the **task** that the audience will need to do to understand and use our visualization. The usual workflow and *information seeking mantra* that we might use as a guideline is:
 
+*Overview First, Zoom and Filter, then Details-on-Demand*
 
+Another thing is the usefulness / **goal** of visualising. We might consider it a tool for a very specific purpose, or to retain several uses depending on the application.
+
+The main **problem-solving tasks** we try to solve with visualisation are:
+- *Exploratory tasks*: helps the user make their own exploration of the data.
+- *confirmatory tasks*: helps the user test a hypothesis.
+- *production-based tasks*: helps user visualise their proven hypothesis.
+
+We also consider **actions** and **targets**. When you have a desired task, you often phrase it as an action you want to use towards a target. *Actions* can be analytical (discover, derive, present), comparison (compare, identify) or search (lookup, explore) and *targets* can both be broad (trends, features, outliers) or specific (correlation, extremes).
+
+---
+
+### *Can you tell me about the design proces?*
+Designing anything is an **iterative proces**. We start by making a draft with just the bare essentials, test it out (possibly on representatives of the audience) and make some changes to accommodate whatever was unclear or weird.
+
+Secondly, we should attempt to apply design principles through **design thinking**:
+- *user first*: design for the user of whatever your are designing, as they are the ones that are going to benefit and be annoyed by the end-product.
+- *it's not the user's fault*: we should design all things to be intuitive to use... if we fail, it will cause a lot of frustrations for our end users.
+- *always observe*: everything around us is designed by someone. Be aware of your surroundings, and observe how people and things interact.
+
+---
+### *What are Normans 4 design principles?*
+Design principles are unique to each organisation and to each visualisation designer. Thus this is just one suggestion making some good points:
+- **Affordances**: A good design ensures that the intended actions are easy to see, while unintended actions are hidden. Affordances are *all possible actions*!
+- **Constraints**: Ensure fewer errors by the user by constraining unintended actions to become impossible!
+- **Conceptual Models**: Our minds get frustrated when we have to learn how to use a seemingly arbitrary tool / object.
+- **Feedback**: Any design needs to give some sort of feedback to allow the user to know something changed following their action - pushed a button, changed a slicer etc.
+
+**Rule of Thumb**: If you need a sign to tell the user how to use it, the design is ineffective!
+
+---
+### *What is the Von Restorff effect?*
+The Von Restorff effect describes, that the item that *stands out* is the most likely to be remembered by the user. This might f.ex. be a button that is bright blue while everything else is gray, or a highly saturated bar in a bar chart where everything else has soft colors. I.e. it *draws attention* and creates a *meaningful memory* for the user.
+
+---
+### *Now, what can you tell me about aestethics in data viz?*
+Beauty is all subjective. Not all people will find the same things beautiful, but yat there are 3 main types of beauty: 
+
+- *dynamic* beauty leverages unexpectedness and flow, 
+- *harmonious* beauty leverages flawless interaction between nice parts and 
+- *inherent* beauty leverages the contrast towards an opposite.
+
+But why do we even care about aestethics and things being beautiful? well...
+- It makes the user comfortable in **spending more time** exploring the data.
+- It helps in relation to **persuading** someone of your points (usability/effectiveness).
+- It makes the visualization **memorable**.
+- It awards more **clarity**.
+
+Often, all we need is to **declutter** and make data as easy and intuitive to view and manage as possible!
+
+---
+### *But what is all that 'Graphical Excellence' about then?*
+Graphical excellence is all about giving the viewer/user the most use of a visualization with as little ink and space as possible (Tufte's definition at least).
+
+It's basically a lot about Data Ink ratio, meaning we want as high a fraction, of things shown in a visualization, to be directly related to the data as possible.
+
+It's also a lot about small multiples and spark lines in relation to *as little space as possible*. Since small multiples and sparklines are effective in showing each their own story / trends but do not take up too much space...
+---
 
 
 
@@ -291,3 +358,17 @@ The gestalt principles is a ranking of how different properties helps us in deco
 - **Remember the rules of thumb**: at max; 5 lines, 10 bars, 7 slices and 8 colors!
 
 ---
+
+## **What are Normans 4 design principles?** 
+Design principles are unique to each organisation and to each visualisation designer. Thus this is just one suggestion making some good points:
+- **Affordances**: A good design ensures that the intended actions are easy to see, while unintended actions are hidden. Affordances are *all possible actions*!
+- **Constraints**: Ensure fewer errors by the user by constraining unintended actions to become impossible!
+- **Conceptual Models**: Our minds get frustrated when we have to learn how to use a seemingly arbitrary tool / object.
+- **Feedback**: Any design needs to give some sort of feedback to allow the user to know something changed following their action - pushed a button, changed a slicer etc.
+
+**Rule of Thumb**: If you need a sign to tell the user how to use it, the design is ineffective!
+
+---
+
+## **What is the Von Restorff effect?**
+The Von Restorff effect describes, that the item that *stands out* is the most likely to be remembered by the user. This might f.ex. be a button that is bright blue while everything else is gray, or a highly saturated bar in a bar chart where everything else has soft colors. I.e. it *draws attention* and creates a *meaningful memory* for the user.
