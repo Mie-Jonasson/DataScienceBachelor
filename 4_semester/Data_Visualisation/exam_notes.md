@@ -266,6 +266,7 @@ Graphical excellence is all about giving the viewer/user the most use of a visua
 It's basically a lot about Data Ink ratio, meaning we want as high a fraction, of things shown in a visualization, to be directly related to the data as possible.
 
 It's also a lot about small multiples and spark lines in relation to *as little space as possible*. Since small multiples and sparklines are effective in showing each their own story / trends but do not take up too much space...
+
 ---
 
 
