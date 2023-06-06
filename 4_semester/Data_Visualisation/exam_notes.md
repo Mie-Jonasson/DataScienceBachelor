@@ -141,7 +141,7 @@ The gestalt principles is a ranking of how different properties helps us in deco
 ---
 
 ## **Part III - Information Design**
-- Lectures: 5
+- Lectures: 5-6
 - Chapters: 5 
 - Cheat Sheet: Building_Charts_Cheatsheet.pdf
 ---
