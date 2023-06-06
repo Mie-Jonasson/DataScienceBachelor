@@ -78,7 +78,7 @@ The higher in the hierarchy your main encodings come from, the easier it is for 
 
 *Hierarchies are slightly different depending on type of variable* they say...
 
-![plot](pictures\visual_hierarchy.PNG)
+![plot](pictures/visual_hierarchy.PNG)
 
 ---
 ### *What is it with human visual perception?*
@@ -164,6 +164,7 @@ We want to **minimize non-Data Ink** to the point where our point just comes acr
 - **Consider orientation**: Sometimes a horizontal bar plot will give your data more space and allow more easily reading the data.
 - **Use soft color palettes**: to allow ease of reading the chart, allow possibility to enhance particular points with saturated colors. **ALSO** remember to be color-blind sensitive!
 - **Be consistent with colors**: Use the same color for that same item across charts. This will make it easier for the audience to spot trends.
+- **Remember the rules of thumb**: at max; 5 lines, 10 bars, 7 slices and 8 colors!
 
 ---
 
@@ -257,5 +258,6 @@ The gestalt principles is a ranking of how different properties helps us in deco
 - **Consider orientation**: Sometimes a horizontal bar plot will give your data more space and allow more easily reading the data.
 - **Use soft color palettes**: to allow ease of reading the chart, allow possibility to enhance particular points with saturated colors. **ALSO** remember to be color-blind sensitive!
 - **Be consistent with colors**: Use the same color for that same item across charts. This will make it easier for the audience to spot trends.
+- **Remember the rules of thumb**: at max; 5 lines, 10 bars, 7 slices and 8 colors!
 
 ---
