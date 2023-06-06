@@ -27,8 +27,8 @@ The 5 qualities as defined by *Enrico Bertini*:
 - **Functional**: A visualization that is functional, will help the audience interpret the data correctly. We want to show our points in a way that the brain can easily understand, *purpose* is the focus.
 - **Beautiful**: A visualization that is beautiful, will be interesting to the audience and make them more motivated to spend time interpretting it. Beauty is *subjective* and out goal is therefore designing to be *experienced as beautiful by as many people as possible*.
 - **Insightful**: A visualization that is insightful, will clear the path to making valuable discoveries. Visualizations are not just pictures, they need to award us new knowledge. Consider:
-- - *Spontaneous Insights*: You see it right away; "a-ha" moment.
-- - *knowledge-building insights*: gradual process of exploration to build knowledge.
+    - *Spontaneous Insights*: You see it right away; "a-ha" moment.
+    - *knowledge-building insights*: gradual process of exploration to build knowledge.
 - **Enlightening**: A visual that is enlightening, is a graphic that has all the other 4 qualities and excel at *changing people's minds for the better*. Enlightening the user / reader of the visualization means making a difference in the way they perceive the world or a particular topic.
 
 ---
@@ -167,6 +167,36 @@ We want to **minimize non-Data Ink** to the point where our point just comes acr
 - **Remember the rules of thumb**: at max; 5 lines, 10 bars, 7 slices and 8 colors!
 
 ---
+### *What can you tell me about visualising networks?*
+First things first, there's three main things we consider when visualising networks; node attributes, edge attributes and layout. Here we will shortly go through some best practices.
+
+When it comes to **node attributes** we have a few tools:
+- *node size*: the bigger a node is, the more important it is! (consider degree, centrality measures or a given attribute - *quantitative*)
+    - Fall-pit 1: We model using the radius, but the brain conceives importance in terms of area! We should ensure that distinctions are based on area of node :D
+    - Fall-pit 2: We cannot actually see the difference in sizes... We should enhance the differences!
+    - Fall-pit 3: Some nodes becomes way too big, others become invisible... We should make the scale exponential instead of linear, to ensure a nicer overview.
+- *node color*: To display *qualitative* information. (community, category etc.)
+    - CAN be used for quantitative attributes with diverging / sequential color schemes, but thes should be avoided!
+- *node labels*: not really relevant unless you actually need them for interpretation and cannot put them in tool-tip... Basically a glorified wordcloud when you add labels :D
+
+When it comes to **edge attributes** we have many of the same tool (and fall-pits) as with nodes:
+- *edge thickness*: corresponds 1:1 with node size :D
+- *edge color*: VERY different from node color... Edges rarely have any type of qualitative information worth visualizing, **BUT** for big hairballs we can use *edge transparency* to make it less hair-ball-y.
+- *edge labels*: please just dont... really only if it's a life-or-death!
+
+When it comes to **network layouts** we have several different algorithms to help us get a better layout that allows a better overview of the network.
+- *Force-Directed layouts*: Works well for sparse, clustered and sphered networks! Allows clusters / groups to be densely connected while adding distance betweens node groups with fewer inter-links. Ordered from least compact to most compact:
+    - Spring Embedded
+    - Force Directed
+    - Organic
+    - Compound Spring Embedded
+- *t-SNE layout*: is a wild dimensionality reduction, that produces a single set of coordinates that can be used to plot the network.
+- *hierarchical layout*: really only works for trees or DAGs... 
+- *circular layout*: an interesting layout, but remember to consider: 
+    - How you arange nodes is important
+    - Consider using edge-bends to display "highways" between clusters.
+
+---
 
 
 
@@ -200,8 +230,8 @@ The 5 qualities as defined by *Enrico Bertini*:
 - **Functional**: A visualization that is functional, will help the audience interpret the data correctly. We want to show our points in a way that the brain can easily understand, *purpose* is the focus.
 - **Beautiful**: A visualization that is beautiful, will be interesting to the audience and make them more motivated to spend time interpretting it. Beauty is *subjective* and out goal is therefore designing to be *experienced as beautiful by as many people as possible*.
 - **Insightful**: A visualization that is insightful, will clear the path to making valuable discoveries. Visualizations are not just pictures, they need to award us new knowledge. Consider:
-- - *Spontaneous Insights*: You see it right away; "a-ha" moment.
-- - *knowledge-building insights*: gradual process of exploration to build knowledge.
+    - *Spontaneous Insights*: You see it right away; "a-ha" moment.
+    - *knowledge-building insights*: gradual process of exploration to build knowledge.
 - **Enlightening**: A visual that is enlightening, is a graphic that has all the other 4 qualities and excel at *changing people's minds for the better*. Enlightening the user / reader of the visualization means making a difference in the way they perceive the world or a particular topic.
 
 ---
