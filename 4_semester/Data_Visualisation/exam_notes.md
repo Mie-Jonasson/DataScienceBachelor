@@ -142,8 +142,8 @@ The gestalt principles is a ranking of how different properties helps us in deco
 ---
 
 ## **Part III - Visualization Choices**
-- Lectures: 5-6
-- Chapters: 5 
+- Lectures: 5-6 + 9
+- Chapters: 5 + 10
 - Cheat Sheet: Building_Charts_Cheatsheet.pdf
 ---
 ### *What are some basic rules for choosing a chart vs. table?*
@@ -196,6 +196,55 @@ When it comes to **network layouts** we have several different algorithms to hel
 - *circular layout*: an interesting layout, but remember to consider: 
     - How you arange nodes is important
     - Consider using edge-bends to display "highways" between clusters.
+
+---
+### *What can you tell me about visualising geospatial data?*
+The most important thing to remember when working with **maps** is that:
+- *All maps lie*: All maps are simplifications and subject to what choices have been made when drawing it. The world map we know and love highly exagerates land mass closer to the north pole and squishes landmass closer to the equator.
+- *All maps are a tradeoff of shape, area or both*: A map cannot tell the truth in both of these cases, and a tradeoff has to be made to suit the needs of the particular map. The map we know best (Mercator Projection) sacrifices area but has the shape right.
+
+Maps can be tricky, and we will mainly use a map when the geospatial part is important for the viewer to understand the data, or might offer insights that would otherwise be hidden (i.e. *invisible patterns* when not in spatial context). Some important considerations when visualising on maps:
+- **Data Ink** should be minimized. We dont want to have too much color or detail in the background. Maps are a special case, because a blue-green encoding of ocean-land and possibly roads might be needed to help the viewer in establishing *context*!
+- **What Data** you visualize is important  for the choice of map and to ensure that your message comes across!
+- **Unit size** might make a difference; consider using the smallest units possible to allow for the most nuanced view of the data.
+- **Color Schemes** should have a lightness-to-darkness, instead of just being two colors. Doing this ensures both printer friendliness (gray-scale) and easier interpretation (remmeber - saturation is easier for the brain than hues!).
+
+We consider several different types of maps:
+- **Reference Maps**: Purpose is to show locations of things.
+- **Thematic Maps**: Purpose is to display data in a geo-spatial context.
+- **Technical Maps**: Purpose is to enable navigation / show ownership boundaries.
+- **Socio-Economic Maps**: Purpose is to display information about politics, population, economy, epidemics etc.
+- **Physio-Geographical Maps**: Purpose is to display information about physical things: soil, vegetation, geological etc.
+
+How do we visualize numbers on a map? there are many different ways of encoding, from most used to least used:
+- *Proportional Symbol*: This type of map will show the value by f.ex. a circle whose size corresponds to the data value.
+- *Choropleth*: This type of map will have each section of land colored in a gradient. Land sections can be defined both as entire countries or cities / suburbs etc.
+- *Isopleth*: This type of map is also called a 'heat'-map, and is used to visualize continuous variables.
+- *Cartograms*: Here, the landmasses themselves are scaled similar to the target variable.
+- *Flow*: This type of map shows the flow between geographic locations, similar to encoding a network where layout is determined by geographical location.
+
+At last, we will shortly discuss **binning**. Binning is useful when we want to make it easier for the viewer to distinguish between colors; i.e. we make a discrete color set instead of a continuous. There are several methods for dividing data points into bins:
+- *equal interval*: we simply divide the span between minimum and maximum into n same-sized bins.
+- *quantile interval*: we divide the datapoints into n bins that each contain the same number of data points.
+- *natural breaks*: we divide the datapoints into m bins that condense a naturally occuring grouping.
+- *Manual*: you decide hun, anything you want!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 ---
@@ -267,8 +316,43 @@ It's basically a lot about Data Ink ratio, meaning we want as high a fraction, o
 
 It's also a lot about small multiples and spark lines in relation to *as little space as possible*. Since small multiples and sparklines are effective in showing each their own story / trends but do not take up too much space...
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
 ---
 
+## **Part V - At last I Become a Storyteller**
+- Lectures: 10
+- Chapters: -
+- Cheat Sheet: -
+---
+### *But what is all that 'Graphical Excellence' about then?*
+
+
+---
 
 
 
@@ -290,7 +374,6 @@ It's also a lot about small multiples and spark lines in relation to *as little 
 
 # Highlights
 ## *Overview First, Zoom and Filter, Details on Demand!*
----
 ---
 ## **What are the 5 qualities of a good visualization?**
 The 5 qualities as defined by *Enrico Bertini*:
@@ -373,3 +456,128 @@ Design principles are unique to each organisation and to each visualisation desi
 
 ## **What is the Von Restorff effect?**
 The Von Restorff effect describes, that the item that *stands out* is the most likely to be remembered by the user. This might f.ex. be a button that is bright blue while everything else is gray, or a highly saturated bar in a bar chart where everything else has soft colors. I.e. it *draws attention* and creates a *meaningful memory* for the user.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Group Presentation
+## Storyline
+- what data you used
+
+We use data from [ergast](http://ergast.com/mrd/), in the form of data sourced from [kaggle](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020?resource=download) and the [FastF1 API](https://docs.fastf1.dev/) for python. 
+The data source contains detailed historic information on F1 races; Event data (overall results) and lap data (on driver level).
+
+If we had more time / data available we would have investigated weather aspects in more depth.
+
+- what you wanted to communicate
+
+We wanted to communicate how Kevin Magnussen got his first ever pole position, in an inferior car. We try to tell a story of previous grand prix performance on the same track as well as qualifying in the season. This is to set the stage for why it was unexpected.
+
+Then we examine the qualifying session in particular and the lap in detail, to show possible factors affecting lap times as well as how Magnussen performs in comparison to Verstappen on their best laps.
+
+- why you chose the specific visualization technique
+
+We chose to create a storyline targetting F1 fans, to have details in both broad and narrow perspectives.
+We chose a line chart as the entry point to allow easy comparison in the temporal space, and highlight Magnussen for *popout* channel effectiveness.
+
+---
+## Viz 1
+### Buzz Words
+- **Line Graph** (Chart) - easy comparability over time. 
+- We used **line thickness** to highlight Haas in 2022. 
+    - pre-attentive attribute *size*/*line width* to be effective in the *popout* channel
+- We **shaded** the race that was cancelled for tranparency.
+- **Colors** are chosen based on official team colors (slightly modified).
+- We **filtered** constructors to only those participating in 2022 to reduce noise.
+- We **filtered** to solely the best qualifying position for each constructor to show best performance for the TEAM. (also; average wouldn't work for the intended *insight*)
+- We placed **team labels** next to the line in same color, for ease of reading the chart.
+- The **axes** is reversed, to support intuition of *lower is better* (i.e. higher up on chart = better).
+
+### Fall-pits
+- In 2022 **new cars** were used, maybe that affected the data / distributions.... oh wait, but that's why we have plot 2!
+- The way we display **race cancelled** might be a bit too noisy - but it works for allowing the eye to follow the line. (Future -> would remove shaded area w. text, but text provides context...)
+- Why did we not shade some constructors in gray, and further **highlight** Haas & Redbull? Well, we could and we discussed it, and ended up deciding on using official colors due to it being 
+    - the entry point and the focus of this plot being both context and sparking interest in Haas. 
+    - Also, fans of other teams might analyze the plot from their team's perspective, and then be interested in the thickness-highlight.
+- Why do you show data specifically from 2016 going forward? That's when **Haas joined**!
+
+---
+## Viz 2
+### Buzz Words
+- **Bar plot** - horizontal orientation. (we are used to read from left to right and top to bottom)
+- Bars are **sorted** to have the best performing driver at the top.
+- We chose to not include **numbers** (in tooltip though, if you wanna see!) to reduce clutter. The *task* for this chart is mainly to visually see the 'usual' position of drivers in the season.
+- We placed the driver **labels** inside the bars to reduce noise and ease association.
+- We **highlight** Verstappen and Magnussen with the official "fastest lap"-color and a bold text, coloring all other drivers in gray.
+    - We focus on *pre-attentive* processing attribute and highlight with a neon color.
+- We **keep** all the other drivers to provide *context*.
+
+### Fall-pits
+- Your **storyline** kinda falls short here, as the color coding is not consistent, and it would require knowledge of Formula 1 drivers / constructors.
+    - That is true, and something we didn't realise at the point of designing. If we were re-designing it today, we might want to include teams in the *tooltip* or use *different highlight colors* (blue and black or similar).
+    - They are highlighted with *equal weight* in the current color scheme.
+- We might've wanted to **move the x-axis** to the top as we are focusing on the top half! 
+- Why the fuck do you have **grid lines**? For easier comparison by eye-measure (precision by eye -> further precision is awarded by tooltip)
+
+---
+## Viz 3
+### Buzz Words
+- It's a **timeline**.
+- We **colored** data points and the line itself, following intuitive color palettes similar to previously described, which is the most intuitive colors for the target audience. 
+    - Line is green / red following track status. These colors are intuitive following flags and general traffic light conventions.
+    - We are utilizing *cultural associations/conventions* of viewers.
+- **Track Temperature** is only showed particularly at one point in time, but is in the tooltip wherever available.
+    - Data point is for drawing attention
+    - Tooltip is to allow exploration
+    - currently we only have boolean on rain, which is much simplified!
+- We have **labels** to give descriptive understanding of each event.
+- **labels** are colored in colors corresponding to the point.
+- We mark an item with a **point** - we might have benefitted from using a line instead, as it is only a timestamp and not a time period.... 
+    - BUT! it is an overview, and we chose a point to draw attention (Tooltip has exact timestamp if precision is needed)
+- We **offset labels** (some are further form the timeline) to allow for reading labels without a horizontal shift.
+
+
+### Fall-pits
+- Why did you choose **timestamps**? -> we might benefit from normalising x-axis to have Q3-start as 0 and time differences.
+- **Track Temperature** might have been more easy to analyze in a seperate plot... (Rain too, if we had data...)
+- Could you have plotted lap times in a different way in this plot?
+- Why is **Q3 End pink**? this is the point in time where it is finally decided which lap time has been fastest. *Alternative*: red to indicate no more driving, checkered to match corresponding flag.
+- **labels** are understandable by target audience, could you have chosen different labels to allow a broader audience? Yes, OR add explanations of racing terms :D
+
+---
+## Viz 4
+### Buzz Words
+- We have an **animation** of the fastest laps of MAG and VER.
+- We visualize their travel on the **track** to give the viewer the context of turns and straight stretches.
+- We compare just MAG & VER, because MAG beating VER is the *unlikely* event we are interested in analyzing. VER was otherwise the fastest on the track.
+- We chose **dots** to visualize drivers, and made dots bigger then the track for ease of following them with the eye.
+- we **colored** dots/areas in their corresponding team colors (to tie together with plot 1 & 3)
+- We added an **area plot** to function as 'history' of the laps, to assist analysis for the viewer. The area plot is also **animated** because of functioning as a trace.
+- We chose the **difference measure** to be meters, because it directly relates to the distance seen between points on the track animation.
+    - we didn't choose seconds because timestamps are unaligned. Also, time is more abstract to envision than distance in a mental picture.
+
+### Fall-pits
+- What if I wanted to analyze MAG against a different driver?
+- Why is it an area plot? Area plot might mislead people, as the total area under the plot in each color does not correspond with the final result of the race.
+    - It is **one version of the truth** as it is clear that Verstappen was ahead most of the lap.
+    - With a **line plot** it was not clear which driver was ahead. 
+- Why is your axis where it is?
+    - We might want to switch it over to the right, because the end result is what we are interested in as a final result.
+- We might want to flip the colors so the color would indicate *who is ahead* -> *who is the fastest*...
