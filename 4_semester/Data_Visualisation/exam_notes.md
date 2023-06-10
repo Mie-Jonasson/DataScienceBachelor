@@ -349,14 +349,131 @@ It's also a lot about small multiples and spark lines in relation to *as little 
 - Chapters: -
 - Cheat Sheet: -
 ---
-### *But what is all that 'Graphical Excellence' about then?*
+### *What are strengths of Author-driven vs. User-driven approaches?*
+When we have a narrative that is **Author-driven**, we try to communicate a very particular message to the user. 
+In this setting we create a story that we try to convey to the user, which inherently has limitations on the interactivity aspect. Properties are:
+- Linear Ordering of Scenes
+- Heavy Messaging
+- No interactivity
 
+When we have a narrative that is **user-driven**, we let the user pick their own path and embark into finding their own story and insights.
+- No particular ordering
+- No message
+- Free Interactivity
 
 ---
 
+### *Why do we really care about story-telling?*
+When we tell stories it is all about prioritizing **a good story over a true story**... that's why we still love stories that are completely unrealistic, because they cause *emotions*. 
+I.e. storytelling prefers: *speculation*, *exaggeration* and *excitement*. 
+
+Another important factor is that **stories are persuasive**. When trying to persuade someone, there are the two main paths; story and rhetorical facts.
+
+---
+
+### *How do we create a persuasive story?*
+The reason we *remember* stories, and also why they are so *persuasive* is due to **uniting emotions and ideas** to spawn attention ans energy.
+
+For a story to be persuasive, it usually follows a structure:
+- Start with balance
+- create tention
+- end with resolution
+
+---
+
+### *What can we learn from other fields of story-telling?*
+Stories are used in many different settings and situations, but what can we learn from these different strategies?
+
+**Journalism** has a classic setup to allow for the user to navigate the story... But remember, people usually only read headlines!
+- *headline*: navigation layer
+- *visual*: data layer
+- *body text*: annotation layer
+
+also, some practical advice from *Kurt Vonnegut*:
+- **Find subjects you care about** - users will be smitten with the way you express things that truly excite you.
+- **do not ramble** - your excitement can become too much.
+- **keep it simple** - when the display is simple, it makes the user's brain get to work!
+- **have the guts to cut** - if it is not functional, just leave it out!
+- **sound like yourself** - be true to who you are, that makes you more *trust-worthy*.
+- **say what you meant to say** - be clear and honest.
+- **pity the readers** - they need us to be patient and willing to simplify and clarify everything.
+
+---
+
+### *How can i apply Editorial Thinking for story telling?*
+In order to tell a story, we apply **editorial thinking** to frame and angle the story in the best way. The method consists of the following steps:
+- **editorial thinking** is about choosing what to leave out for a particular story.
+- **data is encoded** is about all the design choices made when making the visualization.
+- **navigation** is about organizing the visual elements.
+- **sequencing** is about forming a narrative throughout the visuals.
+- **annotation layer** is about highlighting and explaining the data.
+
+For a data story it is important to consider the particular choices in terms of:
+- **angle** - what view of the data is best at conveying the message? do you need more? less? 
+- **framing** - what to include / exclude to create a representative visual?
+- **focus** - what do you want to emphasize?
+
+Common **angles** are:
+![](pictures/story_angles.PNG)
+
+---
+
+### *Story telling; do's and dont's*
+For **headlines**:
+- Keep *Typography* simple to read.
+- Emphasize by *bolding* or *size*.
+- Remember, 'one in three' is easier to envision than '33%'
+- Headlines phrased as *questions* automatically spawn a *call-to-action* response in our minds.
+
+Design for your **audience**:
+- remember that *all users are unique*!
+- *Don't be your own audience* - test our your visualization on a representative of the target audience.
+
+We want to create **engagement**:
+- engagement via *empathy* is about emphasizing with some type of self-made character in your head, representing a part of the story.
+- engagement via *curiosity* is essentially audience-centered QA sessions they have with themselves in their head. (includes phrasing headline as question)
+- engagement via *make-a-guess* allows the reader to display their world-view and compare it to the data.
+
+---
+
+### *How do I make my visualization memorable?*
+*"tell me, and i'll forget. show me, and i might remember. involve me, and i'll understand!"*
+
+When given facts in sequential order, displaying some type of *cause-effect* (causality) either fact will be easier for you to remember than if they were non-connected.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+---
+
+## **Part VI - Fall-pits of Data Viz**
+- Lectures: 11-12
+- Chapters: -
+- Cheat Sheet: -
 
 
 
@@ -457,7 +574,25 @@ Design principles are unique to each organisation and to each visualisation desi
 ## **What is the Von Restorff effect?**
 The Von Restorff effect describes, that the item that *stands out* is the most likely to be remembered by the user. This might f.ex. be a button that is bright blue while everything else is gray, or a highly saturated bar in a bar chart where everything else has soft colors. I.e. it *draws attention* and creates a *meaningful memory* for the user.
 
+---
 
+## **How can i apply Editorial Thinking for story telling?**
+In order to tell a story, we apply **editorial thinking** to frame and angle the story in the best way. The method consists of the following steps:
+- **editorial thinking** is about choosing what to leave out for a particular story.
+- **data is encoded** is about all the design choices made when making the visualization.
+- **navigation** is about organizing the visual elements.
+- **sequencing** is about forming a narrative throughout the visuals.
+- **annotation layer** is about highlighting and explaining the data.
+
+For a data story it is important to consider the particular choices in terms of:
+- **angle** - what view of the data is best at conveying the message? do you need more? less? 
+- **framing** - what to include / exclude to create a representative visual?
+- **focus** - what do you want to emphasize?
+
+Common **angles** are:
+![](pictures/story_angles.PNG)
+
+---
 
 
 
