@@ -1,7 +1,7 @@
 # Data Visualisation - Exam Notes
 ---
 ## **Part I - Foundations**
-- Lectures: 1-3
+- Lectures: 1-3 (+11)
 - Chapters: 1-2
 - Cheat Sheet: Visual_Vocabulary.pdf
 
@@ -13,6 +13,10 @@ The book defines;
 - **Infographic**: A multi-section visual communicating one or more specific messages; Shows a small amount of data, and has focus on the story.
 - **Data Visualization**: A display of data to *enable analysis, exploration and discovery*; conceived as tools to gain insights / make your own conclusions.
 - **News Application**: A visualization allowing people to relate the data to their own personal life. Can, for example, be a tool helping you decide between health care options near you.
+
+---
+### *What are Xenographics?*
+Xenographics are graphics that are unknown... *one-of-a-kind* graphics that are useful only in very particular cases, but it comes with a *trade-off* in terms of the viewers first having to understand how to read your plot!
 
 ---
 ### *Why do we visualize?*
@@ -142,7 +146,7 @@ The gestalt principles is a ranking of how different properties helps us in deco
 ---
 
 ## **Part III - Visualization Choices**
-- Lectures: 5-6 + 9
+- Lectures: 5-6 + 9 + 13
 - Chapters: 5 + 10
 - Cheat Sheet: Building_Charts_Cheatsheet.pdf
 ---
@@ -166,6 +170,25 @@ We want to **minimize non-Data Ink** to the point where our point just comes acr
 - **Use soft color palettes**: to allow ease of reading the chart, allow possibility to enhance particular points with saturated colors. **ALSO** remember to be color-blind sensitive!
 - **Be consistent with colors**: Use the same color for that same item across charts. This will make it easier for the audience to spot trends.
 - **Remember the rules of thumb**: at max; 5 lines, 10 bars, 7 slices and 8 colors!
+
+---
+
+### *Usual pain points of visualising*
+- **Uncertainty** - refer to part VI
+- **seasonality** - how do we make seasonal patterns clear to the viewer?
+    - Method 1: *annotations* are used to point out particular points / areas.
+    - Method 2: *small multiples* are used to display the same seasonality across different aligned charts.
+    - Method 3: *overlapping timeframes* are used to display history as well as latest observations.
+    - Method 4: *accumulation* creating accumulative charts that can be overlayed in a single chart.
+    - Method 5: *aggregation* over the season; reduces noise but might be an overismplification of the patterns.
+    - Method 6: *peakspotting timeline* displays only the peak of each series of attributes. Allows a high-level overview of trends.
+    - Method 7: *animation*
+- **outliers** - how do we handle outliers in visualization? Outliers are often interesting, and even though our intuition says to remove them (simplifying assumption), they might actually be the most interesting insight!
+    - Method 1: Make a seperate axis / truncation for the outlier... and make sure it is clear to the viewer!
+    - Method 2: remove the outlier and *make a viewer note* about it!
+    - Method 3: do nothing... if the outlier is the point, then losing granularity for non-outliers is fine.
+- **log-scales** - how do we use them? does the public really understand? Log-scales are amazing for showing proportional gain of differently sized series!
+- **bar transformations**
 
 ---
 ### *What can you tell me about visualising networks?*
@@ -345,7 +368,7 @@ It's also a lot about small multiples and spark lines in relation to *as little 
 ---
 
 ## **Part V - At last I Become a Storyteller**
-- Lectures: 10
+- Lectures: 10 + 13
 - Chapters: -
 - Cheat Sheet: -
 ---
@@ -441,6 +464,11 @@ We want to create **engagement**:
 
 When given facts in sequential order, displaying some type of *cause-effect* (causality) either fact will be easier for you to remember than if they were non-connected.
 
+---
+
+### *What makes a good data analyst?*
+There was a quote in the slides: *Good analysts are humble storytellers*. 
+This essentially specifies to be aware of biases and limits of interpretations. A humble analyst will tell you about several different interpretations and still encourage you to explore on your own, but reminding you that there are limits to the data.
 
 
 
@@ -472,8 +500,145 @@ When given facts in sequential order, displaying some type of *cause-effect* (ca
 
 ## **Part VI - Fall-pits of Data Viz**
 - Lectures: 11-12
-- Chapters: -
-- Cheat Sheet: -
+- Chapters: 3
+- Cheat Sheet: Spot_Lying_Charts.pdf
+
+---
+
+### *Why is handling uncertainty important?*
+Whenever we have observations (data), we will never be able to establish the exact truth, because there may exist many unknown factors impacting the data upon our knowledge. 
+
+Because much of what we do is based on working with a data-driven approach, which infers trust in the insights, we also need to be truthful with whatever uncertainty exists in our data.
+
+---
+
+### *What are the main sources / reasons for uncertainty?*
+There are three main sources of uncertainty in data visualization;
+- **Sampling Uncertainty** - the uncertainty stems from data collection proces / sampling.
+- **Modelling Uncertainty** - the uncertainty stems from models based on the data.
+- **Visualization Uncertainty** - the uncertaintyu stems from the visualization proces / choices.
+
+Each of these sources impact each other, as uncertainty in sampling will impact whatever you model or visualize... On the other hand we might also consider the main reasons for uncertainty to arise;
+- **Aleatoric Uncertainty** - uncertainty arises due to *randomness*, which is something we cannot control.
+- **Epistemic Uncertainty** - uncertainty arises due to *lack of knowledge*, as we are not ever-knowing beings.
+
+---
+
+### *How do we encode uncertainty?*
+Whenever our results are uncertain we want to ensure that the viewer is aware of this, and does not warrant too high trust in the displayed results. But how do we describe / show the uncertainty?
+
+For **probabilistic** approaches we might consider defining a *confidence interval* and show it of... But beware, as people often view them as areas and infer greater area -> better.... (hurricane cone example -> they think the hurricane will grow, but it is just more uncertain where it will be...)
+
+Here is a list of practical **aproaches**:
+- *no direct quantification* / *obscurity* (sketchy rendering, lower in the visual hierarchy) - we simply choose a chart that is perceived as less precise... 
+    - pros: the viewer is cautious in making inferences.
+    - cons: the viewer does not know how much uncertainty is involved. 
+- *confidence intervals* - We simply display a margin of error to make it understandable to the audience that it is not bullet-proof prediction.
+    - pros: intervals are widely understood, and can be customized to the use-case
+    - cons: often the interval is ignored and the focus is on the trend line... also, people might likely interpret it wrongfully.
+- *probability density map* - We display the entire range of possible observations
+    - pros: usually intuitively understood
+    - cons: viewers might not understand in relation to probability, and makes it hard to draw out any particular probability.
+- *arrays of icons* - coloring icons 
+    - pros: more self-explanatory and allows quick estimates.
+    - cons: can only display a single probability.
+- *multiple samples in space* / *distributions* - we decide on a certain number of samples, and create something slightly similar to a distribution function.
+    - pros: we can choose the number of samples for a certain degree of detail.
+    - cons: sampling includes imprecision and it might be hard to make estimates.
+
+---
+
+### *How do humans perceive numbers / words?*
+It is important to consider that using **probability language** is a subjective proces, and the exact amount of certainty associated with given words will be different for every single person. 
+This includes words / phrases like; *highly unlikely*, *improbable*, *we believe* & *almost certainly*.
+
+We should also remember that thought processes inside our brains always try to simplify the **numbers** we see to statements. 
+F.ex. whenever we see a probability higher than 50% for winning, we will usually establish that we are likely to win. In this case even 51% vs. 49% will make you entirely more confident in option one, even if it was 50% vs 50% a week ago.
+
+So how can we **visualize percentages**? Well, we can draw on conventions understood by the majority of the public - f.ex. a theater seat filling or a dart board.
+
+---
+
+### *What is graphicacy?*
+Graphicacy is about designing for your viewer's visual literacy - i.e. how to make the viewer obtain the correct interpretation of what you are presenting, using visual cues that they understand.
+
+Graphicacy is defined as **the ability to use and understand a graph** as well as **designing useful graphs**.
+
+---
+
+### *Tell me about cognitive biases*
+We live in a world that is unpredictable, and evolution has given us a few bugs to help us survive... But in search for truth, we need to be aware of them to avoid fooling ourselves. The bugs are:
+- The **patternicity** bug (*apophenia*) is about *finding patterns everywhere* even if all logic would tell you it might just be coincidences. 
+    - Even looking at random events that we KNOW are uncorrelated, our minds will start to wander and find patterns that look slightly convincing. Th elonger we look, the more correlated we will think it is.
+    - **Illusory correlation** is about fooling ourselves into seeing correlation that is not there...
+- The **continuity bias** is about mentally forecasting development smoothly. Directional signals are strong and naturally convincing.
+    - If we see an upward trend, we will expect it to smoothly follow the upwards trend going forward, even when most often it will round off and become straight.
+- **Narative Bias** we use patterns and continuity to tell a story about causality between trends. This bug helps us understand impact, but can also be misleading when there are no causal links present.
+- **Confirmation Bias** is very well-known within science for fooling one-self, as we will only accept proof of our opinions and world view being correct, ignoring any proof of the opposite. I.e. we try to confirm our beliefs instead of being critical towards our world view.
+- **Simplicity bias** is about preferring simpler stories over the complex ones - we want any explanation to be as simple as possible, but the world is way more complex than that!
+- **Rationalization bias** is about creating additional reasoning for unexpected / unacceptable events - such as errors of a model being correlated etc. 
+    - It is mainly used to *compensate* for errors and *reinforce* the strength of our arguments.
+- **Moral Blindness bias** is about not wanting to be held accountable for our biases. We do not want the entire truth continuum heavy on our shoulders.
+
+---
+
+### *What types of lies can i tell in a visualization?*
+The first type of lies are **lies of omission**, which is when we oversimplify / remove important data... within this there are several types:
+- *only show 1-2 data points* - this is oversimplified, and does not give much context or possible insights. Any time we have a single summary metric we lose a lot of information about local variance.
+- *reducing information* - oversimplifying until your data fits your point is misleading to the viewer.
+
+But there are many fall-pits where we might accidentally lie to the viewer do to factors such as:
+- **Knowledge Gaps** - there is difference in the amount of background knowledge / how good we are at interpretting a visualization - *visual literacy*, *numeracy*, *visual vocabulary*
+- **Media / Societal Shifts** - there is difference in the way we perceive the world / what perspective we come from
+- **Bugs in our minds** - there is an abundance of bugs and biases that will impact how we interpret everything around us - *patternicity*, *storytelling*, *confirmation*
+- **Truth in numbers** - data and visualizations are often seen as "proof-of-concept", and therefore also believed to be more truthful.
+
+---
+
+### *What are 15 methods of deception?*
+Here we will shortly go through methods of deception that we might utilize to untruthful, or just simply things to be aware of when designing / reading charts. One can also view the cheat-sheet Spot_Lying_Charts.pdf.
+- **Axis Truncations** - is when the null-point of our axis is different from 0.
+    - Completely unacceptable for charts relying on *area* or *height* (i.e. bar charts, area chart),
+    - OK for line charts, but beware that it still *exaggerates* the differences.
+- **Dual Axes** - is when we have two data sequences with their own axis.
+    - Might offer false expectation of causation / correlation (especially if they are on different scales or use truncation)
+    - If used, ensure that there is no truncation and scales are comparable and properly labeled!
+- **Limited Scope** - is when we remove too much context data
+    - Danger is that we enhance a particular subsection too much, producing less truthful understandings of reality than were possible.
+- **Concealing a point in the mass** - is when we include too much data, so the point disappears.
+-  **Binning choices** - is when we decide on too few or too many bins, so that the details are washed out or hard to distinguish.
+- **Seing only in absolutes** - is when we forget to work in ratios for f.ex. choropleth maps to not just become population maps! (which they will if we work in absolutes...)
+- **Part-to-whole not adding up** - is when the total of the parts does not equal the whole... This is a very strange phenomena that should be considered gravely misleading!
+- **Cheating area and dimension** - is when we use different shape / area conventions for the same sttributes. Perception of area is very different, and thus might mislead viewers.
+- **Using cumulative charts** to hide trends - is when we transform our data, ignoring the trends in the native data.
+    - f.ex. a decreasing trend made into a cumulative will make it seem like it is increasing instead!
+- **Being too smooth** - is when we smooth out curves, but this hides the knowledge awarded by every single data point on their own!
+- **Area sized by single dimension** - i.e. circle sized using radius or square by sidelength.... but are is then quadrupled when it is supposed to only be doubled.
+- **Extra dimension just because** - is when we add a 3D element for design purposes or similar. This should only be done with f.ex. interactive maps or things where it bring undeniable insights.
+- **Deterministic Headlines** - is when we describe the data as an all-knowing entity and an *absolute truth*, which it is not!
+- **Comparing aggregates** - is when we compare an aggregate measure of f.ex. performance, but it is a vast simplification. Rather, we should compare distributions or at least add confidence / standard deviation interval.
+- **A number alone is meaningless** - is when we present a single number as an insight. A single number might offer a quick overview, but the single number in itself offers us no insights at all.
+- **Number decoration** - is when we take a single number and make it significant by making it into a visual.
+---
+
+### *Can you give me a short introduction to the Truth Continuum?*
+The absolute truth is unobtainable, as we as humans are inherently fallible. 
+Something one would be able to obtain is increasing the level of thuthfulness to allow a higher degree of truth and moving closer to absolute truth. See here a distribution of model with truncated timeline:
+![](pictures/truth_continuum.PNG)
+
+- *All models are wrong, but some are useful*
+
+This is an important mantra to remember, since (in the search for truth) we will never observe a completely correct model, but we will be able to come up with a good  estimate!
+
+- *Compared to what?*
+
+An single number is not worth a dime, we need to put it into context and perspective before it can make a difference in how people perceive the world. Temporal changes, part-to-whole.... all depends on your task!
+
+This can be done by **increasing depth**, which entails going into more detail with the phenomena you are investigating / trying to make a statement for.
+Otherwise it can be done by **increasing breadth**, which entails examining extratenous factors that might affect the phenomena you are investigating.
+Both might help in making a visualization more insightful for the viewer.
+
+---
 
 
 
@@ -594,6 +759,78 @@ Common **angles** are:
 
 ---
 
+## **What are the main sources / reasons for uncertainty?**
+There are three main sources of uncertainty in data visualization;
+- **Sampling Uncertainty** - the uncertainty stems from data collection proces / sampling.
+- **Modelling Uncertainty** - the uncertainty stems from models based on the data.
+- **Visualization Uncertainty** - the uncertaintyu stems from the visualization proces / choices.
+
+Each of these sources impact each other, as uncertainty in sampling will impact whatever you model or visualize... On the other hand we might also consider the main reasons for uncertainty to arise;
+- **Aleatoric Uncertainty** - uncertainty arises due to *randomness*, which is something we cannot control.
+- **Epistemic Uncertainty** - uncertainty arises due to *lack of knowledge*, as we are not ever-knowing beings.
+
+---
+
+## **Tell me about cognitive biases**
+We live in a world that is unpredictable, and evolution has given us a few bugs to help us survive... But in search for truth, we need to be aware of them to avoid fooling ourselves. The bugs are:
+- The **patternicity** bug (*apophenia*) is about *finding patterns everywhere* even if all logic would tell you it might just be coincidences. 
+    - Even looking at random events that we KNOW are uncorrelated, our minds will start to wander and find patterns that look slightly convincing. Th elonger we look, the more correlated we will think it is.
+    - **Illusory correlation** is about fooling ourselves into seeing correlation that is not there...
+- The **continuity bias** is about mentally forecasting development smoothly. Directional signals are strong and naturally convincing.
+    - If we see an upward trend, we will expect it to smoothly follow the upwards trend going forward, even when most often it will round off and become straight.
+- **Narative Bias** we use patterns and continuity to tell a story about causality between trends. This bug helps us understand impact, but can also be misleading when there are no causal links present.
+- **Confirmation Bias** is very well-known within science for fooling one-self, as we will only accept proof of our opinions and world view being correct, ignoring any proof of the opposite. I.e. we try to confirm our beliefs instead of being critical towards our world view.
+- **Simplicity bias** is about preferring simpler stories over the complex ones - we want any explanation to be as simple as possible, but the world is way more complex than that!
+- **Rationalization bias** is about creating additional reasoning for unexpected / unacceptable events - such as errors of a model being correlated etc. 
+    - It is mainly used to *compensate* for errors and *reinforce* the strength of our arguments.
+- **Moral Blindness bias** is about not wanting to be held accountable for our biases. We do not want the entire truth continuum heavy on our shoulders.
+
+---
+
+## **What are 15 methods of deception?**
+Here we will shortly go through methods of deception that we might utilize to untruthful, or just simply things to be aware of when designing / reading charts. One can also view the cheat-sheet Spot_Lying_Charts.pdf.
+- **Axis Truncations** - is when the null-point of our axis is different from 0.
+    - Completely unacceptable for charts relying on *area* or *height* (i.e. bar charts, area chart),
+    - OK for line charts, but beware that it still *exaggerates* the differences.
+- **Dual Axes** - is when we have two data sequences with their own axis.
+    - Might offer false expectation of causation / correlation (especially if they are on different scales or use truncation)
+    - If used, ensure that there is no truncation and scales are comparable and properly labeled!
+- **Limited Scope** - is when we remove too much context data
+    - Danger is that we enhance a particular subsection too much, producing less truthful understandings of reality than were possible.
+- **Concealing a point in the mass** - is when we include too much data, so the point disappears.
+-  **Binning choices** - is when we decide on too few or too many bins, so that the details are washed out or hard to distinguish.
+- **Seing only in absolutes** - is when we forget to work in ratios for f.ex. choropleth maps to not just become population maps! (which they will if we work in absolutes...)
+- **Part-to-whole not adding up** - is when the total of the parts does not equal the whole... This is a very strange phenomena that should be considered gravely misleading!
+- **Cheating area and dimension** - is when we use different shape / area conventions for the same sttributes. Perception of area is very different, and thus might mislead viewers.
+- **Using cumulative charts** to hide trends - is when we transform our data, ignoring the trends in the native data.
+    - f.ex. a decreasing trend made into a cumulative will make it seem like it is increasing instead!
+- **Being too smooth** - is when we smooth out curves, but this hides the knowledge awarded by every single data point on their own!
+- **Area sized by single dimension** - i.e. circle sized using radius or square by sidelength.... but are is then quadrupled when it is supposed to only be doubled.
+- **Extra dimension just because** - is when we add a 3D element for design purposes or similar. This should only be done with f.ex. interactive maps or things where it bring undeniable insights.
+- **Deterministic Headlines** - is when we describe the data as an all-knowing entity and an *absolute truth*, which it is not!
+- **Comparing aggregates** - is when we compare an aggregate measure of f.ex. performance, but it is a vast simplification. Rather, we should compare distributions or at least add confidence / standard deviation interval.
+- **A number alone is meaningless** - is when we present a single number as an insight. A single number might offer a quick overview, but the single number in itself offers us no insights at all.
+- **Number decoration** - is when we take a single number and make it significant by making it into a visual.
+---
+
+## **Can you give me a short introduction to the Truth Continuum?**
+The absolute truth is unobtainable, as we as humans are inherently fallible. 
+Something one would be able to obtain is increasing the level of thuthfulness to allow a higher degree of truth and moving closer to absolute truth. See here a distribution of model with truncated timeline:
+![](pictures/truth_continuum.PNG)
+
+- *All models are wrong, but some are useful*
+
+This is an important mantra to remember, since (in the search for truth) we will never observe a completely correct model, but we will be able to come up with a good  estimate!
+
+- *Compared to what?*
+
+An single number is not worth a dime, we need to put it into context and perspective before it can make a difference in how people perceive the world. Temporal changes, part-to-whole.... all depends on your task!
+
+This can be done by **increasing depth**, which entails going into more detail with the phenomena you are investigating / trying to make a statement for.
+Otherwise it can be done by **increasing breadth**, which entails examining extratenous factors that might affect the phenomena you are investigating.
+Both might help in making a visualization more insightful for the viewer.
+
+---
 
 
 
