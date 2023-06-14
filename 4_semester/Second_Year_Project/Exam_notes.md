@@ -3,6 +3,7 @@ On subjects concerning Natural Language Processing from basics to complex langua
 ![](figures/lecture%20overview.PNG)
 
 ## PART I - Basics
+Lectures: 1-2
 ### *What is "Natural Language Processing" about?*
 Most data in this world is unstructured free text data. 
 Being able to 'understand' and analyze texts the same way humans do in a computerized way is the ultimate goal of of the field. 
@@ -124,3 +125,159 @@ Some common metrics that we should consider:
     - [Github Repo W. Implementation](https://github.com/Kaleidophon/deep-significance)
 
 **REMEMBER** - Often Quantitative and Qualitative approaches compliment each other a lot!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PART II - Data Collection and Basic Modelling
+Lectures: 3-5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PART III - Basic Embedding based Methods (+Bias)
+Lectures: 6-7 + 13
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PART IV - Relation Extraction
+Lectures: 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PART V - Neural Language Models
+Lectures: 9-10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PART VI - Contextualized Language Models
+Lectures: 11-12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# HIGHLIGHTS
