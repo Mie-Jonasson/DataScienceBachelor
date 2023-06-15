@@ -20,10 +20,32 @@ output:
 - **which(\<boolean of atomic vector\>)** : Returns the index/indices fulfilling the boolean
 - **format(\<value\>,scientific=F,digits=b)** : Displays 'b' significant digits
 
+## Distribution functions
+- **d\<dist\>(K,\<params\>)** : outputs $P(X=K)$
+- **p\<dist\>(K,\<params\>)** : outputs $P(X \leq K)$
+- **q\<dist\>(a,\<params\>)** : gives the a'th percentile (quantile)
+- **r\<dist\>(n,\<params\>)** : atomic vector of size n with random samples
+
+### Distribution abbreviations
+- **bern** : bernoulli distribution
+- **binom** : binomial distribution
+- **geom** : geometric distribtion
+- **unif** : uniform distribution
+- **exp** : exponential distribution
+- **norm** : normal distribution
+- **pois** : poisson distribution
+- **gamma** : gamma distribution
+
 ## Useful Functions
 - Rolling n die with k sides each
 ```{r include=F}
 dice.roller <- function(n,k) {ceiling(runif(n)*k)}
+SumNDie <- function(n,k){
+  sum(dice.roller(n,k))
+}
+MSumsOfNDie <- function(m,n,k){
+  replicate(1000,SumNDie(n))
+}
 ```
 
 - Plotting a histogram of n samples from a normal distribution & exponential
@@ -55,8 +77,255 @@ n <- 100
 x_samples <- F_inv(runif(n))
 ```
 
+- Integrating in R
+```{r include=F}
+integrand <- function(x) {x*(x+1)}
+int <- integrate(integrand,lower = -1,upper=0)
+abs(int$value)
+```
 
+- Horisontal / Vertical line
+```{r include=F}
+sample <- rnorm(1000,2,1)
+plot(density(sample),main='Normal distribution with expected value 2')
+abline(v=2)
+```
 
+- Gamma Distribution + expected value of gamma distribution + Normalisation of expected value
+```{r include=F}
+a <- 7.1
+s <- 1.44
+NGammas <- function(n){
+  rgamma(n,a,scale=s)
+}
+MNGammas <- function(m,n) {
+  replicate(m,mean(NGammas(n)))
+}
+Norm_MNGammas <- function(m,n) {
+  gammas <- MNGammas(m,n)
+  sqrt(n) * (gammas-a*s)/sqrt(a*s)
+}
+```
+
+- Graphical Summary of data
+```{r include=F}
+data = data(Cars93,package='MASS')
+summary(Cars93)
+hist(Cars93$Horsepower,main='Histogram of data')
+plot(density(Cars93$Horsepower),main='Kernel Density Estimation')
+plot(ecdf(Cars93$Horsepower),main='Empirical Cumulative Distribution Function')
+```
+
+- Bootstrapping data
+```{r include=F}
+get_boot <- function(data) {
+  sample(data, length(data), replace=T)
+}
+
+get_n_boot_means <- function(data,n) {
+  means <- c()
+  for (i in 1:n) {
+    s <- get_boot(data)
+    means <- append(means,mean(s))
+  }
+  return(means)
+}
+```
+
+- Kolmogorov-Smirnov distance
+```{r include=F}
+data(Cars93,package='MASS')
+data = Cars93$Horsepower
+sd1 <- sd(data)
+m1 <- mean(data)
+plot(ecdf(data))
+curve(pnorm(x,mean=m1,sd=sd1),col='red',add=T)
+
+ks.dist.norm <- function(data) {
+  emp.dist <- ecdf(data)
+  max(abs(emp.dist(data)-pnorm(data,mean(data),sd(data))))
+}
+```
+
+- Confidence Intervals
+```{r include=F}
+cat('Normal Data - Unknown Variance')
+confidence_interval_normal <- function(sample,conf) {
+  a <- (1 - conf)
+  m <- mean(sample)
+  s <- sd(sample)
+  n <- length(sample)
+  t <- qt(a/2, n-1, lower.tail = F)
+  return(c(m-t*s/(sqrt(n)),m+t*s/(sqrt(n))))
+}
+
+cat('Normal Data - Known Variance')
+confidence_interval_normal_var <- function(sample,variance,conf) {
+  a <- (1 - conf)
+  m <- mean(sample)
+  n <- length(sample)
+  q <- qnorm(a/2, lower.tail = F)
+  return(c(m-q*variance/(sqrt(n)),m+q*variance/(sqrt(n))))
+}
+
+cat('Any Distribution - Bootstrap method')
+get_boot <- function(data) {
+  sample(data, length(data), replace=T)
+}
+confidence_interval_bootstrap <- function(sample,conf) {
+  a <- 1-conf
+  boot_means <- c()
+  for (i in 1:500) {boot_means <- c(boot_means,mean(get_boot(sample)))}
+  return(quantile(boot_means,c(a/2,1-a/2)))
+}
+``` 
+
+- Hypothesis Testing (proportions)
+```{r include=F}
+x <- c(60)
+n <- c(100)
+prop.test(x,n,p=0.8,alternative='less',conf.level=0.95)
+```
+
+- One Sample T-test
+```{r include=F}
+cat('Test-Statistic')
+t <- function(samp,mu0) {
+  m <- mean(samp)
+  s <- sd(samp)
+  n <- length(samp)
+  return((m-mu0) / (s / sqrt(n)))
+}
+cat('Normal data p-value (upper or lower)')
+t_one_normal <- function(samp,mu0) {
+  n <- length(samp)
+  T <- t(samp,mu0)
+  return(min(pt(T,n-1,lower.tail=F),pt(T,n-1)))
+}
+cat('Non-normal data - critical region for t')
+get_boot <- function(data) {
+  sample(data, length(data), replace=T)
+}
+t_one_boot <- function(samp,conf,m0) {
+  m <- mean(samp)
+  s <- sd(samp)
+  n <- length(samp)
+  t <- (m-m0) / (s / sqrt(n))
+  boot_stud_means <- c()
+  for (i in 1:500) {
+    boot <- get_boot(samp)
+    t_boot <- (mean(boot) - m) / (sd(boot) / sqrt(n))
+    boot_stud_means <- c(boot_stud_means, t_boot)
+  }
+  a <- 1-conf
+  cat('Studentized mean decision rule boundaries:',quantile(boot_stud_means,c(a/2,1-a/2)),
+    '\nTest Statistic:',t,'\nTail Probability:',min(mean(boot_stud_means < t),mean(boot_stud_means > t)))
+}
+```
+
+- Two Sample T-test Pooled data (equal variance)
+```{r include=F}
+cat('pooled variance')
+sp2 <- function(sample1,sample2) {
+  n <- length(sample1)
+  m <- length(sample2)
+  sx <- var(sample1)
+  sy <- var(sample2)
+  return(((n-1)*sx+(m-1)*sy)/(n+m-2) * (1/n + 1/m))
+}
+cat('pooled test statistic')
+tp <- function(sample1,sample2) {
+  sp <- sqrt(sp2(sample1,sample2))
+  m1 <- mean(sample1)
+  m2 <- mean(sample2)
+  return((m1-m2)/sp)
+}
+cat('Normal Data - equal variance (p-value for tp)')
+t_two_norm_eq <- function(sample1,sample2) {
+  t <- tp(sample1,sample2)
+  n <- length(sample1)
+  m <- length(sample2)
+  return(min(pt(t,n+m-2,lower.tail = F),pt(t,n+m-2)))
+}
+
+cat('Non-normal Data - equal variance (critical region for tp)')
+get_boot <- function(data) {
+  sample(data, length(data), replace=T)
+}
+tp_boot <- function(b_sample1,b_sample2,m1,m2) {
+  m3 <- mean(b_sample1)
+  m4 <- mean(b_sample2)
+  b_sp <- sqrt(sp2(b_sample1,b_sample2))
+  return(((m3-m4)-(m1-m2))/b_sp)
+}
+t_two_boot_eq <- function(sample1,sample2,conf) { 
+  m1 <- mean(sample1)
+  m2 <- mean(sample2)
+  boot_ts <- c()
+  for (i in 1:500) { 
+    boot1 <- get_boot(sample1)
+    boot2 <- get_boot(sample2)
+    boot_ts <- c(boot_ts, tp_boot(boot1,boot2,m1,m2))
+  }
+  a <- 1-conf
+  return(quantile(boot_ts,c(a/2,1-a/2)))
+}
+```
+
+- Two Sample T-test Non-pooled data (unequal variance)
+```{r include=F}
+cat('non-pooled variance')
+sd2 <- function(sample1,sample2) {
+  n <- length(sample1)
+  m <- length(sample2)
+  sx <- var(sample1)
+  sy <- var(sample2)
+  return(sx/n + sy/m)
+}
+cat('non-pooled test statistic')
+td <- function(sample1,sample2) {
+  m1 <- mean(sample1)
+  m2 <- mean(sample2)
+  sd <- sqrt(sd2(sample1,sample2))
+  return((m1-m2)/sd)
+}
+cat('Normal Data - unequal variance (p-value for td)')
+v <- function(sample1,sample2) {
+  sx <- var(sample1)
+  sy <- var(sample2)
+  n <- length(sample1)
+  m <- length(sample2)
+  return(((sx/n + sy/m)^2) / (sx^2 / (n^2 * (n-1))  + sy^2 / (m^2 * (m-1))))
+}
+t_two_norm_uneq <- function(sample1,sample2) {
+  t <- td(sample1,sample2)
+  mv <- v(sample1, sample2)
+  return(min(pt(t,mv,lower.tail = F),pt(t,mv)))
+}
+
+cat('Non-normal Data - unequal variance (critical region for td)')
+get_boot <- function(data) {
+  sample(data, length(data), replace=T)
+}
+td_boot <- function(b_sample1,b_sample2,m1,m2) {
+  m3 <- mean(b_sample1)
+  m4 <- mean(b_sample2)
+  b_sd <- sqrt(sd2(b_sample1,b_sample2))
+  return(((m3-m4)-(m1-m2))/b_sd)
+}
+t_two_boot_uneq <- function(sample1,sample2,conf) {
+  m1 <- mean(sample1)
+  m2 <- mean(sample2)
+  boot_ts <- c()
+  for (i in 1:500) { 
+    boot1 <- get_boot(sample1)
+    boot2 <- get_boot(sample2)
+    boot_ts <- c(boot_ts, td_boot(boot1,boot2,m1,m2))
+  }
+  a <- 1-conf
+  return(quantile(boot_ts,c(a/2,1-a/2)))
+}
+```
 
 # Probability
 ## Basic Probability Definitions:
@@ -266,8 +535,8 @@ Denoted $N(\mu,\sigma^2)$ with
 \[F(a)=\int_{-\infty}^a f(x) dx\]
 
 - **$\mu$** : Mean of the Gaussian Bell Curve
-- **$\sigma^2$** : Standard Deviation of Gaussian Bell Curve
-- **$\sigma$** : Variance of Gaussian Bell Curve
+- **$\sigma$** : Standard Deviation of Gaussian Bell Curve
+- **$\sigma^2$** : Variance of Gaussian Bell Curve
 - **type** : Probability centered around the mean, and with endless possibilities (long tails)
 
 \[E[X] = \int_{-\infty}^{\infty} \frac{x}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}} dx = \mu \]
@@ -517,3 +786,407 @@ And more formally we define distribution function of $F_{Z_n}(a)$ as converging 
 
 
 # Statistics
+
+## Data Summaries
+
+### Graphical Summaries
+
+##### Histograms!
+
+**Bin width** : Normally distributed data has good bin width at:
+\[b=\frac{(24\sqrt{n})^{1/3}s}{\sqrt[3]{n}}\]
+
+##### Kernel Density Estimate
+
+Each data point gets a 'kernel'.
+
+- **triangular** triangle
+- **cosine** rounded [-1:1]
+- **epanechnikov** rounded [-1:1]
+- **biweight** rounded + soft ends [-1:1]
+- **triweight** same as above but *narrower*
+- **normal** normal distribution
+
+Represents an estimation of **f(x)**
+
+##### Empirical distribution function
+
+Represents an estimation of **F(x)**
+
+
+
+
+### Numerical Summaries
+
+REMEMBER: estimaters *are themselves random variables*
+
+##### Sample mean
+
+\[\bar{x} = \frac{x_1+...+x_n}{n}\]
+
+##### Sample Variance
+
+\[\bar{s^2}=\frac{1}{n-1} \sum_{i=1}^n (x_i-\bar{x})^2\]
+
+##### Sample Median
+
+Mid observation when arranged 
+
+##### Sample MAD
+
+Median of deviations from Median
+
+
+
+
+
+## Bootstrapping
+
+Since estimators are random variables, we can generate lots of
+datasets from our dataset by sampling!
+This is also called 'bootstrapping' a dataset!
+
+### Empirical bootstrap
+
+We bootstrap by **resampling** our dataset. This is beneficial because we know:
+
+The sample statistic we want to examine for X, can be estimated
+using the same sample statistic from a set of bootstrap samples.
+
+\[\bar{X}^* - \bar{X} \text{ resembles } \bar{X}-\mu\]
+
+### Parametric bootstrap
+
+IF WE KNOW THE DISTRIBUTION.
+
+1. We estimate parameters
+2. We sample from the estimated distribution
+3. We calculate Kolmogorov-Smirnov distance
+
+#### Kolmogorov-Smirnov distance
+
+I REALLY dont know
+
+
+
+
+
+
+## Estimator
+
+### Bias \& unbiased estimators
+
+Bias of estimator T is calculated as:
+\[E[T]-\theta\]
+
+unbiased when bias$=0$
+
+#### Examples of unbiased estimators:
+
+- **Mean**
+\[\bar{X}=\frac{X_1+...+X_n}{n}\]
+
+- **Variance**
+\[S^2 = \frac{1}{n-1} \sum_{i=1}^n(X_i-\bar{X})^2\]
+
+#### How to examine if an estimator is biased
+
+Examplified with determining $\theta$ in $U(0,\theta)$
+
+1. Write up the estimator. for example:
+\[T=\frac{2}{n}(X_i+...+X_n)\]
+
+2. Replace all Random Variables by their Expected value
+\[E[T]=\frac{2}{n}(E[X_i]+...+E[X_n])=\frac{2}{n}(\frac{\theta}{2}+...+\frac{\theta}{2})=\theta\]
+
+3. If it yields that $E[T]=\theta$ it IS unbiased
+
+##### Use Jensen inequality
+
+To examine the direction of the bias of a transformed random variable!
+
+
+
+### Maximum Likelihood Estimator
+
+Choosing the parameter value that makes the dataset *most likely* / *probable*
+
+Can be biased, but is unbiased when $lim_{n \to \infty}$
+
+**LIKELIHOOD FUNCTION**
+
+Calculates the likelihood of a sample given a particular $\theta$
+\[L(\theta)=P(X_1=x_1,...X_n=x_n)=p_{\theta}(x_1)...p_{\theta}(x_n)\]
+
+We examine the likelihood function as a function we can maximize
+
+We find critical points (stationary points + endpoints)
+and compare the values in these points.
+
+**LOGLIKELIHOOD FUNCTION**
+easier to work with! gives the same $\theta$ at maximum
+\[\ell(\theta)=ln(L(\theta))=ln(p_{\theta}(x_1))+...+ln(p_{\theta}(x_n))\]
+
+**nice to know**:
+
+- \[(ln(x))'=\frac{1}{x}\]
+- \[ln(x*y)=ln(x)+ln(y)\]
+- \[ln \left( \frac{x}{y} \right) = ln(x)-ln(y)\]
+- \[ln(x^y)=y*ln(x)\]
+
+#### How to calculate it
+
+1. Establish likelihood function and loglikelihood function using p-term from distribution.
+2. Differentiate the loglikelihood function.
+3. find the theta where the result of step 2 == 0 (stationary point at maximum)
+
+#### Examples
+\[\hat{\mu}=\bar{x}_n\]
+\[\hat{\sigma}=\sqrt{\frac{1}{n} \sum_{i=1}^n(x_i-\bar{x}_n)^2}\]
+
+
+### Least Squares Regression
+
+Find parameters $\alpha$ and $\beta$ that minimize the sum of square distance to the regression line.
+
+\[\hat{\beta} = \frac{n \sum x_iy_i - (\sum x_i)(\sum y_i)}{n \sum x_i^2 - (\sum x_i)^2}\]
+\[\hat{\alpha}=\bar{y}_n - \hat{\beta} \hat{x}_n\]
+
+
+
+
+
+## Confidence Intervals
+
+Statement: 'We are 95% **confident** that ... '
+
+- $\gamma$ : denotes **confidence level** : 0.95 in above statement
+- (interval) : we are only $\gamma$ sure, that it contains the true value
+
+### Normal Data - Mean
+Critical Values : denoted $z_{1-p}$ and $z_p$ : edges of confidence interval
+\[P(Z \geq z _p) = p\]
+
+For normal distribution:
+\[z_{1-p} = -z_p\]
+
+For symmetric distributions:
+\[P(- z_{p} \leq Z \leq z_p) = 1-2*p\]
+
+WHERE:
+
+- $\alpha$ : denotes $1-\gamma$
+- $p$ : denotes $\alpha$ / 2
+
+#### Known Variance
+We use that we can normalize the distribution to resemble $N(0,1)$
+The interval will then be given by:
+\[\left( \bar{x}_n - z_{\alpha / 2} \frac{\sigma}{\sqrt{n}} \quad , 
+\quad \bar{x}_n + z_{\alpha / 2} \frac{\sigma}{\sqrt{n}} \right)\]
+
+- $\bar{x}_n$ : denotes sample mean
+- $z_{\alpha / 2}$ : denotes critical value : found by qnorm($\alpha / 2$) in R
+- $\alpha$ : denotes $1-\gamma$ : where $\gamma$ denotes confidence level
+- $\sigma$ : denotes standard deviation (squareroot of known variance)
+- $n$ : denotes number of samples
+
+#### Unknown Variance
+We use the **studentized mean**:
+\[\frac{\bar{X}_n - \mu}{S_n / \sqrt{n}}\]
+which has a $t_{n-1}$ distribution.
+The Confidence interval is then given by:
+\[\left(\bar{x}_n - t_{n-1, \alpha / 2} \frac{S_n}{\sqrt{n}} \quad , 
+\quad \bar{x}_n + t_{n-1, \alpha / 2} \frac{S_n}{\sqrt{n}} \right)\]
+
+- $\bar{x}_n$ : denotes sample mean
+- $t_{n-1, \alpha / 2}$ : denotes critical value : found by qt($\alpha /2$,$n-1$) in R
+- $\alpha$ : denotes $1-\gamma$ : where $\gamma$ denotes confidence level
+- $S_n$ : denotes sample standard deviation
+- $n$ : denotes number of samples
+
+### Any Distribution - Mean
+
+BOOTSTRAP method:
+
+- Generate bootstrap samples
+- Calculate Studentized mean of bootstrap samples
+- Determine critical values
+- Determine confidence interval
+
+*studentized mean*:
+\[t^* = \frac{\bar{x}_n^* - \bar{x}_n}{s_n^* / \sqrt{n}}\]
+
+- $t^*$ : studentized mean of bootstrap sample
+- $\bar{x}_n^*$ : sample mean of bootstrap sample
+- $\bar{x}_n$ : sample mean (not bootstrapped)
+- $s_n^*$ : sample standard deviation of bootstrap sample
+- $n$ : number of samples
+
+*critical values*:
+Retrieve quantiles from empirical cumulative distribution.
+Using R: quantile(boot_means,c($\alpha / 2$,$1-\alpha / 2$))
+
+We denote these values ($c_l^*$,$c_u^*$)
+
+*Confidence Interval*:
+\[\left(\bar{x}_n - c_u^* \frac{s_n}{\sqrt{n}} \quad , 
+\quad \bar{x}_n + c_l^* \frac{s_n}{\sqrt{n}} \right)\]
+
+
+### Determining Sample Size
+If we want to achieve a certain confidence level, say 95%, and a maximum width of this interval,
+then there is a minimum on the number of samples needed to make this possible.
+
+If we assume a normal distribution with known variance
+we can isolate the number of samples n as follows, denoting the width as w:
+\[width = 2 * z_{\alpha / 2} \frac{\sigma}{\sqrt{n}}\]
+we put the upper bound to be w:
+\[2 * z_{\alpha / 2} \frac{\sigma}{\sqrt{n}} \leq w\]
+multiply by $\sqrt{n}$ and divide by $w$:
+\[2 * z_{\alpha / 2} \frac{\sigma}{w} \leq \sqrt{n}\]
+Squaring every term:
+\[4 * z_{\alpha / 2}^2 \frac{\sigma^2}{w^2} \leq n\]
+
+
+
+
+## Hypothesis Testing
+
+We determine a null-hypothesis $H_0$ which is the hypothesis we will be Testing
+against the alternative hypothesis $H_1$ or $H_A$. 
+
+Statements:
+- 'We do not reject $H_0$'
+- 'We accept $H_0$'
+- 'We reject $H_0$ in favor of $H_1$'
+
+1. Formulate Test Statistic to test $H_0$
+2. Assume the Test Statistic follows $H_0$
+3. Calculate tail probability of the sample test statistic, given $H_0$
+4. Compare the p-value from step 3 to the decided threshhold (often 0.05) 
+
+**Significance Level**
+- P-VALUE THRESHHOLD : denoted $\alpha$
+- denotes the probability of *Type I error* (falsely rejecting $H_0$)
+
+**Critical Region**
+- Region containing values for which we REJECT $H_0$
+- *Critical value* the boundary between rejecting and not rejecting $H_0$
+
+##### **Type II errors**
+Remember Type I errors are determined by the *significance level*,
+and denote *falsely rejecting* $H_0$  (False Negative)
+
+Type II errors is *falsely accepting* $H_0$ (False Positive), and this error
+depends on the **TRUE** $\mu$. Calculated by:
+
+- Determine critical point for $H_0$
+- Look at distribution of TRUE $\mu$
+- Calculate probability of TRUE $\mu$ distribution falling within critcal region.
+- For figure see Lecture 12 slide 22.
+
+### Significance Test of Population Proportion
+When we specifically want to test whether two samples represent
+the same true proportion. F.ex. proportion of college graduates without health compare
+or proportion of population having tried weed etc.
+
+- $H_0$ : $p = p_0$ : $p$ or $\hat{p}$ denotes our dataset proportion, $p_0$ is what we're testing against
+- Alternative Hypothesis : < , != , >
+- Test-statistic Z follows a standard normal distribution under $H_0$:
+\[Z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0) / n}}\] 
+
+**R-usage**
+```{r eval=F}
+x <- c(60)
+n <- c(100)
+prop.test(x,n,p=0.8,alternative='less',conf.level=0.95)
+```
+- x : successes in sample(s)
+- n : total trial in sample(s)
+- p : TRUE proportion 
+- alternative : 'less', 'greater' or 'two.sided' (than given p)
+- conf.level : confidence level to test with
+
+
+
+
+## T-test
+When doing t-tests we test for a type of equality, 
+seeing whether a given sample ressembles a specific quantity we are looking for.
+
+### One Sample T-test
+When modelling one sample, we usually wish to see whether the hypothesis of
+the mean of the samples is reasonably within scope of a particular distribution mean.
+
+##### **Normal Data - Unknown Variance**
+We state $H_0$ : $\mu = \mu_0$ against $H_1$ : $\mu \neq \mu_0$
+
+We use the studentized mean given by:
+\[T=\frac{\bar{X}_n - \mu_0}{S_n / \sqrt{n}}\]
+Which has a $t_{n-1}$ distribution under $H_0$, which means all we do is:
+
+- Calculate value of test statistic for our sample
+- Calculate probability of T under t-distribution of $H_0$
+
+##### **Non-Normal Data**
+We Bootstrap to *approximate* the distribution of the *studentized mean*
+
+For each bootstrap, the studentized mean will be:
+\[t*=\frac{\bar{x}_n^* - \bar{x}_n}{s_n^* / \sqrt{n}}\]
+From these studentized means we can create a **decision rule** for when we will
+accept/reject $H_0$ based on the studentized mean.
+
+##### **Large Datasets**
+For large datasets, we can assume test-statistic T to follow the standard normal distribution 
+under the null hypothesis.
+
+### Two Sample T-test
+This is used for comparison between two samples - 
+i.e. we want to determine whether their distributions have the same mean.
+
+- $T_p$ : Pooled Test-statistic
+- $T_d$ : Non-Pooled Test-statistic
+- $\bar{X}_n$ : Sample mean of samples from random variable X
+- $\bar{Y}_m$ : Sample mean of samples from random variable Y
+- $S_p^2$ : Pooled Variance
+- $S_d^2$ : Non-Pooled Variance
+- $n$ : number of samples from X 
+- $m$ : number of samples from Y 
+- $S_X^2$ : Sample Variance of X 
+- $S_Y^2$ : Sample Variance of Y 
+
+##### **Normal Data - equal variance (t-test)**
+When the variances of the two random variables are the same.
+We use **pooled** variance:
+\[T_p=\frac{\bar{X}_n - \bar{Y}_m}{S_p}\]
+\[S_p^2=\frac{(n-1)S_X^2 + (m-1)S_Y^2}{n+m-2} \left( \frac{1}{n} + \frac{1}{m} \right)\]
+follows a $t_{n+m-2}$ distribution under $H_0$
+
+##### **Normal Data - unequal variance (welch's t-test)**
+When the variances of the two random variables are NOT the same.
+We use **non-pooled** variance:
+\[T_d=\frac{\bar{X}_n - \bar{Y}_m}{S_d}\]
+\[S_d^2=\frac{S_X^2}{n} + \frac{S_Y^2}{m}\]
+follows a $t_v$ distribution under $H_0$, where v is given by:
+\[v=\frac{\left( \frac{S_X^2}{n} + \frac{S_Y^2}{m} \right)^2}{\frac{S_X^4}{n^2(n-1)} + \frac{S_Y^4}{m^2(m-1)}}\]
+
+##### **Non-Normal Data - equal variance (pooled bootstrap)**
+We use bootstrapping to estimate the distribution of the studentized mean.
+Thus we calculate $t_p^*$ for each bootstrap, as follows:
+\[t_p^* = \frac{(\bar{x}_n^* - \bar{y}_m^*) - (\bar{x}_n - \bar{y}_m)}{s_p^*}\]
+\[(s_p^*)^2 = \frac{(n-1)(s_X^*)^2 + (m-1)(s_Y^*)^2}{n+m-2} \left( \frac{1}{n} + \frac{1}{m} \right)\]
+Once we have obtained a ditribution estimate, we can determine the bootstrap approximations of **critical values**,
+and determine whether $T_p$ (see Normal Data - equal variance) is within this range.
+
+##### **Non-Normal Data - unequal variance (unpooled bootstrap)**
+We use bootstrapping to estimate the distribution of the studentized mean.
+Thus we calculate $t_d^*$ for each bootstrap, as follows:
+\[t_d^* = \frac{(\bar{x}_n^* - \bar{y}_m^*) - (\bar{x}_n - \bar{y}_m)}{s_d^*}\]
+\[(s_d^*)^2 = \frac{(s_X^*)^2}{n} + \frac{(s_Y^*)^2}{m}\]
+Once we have obtained a ditribution estimate, we can determine the bootstrap approximations of **critical values**,
+and determine whether $T_d$ (see Normal Data - unequal variance) is within this range.
+
+##### **Large Samples**
+When samples are large, $T_p$ and $T_d$ follow a standard normal distribution under $H_0$
+
+

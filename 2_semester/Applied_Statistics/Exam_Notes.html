@@ -368,6 +368,11 @@ pre code {
 <ul>
 <li><a href="#r-commands">R commands</a>
 <ul>
+<li><a href="#distribution-functions">Distribution functions</a>
+<ul>
+<li><a href="#distribution-abbreviations">Distribution
+abbreviations</a></li>
+</ul></li>
 <li><a href="#useful-functions">Useful Functions</a></li>
 </ul></li>
 <li><a href="#probability">Probability</a>
@@ -400,7 +405,7 @@ Setting</a>
 <li><a href="#quantiles">Quantiles</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#distribution-functions">Distribution Functions</a>
+<li><a href="#distribution-functions-1">Distribution Functions</a>
 <ul>
 <li><a href="#probability-mass-function-discrete-case">Probability Mass
 Function <em>(Discrete case)</em></a></li>
@@ -457,7 +462,62 @@ Distribution</a></li>
 </ul></li>
 <li><a href="#central-limit-theorem">Central Limit Theorem</a></li>
 </ul></li>
-<li><a href="#statistics">Statistics</a></li>
+<li><a href="#statistics">Statistics</a>
+<ul>
+<li><a href="#data-summaries">Data Summaries</a>
+<ul>
+<li><a href="#graphical-summaries">Graphical Summaries</a></li>
+<li><a href="#numerical-summaries">Numerical Summaries</a></li>
+</ul></li>
+<li><a href="#bootstrapping">Bootstrapping</a>
+<ul>
+<li><a href="#empirical-bootstrap">Empirical bootstrap</a></li>
+<li><a href="#parametric-bootstrap">Parametric bootstrap</a>
+<ul>
+<li><a href="#kolmogorov-smirnov-distance">Kolmogorov-Smirnov
+distance</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#estimator">Estimator</a>
+<ul>
+<li><a href="#bias-unbiased-estimators">Bias &amp; unbiased
+estimators</a>
+<ul>
+<li><a href="#examples-of-unbiased-estimators">Examples of unbiased
+estimators:</a></li>
+<li><a href="#how-to-examine-if-an-estimator-is-biased">How to examine
+if an estimator is biased</a></li>
+</ul></li>
+<li><a href="#maximum-likelihood-estimator">Maximum Likelihood
+Estimator</a>
+<ul>
+<li><a href="#how-to-calculate-it">How to calculate it</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul></li>
+<li><a href="#least-squares-regression">Least Squares
+Regression</a></li>
+</ul></li>
+<li><a href="#confidence-intervals">Confidence Intervals</a>
+<ul>
+<li><a href="#normal-data---mean">Normal Data - Mean</a>
+<ul>
+<li><a href="#known-variance">Known Variance</a></li>
+<li><a href="#unknown-variance">Unknown Variance</a></li>
+</ul></li>
+<li><a href="#any-distribution---mean">Any Distribution - Mean</a></li>
+<li><a href="#determining-sample-size">Determining Sample Size</a></li>
+</ul></li>
+<li><a href="#hypothesis-testing">Hypothesis Testing</a>
+<ul>
+<li><a href="#significance-test-of-population-proportion">Significance
+Test of Population Proportion</a></li>
+</ul></li>
+<li><a href="#t-test">T-test</a>
+<ul>
+<li><a href="#one-sample-t-test">One Sample T-test</a></li>
+<li><a href="#two-sample-t-test">Two Sample T-test</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 
@@ -486,6 +546,30 @@ the index/indices fulfilling the boolean</li>
 <li><strong>format(&lt;value&gt;,scientific=F,digits=b)</strong> :
 Displays ‘b’ significant digits</li>
 </ul>
+<div id="distribution-functions" class="section level2">
+<h2>Distribution functions</h2>
+<ul>
+<li><strong>d&lt;dist&gt;(K,&lt;params&gt;)</strong> : outputs <span class="math inline">\(P(X=K)\)</span></li>
+<li><strong>p&lt;dist&gt;(K,&lt;params&gt;)</strong> : outputs <span class="math inline">\(P(X \leq K)\)</span></li>
+<li><strong>q&lt;dist&gt;(a,&lt;params&gt;)</strong> : gives the a’th
+percentile (quantile)</li>
+<li><strong>r&lt;dist&gt;(n,&lt;params&gt;)</strong> : atomic vector of
+size n with random samples</li>
+</ul>
+<div id="distribution-abbreviations" class="section level3">
+<h3>Distribution abbreviations</h3>
+<ul>
+<li><strong>bern</strong> : bernoulli distribution</li>
+<li><strong>binom</strong> : binomial distribution</li>
+<li><strong>geom</strong> : geometric distribtion</li>
+<li><strong>unif</strong> : uniform distribution</li>
+<li><strong>exp</strong> : exponential distribution</li>
+<li><strong>norm</strong> : normal distribution</li>
+<li><strong>pois</strong> : poisson distribution</li>
+<li><strong>gamma</strong> : gamma distribution</li>
+</ul>
+</div>
+</div>
 <div id="useful-functions" class="section level2">
 <h2>Useful Functions</h2>
 <ul>
@@ -493,6 +577,18 @@ Displays ‘b’ significant digits</li>
 <li><p>Plotting a histogram of n samples from a normal distribution
 &amp; exponential</p></li>
 <li><p>Simulating a Random Variable with F(x)</p></li>
+<li><p>Integrating in R</p></li>
+<li><p>Horisontal / Vertical line</p></li>
+<li><p>Gamma Distribution + expected value of gamma distribution +
+Normalisation of expected value</p></li>
+<li><p>Graphical Summary of data</p></li>
+<li><p>Bootstrapping data</p></li>
+<li><p>Kolmogorov-Smirnov distance</p></li>
+<li><p>Confidence Intervals</p></li>
+<li><p>Hypothesis Testing (proportions)</p></li>
+<li><p>One Sample T-test</p></li>
+<li><p>Two Sample T-test Pooled data (equal variance)</p></li>
+<li><p>Two Sample T-test Non-pooled data (unequal variance)</p></li>
 </ul>
 </div>
 </div>
@@ -643,7 +739,7 @@ p\]</span></p>
 </div>
 </div>
 </div>
-<div id="distribution-functions" class="section level2">
+<div id="distribution-functions-1" class="section level2">
 <h2>Distribution Functions</h2>
 <div id="probability-mass-function-discrete-case" class="section level3">
 <h3>Probability Mass Function <em>(Discrete case)</em></h3>
@@ -755,9 +851,9 @@ e^{-\lambda x} dx = \frac{1}{\lambda}\]</span></p>
 <ul>
 <li><strong><span class="math inline">\(\mu\)</span></strong> : Mean of
 the Gaussian Bell Curve</li>
-<li><strong><span class="math inline">\(\sigma^2\)</span></strong> :
-Standard Deviation of Gaussian Bell Curve</li>
 <li><strong><span class="math inline">\(\sigma\)</span></strong> :
+Standard Deviation of Gaussian Bell Curve</li>
+<li><strong><span class="math inline">\(\sigma^2\)</span></strong> :
 Variance of Gaussian Bell Curve</li>
 <li><strong>type</strong> : Probability centered around the mean, and
 with endless possibilities (long tails)</li>
@@ -1163,6 +1259,433 @@ as converging into <span class="math inline">\(\Phi(a)\)</span> <span class="mat
 </div>
 <div id="statistics" class="section level1">
 <h1>Statistics</h1>
+<div id="data-summaries" class="section level2">
+<h2>Data Summaries</h2>
+<div id="graphical-summaries" class="section level3">
+<h3>Graphical Summaries</h3>
+<div id="histograms" class="section level5">
+<h5>Histograms!</h5>
+<p><strong>Bin width</strong> : Normally distributed data has good bin
+width at: <span class="math display">\[b=\frac{(24\sqrt{n})^{1/3}s}{\sqrt[3]{n}}\]</span></p>
+</div>
+<div id="kernel-density-estimate" class="section level5">
+<h5>Kernel Density Estimate</h5>
+<p>Each data point gets a ‘kernel’.</p>
+<ul>
+<li><strong>triangular</strong> triangle</li>
+<li><strong>cosine</strong> rounded [-1:1]</li>
+<li><strong>epanechnikov</strong> rounded [-1:1]</li>
+<li><strong>biweight</strong> rounded + soft ends [-1:1]</li>
+<li><strong>triweight</strong> same as above but <em>narrower</em></li>
+<li><strong>normal</strong> normal distribution</li>
+</ul>
+<p>Represents an estimation of <strong>f(x)</strong></p>
+</div>
+<div id="empirical-distribution-function" class="section level5">
+<h5>Empirical distribution function</h5>
+<p>Represents an estimation of <strong>F(x)</strong></p>
+</div>
+</div>
+<div id="numerical-summaries" class="section level3">
+<h3>Numerical Summaries</h3>
+<p>REMEMBER: estimaters <em>are themselves random variables</em></p>
+<div id="sample-mean" class="section level5">
+<h5>Sample mean</h5>
+<p><span class="math display">\[\bar{x} =
+\frac{x_1+...+x_n}{n}\]</span></p>
+</div>
+<div id="sample-variance" class="section level5">
+<h5>Sample Variance</h5>
+<p><span class="math display">\[\bar{s^2}=\frac{1}{n-1} \sum_{i=1}^n
+(x_i-\bar{x})^2\]</span></p>
+</div>
+<div id="sample-median" class="section level5">
+<h5>Sample Median</h5>
+<p>Mid observation when arranged</p>
+</div>
+<div id="sample-mad" class="section level5">
+<h5>Sample MAD</h5>
+<p>Median of deviations from Median</p>
+</div>
+</div>
+</div>
+<div id="bootstrapping" class="section level2">
+<h2>Bootstrapping</h2>
+<p>Since estimators are random variables, we can generate lots of
+datasets from our dataset by sampling! This is also called
+‘bootstrapping’ a dataset!</p>
+<div id="empirical-bootstrap" class="section level3">
+<h3>Empirical bootstrap</h3>
+<p>We bootstrap by <strong>resampling</strong> our dataset. This is
+beneficial because we know:</p>
+<p>The sample statistic we want to examine for X, can be estimated using
+the same sample statistic from a set of bootstrap samples.</p>
+<p><span class="math display">\[\bar{X}^* - \bar{X} \text{ resembles }
+\bar{X}-\mu\]</span></p>
+</div>
+<div id="parametric-bootstrap" class="section level3">
+<h3>Parametric bootstrap</h3>
+<p>IF WE KNOW THE DISTRIBUTION.</p>
+<ol style="list-style-type: decimal">
+<li>We estimate parameters</li>
+<li>We sample from the estimated distribution</li>
+<li>We calculate Kolmogorov-Smirnov distance</li>
+</ol>
+<div id="kolmogorov-smirnov-distance" class="section level4">
+<h4>Kolmogorov-Smirnov distance</h4>
+<p>I REALLY dont know</p>
+</div>
+</div>
+</div>
+<div id="estimator" class="section level2">
+<h2>Estimator</h2>
+<div id="bias-unbiased-estimators" class="section level3">
+<h3>Bias &amp; unbiased estimators</h3>
+<p>Bias of estimator T is calculated as: <span class="math display">\[E[T]-\theta\]</span></p>
+<p>unbiased when bias<span class="math inline">\(=0\)</span></p>
+<div id="examples-of-unbiased-estimators" class="section level4">
+<h4>Examples of unbiased estimators:</h4>
+<ul>
+<li><p><strong>Mean</strong> <span class="math display">\[\bar{X}=\frac{X_1+...+X_n}{n}\]</span></p></li>
+<li><p><strong>Variance</strong> <span class="math display">\[S^2 =
+\frac{1}{n-1} \sum_{i=1}^n(X_i-\bar{X})^2\]</span></p></li>
+</ul>
+</div>
+<div id="how-to-examine-if-an-estimator-is-biased" class="section level4">
+<h4>How to examine if an estimator is biased</h4>
+<p>Examplified with determining <span class="math inline">\(\theta\)</span> in <span class="math inline">\(U(0,\theta)\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Write up the estimator. for example: <span class="math display">\[T=\frac{2}{n}(X_i+...+X_n)\]</span></p></li>
+<li><p>Replace all Random Variables by their Expected value <span class="math display">\[E[T]=\frac{2}{n}(E[X_i]+...+E[X_n])=\frac{2}{n}(\frac{\theta}{2}+...+\frac{\theta}{2})=\theta\]</span></p></li>
+<li><p>If it yields that <span class="math inline">\(E[T]=\theta\)</span> it IS unbiased</p></li>
+</ol>
+<div id="use-jensen-inequality" class="section level5">
+<h5>Use Jensen inequality</h5>
+<p>To examine the direction of the bias of a transformed random
+variable!</p>
+</div>
+</div>
+</div>
+<div id="maximum-likelihood-estimator" class="section level3">
+<h3>Maximum Likelihood Estimator</h3>
+<p>Choosing the parameter value that makes the dataset <em>most
+likely</em> / <em>probable</em></p>
+<p>Can be biased, but is unbiased when <span class="math inline">\(lim_{n \to \infty}\)</span></p>
+<p><strong>LIKELIHOOD FUNCTION</strong></p>
+<p>Calculates the likelihood of a sample given a particular <span class="math inline">\(\theta\)</span> <span class="math display">\[L(\theta)=P(X_1=x_1,...X_n=x_n)=p_{\theta}(x_1)...p_{\theta}(x_n)\]</span></p>
+<p>We examine the likelihood function as a function we can maximize</p>
+<p>We find critical points (stationary points + endpoints) and compare
+the values in these points.</p>
+<p><strong>LOGLIKELIHOOD FUNCTION</strong> easier to work with! gives
+the same <span class="math inline">\(\theta\)</span> at maximum <span class="math display">\[\ell(\theta)=ln(L(\theta))=ln(p_{\theta}(x_1))+...+ln(p_{\theta}(x_n))\]</span></p>
+<p><strong>nice to know</strong>:</p>
+<ul>
+<li><span class="math display">\[(ln(x))&#39;=\frac{1}{x}\]</span></li>
+<li><span class="math display">\[ln(x*y)=ln(x)+ln(y)\]</span></li>
+<li><span class="math display">\[ln \left( \frac{x}{y} \right) =
+ln(x)-ln(y)\]</span></li>
+<li><span class="math display">\[ln(x^y)=y*ln(x)\]</span></li>
+</ul>
+<div id="how-to-calculate-it" class="section level4">
+<h4>How to calculate it</h4>
+<ol style="list-style-type: decimal">
+<li>Establish likelihood function and loglikelihood function using
+p-term from distribution.</li>
+<li>Differentiate the loglikelihood function.</li>
+<li>find the theta where the result of step 2 == 0 (stationary point at
+maximum)</li>
+</ol>
+</div>
+<div id="examples" class="section level4">
+<h4>Examples</h4>
+<p><span class="math display">\[\hat{\mu}=\bar{x}_n\]</span> <span class="math display">\[\hat{\sigma}=\sqrt{\frac{1}{n}
+\sum_{i=1}^n(x_i-\bar{x}_n)^2}\]</span></p>
+</div>
+</div>
+<div id="least-squares-regression" class="section level3">
+<h3>Least Squares Regression</h3>
+<p>Find parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> that minimize the sum of square
+distance to the regression line.</p>
+<p><span class="math display">\[\hat{\beta} = \frac{n \sum x_iy_i -
+(\sum x_i)(\sum y_i)}{n \sum x_i^2 - (\sum x_i)^2}\]</span> <span class="math display">\[\hat{\alpha}=\bar{y}_n - \hat{\beta}
+\hat{x}_n\]</span></p>
+</div>
+</div>
+<div id="confidence-intervals" class="section level2">
+<h2>Confidence Intervals</h2>
+<p>Statement: ‘We are 95% <strong>confident</strong> that …’</p>
+<ul>
+<li><span class="math inline">\(\gamma\)</span> : denotes
+<strong>confidence level</strong> : 0.95 in above statement</li>
+<li>(interval) : we are only <span class="math inline">\(\gamma\)</span>
+sure, that it contains the true value</li>
+</ul>
+<div id="normal-data---mean" class="section level3">
+<h3>Normal Data - Mean</h3>
+<p>Critical Values : denoted <span class="math inline">\(z_{1-p}\)</span> and <span class="math inline">\(z_p\)</span> : edges of confidence interval <span class="math display">\[P(Z \geq z _p) = p\]</span></p>
+<p>For normal distribution: <span class="math display">\[z_{1-p} =
+-z_p\]</span></p>
+<p>For symmetric distributions: <span class="math display">\[P(- z_{p}
+\leq Z \leq z_p) = 1-2*p\]</span></p>
+<p>WHERE:</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> : denotes <span class="math inline">\(1-\gamma\)</span></li>
+<li><span class="math inline">\(p\)</span> : denotes <span class="math inline">\(\alpha\)</span> / 2</li>
+</ul>
+<div id="known-variance" class="section level4">
+<h4>Known Variance</h4>
+<p>We use that we can normalize the distribution to resemble <span class="math inline">\(N(0,1)\)</span> The interval will then be given
+by: <span class="math display">\[\left( \bar{x}_n - z_{\alpha / 2}
+\frac{\sigma}{\sqrt{n}} \quad ,
+\quad \bar{x}_n + z_{\alpha / 2} \frac{\sigma}{\sqrt{n}}
+\right)\]</span></p>
+<ul>
+<li><span class="math inline">\(\bar{x}_n\)</span> : denotes sample
+mean</li>
+<li><span class="math inline">\(z_{\alpha / 2}\)</span> : denotes
+critical value : found by qnorm(<span class="math inline">\(\alpha /
+2\)</span>) in R</li>
+<li><span class="math inline">\(\alpha\)</span> : denotes <span class="math inline">\(1-\gamma\)</span> : where <span class="math inline">\(\gamma\)</span> denotes confidence level</li>
+<li><span class="math inline">\(\sigma\)</span> : denotes standard
+deviation (squareroot of known variance)</li>
+<li><span class="math inline">\(n\)</span> : denotes number of
+samples</li>
+</ul>
+</div>
+<div id="unknown-variance" class="section level4">
+<h4>Unknown Variance</h4>
+<p>We use the <strong>studentized mean</strong>: <span class="math display">\[\frac{\bar{X}_n - \mu}{S_n / \sqrt{n}}\]</span>
+which has a <span class="math inline">\(t_{n-1}\)</span> distribution.
+The Confidence interval is then given by: <span class="math display">\[\left(\bar{x}_n - t_{n-1, \alpha / 2}
+\frac{S_n}{\sqrt{n}} \quad ,
+\quad \bar{x}_n + t_{n-1, \alpha / 2} \frac{S_n}{\sqrt{n}}
+\right)\]</span></p>
+<ul>
+<li><span class="math inline">\(\bar{x}_n\)</span> : denotes sample
+mean</li>
+<li><span class="math inline">\(t_{n-1, \alpha / 2}\)</span> : denotes
+critical value : found by qt(<span class="math inline">\(\alpha
+/2\)</span>,<span class="math inline">\(n-1\)</span>) in R</li>
+<li><span class="math inline">\(\alpha\)</span> : denotes <span class="math inline">\(1-\gamma\)</span> : where <span class="math inline">\(\gamma\)</span> denotes confidence level</li>
+<li><span class="math inline">\(S_n\)</span> : denotes sample standard
+deviation</li>
+<li><span class="math inline">\(n\)</span> : denotes number of
+samples</li>
+</ul>
+</div>
+</div>
+<div id="any-distribution---mean" class="section level3">
+<h3>Any Distribution - Mean</h3>
+<p>BOOTSTRAP method:</p>
+<ul>
+<li>Generate bootstrap samples</li>
+<li>Calculate Studentized mean of bootstrap samples</li>
+<li>Determine critical values</li>
+<li>Determine confidence interval</li>
+</ul>
+<p><em>studentized mean</em>: <span class="math display">\[t^* =
+\frac{\bar{x}_n^* - \bar{x}_n}{s_n^* / \sqrt{n}}\]</span></p>
+<ul>
+<li><span class="math inline">\(t^*\)</span> : studentized mean of
+bootstrap sample</li>
+<li><span class="math inline">\(\bar{x}_n^*\)</span> : sample mean of
+bootstrap sample</li>
+<li><span class="math inline">\(\bar{x}_n\)</span> : sample mean (not
+bootstrapped)</li>
+<li><span class="math inline">\(s_n^*\)</span> : sample standard
+deviation of bootstrap sample</li>
+<li><span class="math inline">\(n\)</span> : number of samples</li>
+</ul>
+<p><em>critical values</em>: Retrieve quantiles from empirical
+cumulative distribution. Using R: quantile(boot_means,c(<span class="math inline">\(\alpha / 2\)</span>,<span class="math inline">\(1-\alpha / 2\)</span>))</p>
+<p>We denote these values (<span class="math inline">\(c_l^*\)</span>,<span class="math inline">\(c_u^*\)</span>)</p>
+<p><em>Confidence Interval</em>: <span class="math display">\[\left(\bar{x}_n - c_u^* \frac{s_n}{\sqrt{n}}
+\quad ,
+\quad \bar{x}_n + c_l^* \frac{s_n}{\sqrt{n}} \right)\]</span></p>
+</div>
+<div id="determining-sample-size" class="section level3">
+<h3>Determining Sample Size</h3>
+<p>If we want to achieve a certain confidence level, say 95%, and a
+maximum width of this interval, then there is a minimum on the number of
+samples needed to make this possible.</p>
+<p>If we assume a normal distribution with known variance we can isolate
+the number of samples n as follows, denoting the width as w: <span class="math display">\[width = 2 * z_{\alpha / 2}
+\frac{\sigma}{\sqrt{n}}\]</span> we put the upper bound to be w: <span class="math display">\[2 * z_{\alpha / 2} \frac{\sigma}{\sqrt{n}} \leq
+w\]</span> multiply by <span class="math inline">\(\sqrt{n}\)</span> and
+divide by <span class="math inline">\(w\)</span>: <span class="math display">\[2 * z_{\alpha / 2} \frac{\sigma}{w} \leq
+\sqrt{n}\]</span> Squaring every term: <span class="math display">\[4 *
+z_{\alpha / 2}^2 \frac{\sigma^2}{w^2} \leq n\]</span></p>
+</div>
+</div>
+<div id="hypothesis-testing" class="section level2">
+<h2>Hypothesis Testing</h2>
+<p>We determine a null-hypothesis <span class="math inline">\(H_0\)</span> which is the hypothesis we will be
+Testing against the alternative hypothesis <span class="math inline">\(H_1\)</span> or <span class="math inline">\(H_A\)</span>.</p>
+<p>Statements: - ‘We do not reject <span class="math inline">\(H_0\)</span>’ - ‘We accept <span class="math inline">\(H_0\)</span>’ - ‘We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span>’</p>
+<ol style="list-style-type: decimal">
+<li>Formulate Test Statistic to test <span class="math inline">\(H_0\)</span></li>
+<li>Assume the Test Statistic follows <span class="math inline">\(H_0\)</span></li>
+<li>Calculate tail probability of the sample test statistic, given <span class="math inline">\(H_0\)</span></li>
+<li>Compare the p-value from step 3 to the decided threshhold (often
+0.05)</li>
+</ol>
+<p><strong>Significance Level</strong> - P-VALUE THRESHHOLD : denoted
+<span class="math inline">\(\alpha\)</span> - denotes the probability of
+<em>Type I error</em> (falsely rejecting <span class="math inline">\(H_0\)</span>)</p>
+<p><strong>Critical Region</strong> - Region containing values for which
+we REJECT <span class="math inline">\(H_0\)</span> - <em>Critical
+value</em> the boundary between rejecting and not rejecting <span class="math inline">\(H_0\)</span></p>
+<div id="type-ii-errors" class="section level5">
+<h5><strong>Type II errors</strong></h5>
+<p>Remember Type I errors are determined by the <em>significance
+level</em>, and denote <em>falsely rejecting</em> <span class="math inline">\(H_0\)</span> (False Negative)</p>
+<p>Type II errors is <em>falsely accepting</em> <span class="math inline">\(H_0\)</span> (False Positive), and this error
+depends on the <strong>TRUE</strong> <span class="math inline">\(\mu\)</span>. Calculated by:</p>
+<ul>
+<li>Determine critical point for <span class="math inline">\(H_0\)</span></li>
+<li>Look at distribution of TRUE <span class="math inline">\(\mu\)</span></li>
+<li>Calculate probability of TRUE <span class="math inline">\(\mu\)</span> distribution falling within critcal
+region.</li>
+<li>For figure see Lecture 12 slide 22.</li>
+</ul>
+</div>
+<div id="significance-test-of-population-proportion" class="section level3">
+<h3>Significance Test of Population Proportion</h3>
+<p>When we specifically want to test whether two samples represent the
+same true proportion. F.ex. proportion of college graduates without
+health compare or proportion of population having tried weed etc.</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span> : <span class="math inline">\(p = p_0\)</span> : <span class="math inline">\(p\)</span> or <span class="math inline">\(\hat{p}\)</span> denotes our dataset proportion,
+<span class="math inline">\(p_0\)</span> is what we’re testing
+against</li>
+<li>Alternative Hypothesis : &lt; , != , &gt;</li>
+<li>Test-statistic Z follows a standard normal distribution under <span class="math inline">\(H_0\)</span>: <span class="math display">\[Z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0) /
+n}}\]</span></li>
+</ul>
+<p><strong>R-usage</strong></p>
+<pre class="r"><code>x &lt;- c(60)
+n &lt;- c(100)
+prop.test(x,n,p=0.8,alternative=&#39;less&#39;,conf.level=0.95)</code></pre>
+<ul>
+<li>x : successes in sample(s)</li>
+<li>n : total trial in sample(s)</li>
+<li>p : TRUE proportion</li>
+<li>alternative : ‘less’, ‘greater’ or ‘two.sided’ (than given p)</li>
+<li>conf.level : confidence level to test with</li>
+</ul>
+</div>
+</div>
+<div id="t-test" class="section level2">
+<h2>T-test</h2>
+<p>When doing t-tests we test for a type of equality, seeing whether a
+given sample ressembles a specific quantity we are looking for.</p>
+<div id="one-sample-t-test" class="section level3">
+<h3>One Sample T-test</h3>
+<p>When modelling one sample, we usually wish to see whether the
+hypothesis of the mean of the samples is reasonably within scope of a
+particular distribution mean.</p>
+<div id="normal-data---unknown-variance" class="section level5">
+<h5><strong>Normal Data - Unknown Variance</strong></h5>
+<p>We state <span class="math inline">\(H_0\)</span> : <span class="math inline">\(\mu = \mu_0\)</span> against <span class="math inline">\(H_1\)</span> : <span class="math inline">\(\mu
+\neq \mu_0\)</span></p>
+<p>We use the studentized mean given by: <span class="math display">\[T=\frac{\bar{X}_n - \mu_0}{S_n /
+\sqrt{n}}\]</span> Which has a <span class="math inline">\(t_{n-1}\)</span> distribution under <span class="math inline">\(H_0\)</span>, which means all we do is:</p>
+<ul>
+<li>Calculate value of test statistic for our sample</li>
+<li>Calculate probability of T under t-distribution of <span class="math inline">\(H_0\)</span></li>
+</ul>
+</div>
+<div id="non-normal-data" class="section level5">
+<h5><strong>Non-Normal Data</strong></h5>
+<p>We Bootstrap to <em>approximate</em> the distribution of the
+<em>studentized mean</em></p>
+<p>For each bootstrap, the studentized mean will be: <span class="math display">\[t*=\frac{\bar{x}_n^* - \bar{x}_n}{s_n^* /
+\sqrt{n}}\]</span> From these studentized means we can create a
+<strong>decision rule</strong> for when we will accept/reject <span class="math inline">\(H_0\)</span> based on the studentized mean.</p>
+</div>
+<div id="large-datasets" class="section level5">
+<h5><strong>Large Datasets</strong></h5>
+<p>For large datasets, we can assume test-statistic T to follow the
+<span class="math inline">\(t_{n-1}\)</span> distribution (as for normal
+data).</p>
+</div>
+</div>
+<div id="two-sample-t-test" class="section level3">
+<h3>Two Sample T-test</h3>
+<p>This is used for comparison between two samples - i.e. we want to
+determine whether their distributions have the same mean.</p>
+<ul>
+<li><span class="math inline">\(T_p\)</span> : Pooled
+Test-statistic</li>
+<li><span class="math inline">\(T_d\)</span> : Non-Pooled
+Test-statistic</li>
+<li><span class="math inline">\(\bar{X}_n\)</span> : Sample mean of
+samples from random variable X</li>
+<li><span class="math inline">\(\bar{Y}_m\)</span> : Sample mean of
+samples from random variable Y</li>
+<li><span class="math inline">\(S_p^2\)</span> : Pooled Variance</li>
+<li><span class="math inline">\(S_d^2\)</span> : Non-Pooled
+Variance</li>
+<li><span class="math inline">\(n\)</span> : number of samples from
+X</li>
+<li><span class="math inline">\(m\)</span> : number of samples from
+Y</li>
+<li><span class="math inline">\(S_X^2\)</span> : Sample Variance of
+X</li>
+<li><span class="math inline">\(S_Y^2\)</span> : Sample Variance of
+Y</li>
+</ul>
+<div id="normal-data---equal-variance-t-test" class="section level5">
+<h5><strong>Normal Data - equal variance (t-test)</strong></h5>
+<p>When the variances of the two random variables are the same. We use
+<strong>pooled</strong> variance: <span class="math display">\[T_p=\frac{\bar{X}_n - \bar{Y}_m}{S_p}\]</span>
+<span class="math display">\[S_p^2=\frac{(n-1)S_X^2 + (m-1)S_Y^2}{n+m-2}
+\left( \frac{1}{n} + \frac{1}{m} \right)\]</span> follows a <span class="math inline">\(t_{n+m-2}\)</span> distribution under <span class="math inline">\(H_0\)</span></p>
+</div>
+<div id="normal-data---unequal-variance-welchs-t-test" class="section level5">
+<h5><strong>Normal Data - unequal variance (welch’s
+t-test)</strong></h5>
+<p>When the variances of the two random variables are NOT the same. We
+use <strong>non-pooled</strong> variance: <span class="math display">\[T_d=\frac{\bar{X}_n - \bar{Y}_m}{S_d}\]</span>
+<span class="math display">\[S_d^2=\frac{S_X^2}{n} +
+\frac{S_Y^2}{m}\]</span> follows a <span class="math inline">\(t_v\)</span> distribution under <span class="math inline">\(H_0\)</span>, where v is given by: <span class="math display">\[v=\frac{\left( \frac{S_X^2}{n} + \frac{S_Y^2}{m}
+\right)^2}{\frac{S_X^4}{n^2(n-1)} + \frac{S_Y^4}{m^2(m-1)}}\]</span></p>
+</div>
+<div id="non-normal-data---equal-variance-pooled-bootstrap" class="section level5">
+<h5><strong>Non-Normal Data - equal variance (pooled
+bootstrap)</strong></h5>
+<p>We use bootstrapping to estimate the distribution of the studentized
+mean. Thus we calculate <span class="math inline">\(t_p^*\)</span> for
+each bootstrap, as follows: <span class="math display">\[t_p^* =
+\frac{(\bar{x}_n^* - \bar{y}_m^*) - (\bar{x}_n -
+\bar{y}_m)}{s_p^*}\]</span> <span class="math display">\[(s_p^*)^2 =
+\frac{(n-1)(s_X^*)^2 + (m-1)(s_Y^*)^2}{n+m-2} \left( \frac{1}{n} +
+\frac{1}{m} \right)\]</span> Once we have obtained a ditribution
+estimate, we can determine the bootstrap approximations of
+<strong>critical values</strong>, and determine whether <span class="math inline">\(T_p\)</span> (see Normal Data - equal variance) is
+within this range.</p>
+</div>
+<div id="non-normal-data---unequal-variance-unpooled-bootstrap" class="section level5">
+<h5><strong>Non-Normal Data - unequal variance (unpooled
+bootstrap)</strong></h5>
+<p>We use bootstrapping to estimate the distribution of the studentized
+mean. Thus we calculate <span class="math inline">\(t_d^*\)</span> for
+each bootstrap, as follows: <span class="math display">\[t_d^* =
+\frac{(\bar{x}_n^* - \bar{y}_m^*) - (\bar{x}_n -
+\bar{y}_m)}{s_d^*}\]</span> <span class="math display">\[(s_d^*)^2 =
+\frac{(s_X^*)^2}{n} + \frac{(s_Y^*)^2}{m}\]</span> Once we have obtained
+a ditribution estimate, we can determine the bootstrap approximations of
+<strong>critical values</strong>, and determine whether <span class="math inline">\(T_d\)</span> (see Normal Data - unequal variance)
+is within this range.</p>
+</div>
+<div id="large-samples" class="section level5">
+<h5><strong>Large Samples</strong></h5>
+<p>When samples are large, <span class="math inline">\(T_p\)</span> and
+<span class="math inline">\(T_d\)</span> follow a standard normal
+distribution under <span class="math inline">\(H_0\)</span></p>
+</div>
+</div>
+</div>
 </div>
 
 
