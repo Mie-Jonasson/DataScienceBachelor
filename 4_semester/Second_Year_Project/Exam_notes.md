@@ -259,11 +259,133 @@ We can define two main groups of tags when we consider part-of-speech:
     - symbols (#, @, $, %, :D)
     - X (miscellaneous!)
 
+---
 ### *How do i use words as features?*
 The simplest way of encoding words as features is to use something similar to the concept of One-Hot Encoding. I.e. we create a vector of 0's in the length of the vicabulary (i.e. unique words), and for each sentence we put a 1 for those tokens that are present in the set of tokens. 
 
 This method is called **Bag-of-Words**, as we disregard the context of the tokens and any ambiguity of word meanings. If we encounter spelling mistakes or unknown words, we quickly fail to have proper support... but natural language is incredibly *sparse* - i.e. few very frequent words, many rare words (**Zipf's law**)
 
+---
+### *How does Machine Learning in NLP differ from other areas?*
+We have been used to model either *regression* problems or *classification* problems when we work with predictors, but sometimes we have a more complex type of prediction. 
+NLP is just that type of area, where we might want to predict a word to a class, but do it for a **whole sequence** and take *contextual information* into account as well! 
+F.ex. we might even attempt to classify an **entire text** to a class, i.e. spam / not spam.
+
+But, like all other prediction tasks, we consider two main types of features:
+- *High-level* : also referred to as "engineered" features, as they are based on assumptions and hypotheses created by ourselves. These are very task-dependent!
+- *Low-level* : any features we can derive directly from the source, but we still need to pick and choose what makes sense for the model to consider!
+
+---
+### *Describe Bag-of-Words, Lemmatisation and Stemming in short*
+**Bag-of-Words** is the approach for which we consider only the set of words representing a sequence or text, keeping counts but disregarding all other information. We might also consider **Bag-of-N-grams** as a possible improvement introducing mroe granularity and context (but also sparsifying occurrences!).
+
+Both *Lemmatisation* and *Stemming* is useful for reducing the vocabulary size, as words of the same origin are often used in similar meaning.
+**Lemmatisation** is when we reduce words to their (dictionary) base form.
+**Stemming** is when we remove endings following a particular set of rules to *approximate* lemmas.
+
+---
+### *Tell me a bit about N-grams and basic Embeddings*
+**N-grams** is a spin-off on how we considered individual words (tokens) as features - now we simply consider small *sequences of n tokens*, often depicted in tuples or similar.
+
+**Embeddings** on the other hand, is where we provide a vector of numbers as a representation for each word / token. This vector is randomly initialised and updated during training by f.ex. a neural network (using gradient descent)!
+
+---
+### *Describe some basic classifiers for Sequence Labelling*
+When we had machine learning we learned about **Bayes Optimal Classifier** -> the classifier that classifies to the class with the highest probability. We want to simplify this to a **Naive Bayes** by assuming features as independent -> a word occurring is not dependent on other words occurring.
+
+When we fit our Naive Bayes Classifier we fit it to the training data using maximum likelihood (i.e. we find the parameters providing the highest likelihood of our training corpus). Remember this from applied stats? 
+**Note** that decision boundaries of Naive Bayes are *linear*!
+
+Instead of modelling joint distribution (as above) we might want to simply model **conditional distributions**. I.e. we model the probability of a class given the features. This might f.ex. be a **logistic sigmoid** where we model the probability of a class. Due to our independence assumptions we simplify p(y|X) for each xi to be p(y|xi).
+
+Remember to use **regularisation** to avoid overfitting to specific features - i.e. a rare word will be strongly associated with a single category, and rare words are inevitable (zipf's law). To use regularisation we simply add a penalty to the loss function to penalise high coefficients! (remember, from machine learning?)
+
+---
+### *How can i use N-grams for Language Modelling?*
+First of the first questions should probably be... what is a *Language Model* even? I'm glad you asked! Usually we define language models as those that solve one of two related tasks:
+- Computes the probability of an entire sentence
+- Computes the probability of an upcoming word (i.e. to find the most likely continuation of the current unfinished sentence)
+
+It is generally used for either figuring out how likely a particular sentence is compared to another, or for similarly comparing several words to find the best continuation of the current sentence.
+
+What a language model does is compute the **probability of seeing a sequence of words**. we use the *chain rule* to determine that:
+- P(w1, w2, ... , wd) is equal to
+- P(w1) * P(w2 | w1) * P(w3 | w1, w2) * ... * P(wd | w1, w2, ..., w(d-1))
+- In simpler words: for each word in a sequence we calculate it probability, given the history; P(w|h)
+
+To get around having to find all possible histories (not feasible!) there are several solutions:
+- **Count-based Language Models** (traditional)
+    - We use the Markov assumptions to estimate parameters! (read more in the next section)
+- **Neural Language Models** (modern)
+    - Will be covered in later parts
+
+---
+### *What is the Markov Assumption and how are they used for sequence labelling?*
+Firstly, we'll have a look at what the **Markov assumption** is;
+- Follows the idea of N-grams!
+- We can approximate the history by looking solely at the last few words. (This is the Markov Assumption)
+- I.e. we decide on an *n*, and then we only consider the last *n-1* tokens of history! (truncate history)
+
+The most basic we can consider then, is of course the **1-gram (unigram) Language Model**, but this will only consider the probability of the word itself (likely leading to some pretty interesting sentences if used to predict further words). We might also consider **Higher-order LMs** where we might f.ex. consider bi-grams or trigrams or words.
+
+With the Markov assumption and a specific order of n-gram decided we can estimate paramters in a **count-based** method. We do this by using the count of occurences of each (n-1)-gram and n-gram!
+This is used to calculate the fraction: 
+- count(n-gram) / count(related (n-1)-gram)
+
+---
+### *How do i evaluate my Language Model?*
+WE might consider one of two possible ways of evaluating performance: 
+- **extrinsic** evaluation : we look at improvements in downstream tasks
+- **instrinsic** evaluation : we look at improvements in the model itself
+
+We want to consider **perplexity** for *intrinsic* evaluations. 
+Perplexity is the *inverse probability of the test set, normalized by the number of words. The lower the score, the better (ranges from 1 to infinity!) 
+Beware of cheating yourself, as a higher n-grams will give you better perplexity on training data, but also not generalize too well on dev or test data! What it does mostly, is become a parrot and repeat the exact phrases you gave it! Overall here are some pointers:
+- Higher n-grams give higher perplexity (on training data at least!)
+- Perplexity approximates the average number of choices for each word position
+- perplexity is undefined for words not in the vocabulary.
+
+---
+### *How should I handle Out-of-Vocabulary (OOV) Tokens?*
+Let's think of some overall solutions:
+- Remove unseen words from test corpus (nope!)
+- Replace unseen words with an \<UNK> token!
+    - Method 1: all words with less than *n* occurences -> UNK
+    - Method 2: define vocabulary first, then mark all unseen words UNK
+- Move probability mass to unseen words! (Smoothing)
+
+Smoothing solves the problem of overestimating probability of seen words and underestimating probability of rarer words. We might consider several methods of smoothing depending on our use case:
+- Laplace Smoothing: Add-1 estimate (add 1 count to each occurence)
+    - Mass is assigned uniformly
+- Interpolation: use P((n-1)-gram) to estimate P(n-gram).
+    - This is equal to using the *back-off* (n-1) model :D
+
+---
+### *Please explain Markov Chains (and Hidden Markov Models)*
+**Markov chains** describe a set of items Q with a matrix of transition probabilities A and initial probabilities pi. Markov chains can be defined for Part-of-Speech tags in their sequential order, to model how on type **transitions** to another.
+In Part-of-speech tagging we also consider the chain to start at the begginning token 'start' and finish at the end token 'stop'.
+
+But where do transition probabilities (A) and initial probabilities (pi) come from? we simply **estimate probabilities** based on a human-annotated dataset in the target domain!
+We estimate probabilities by dividing a probability mass of 1 between all outgoing links of a node, depending on the count of occurrences where the destination node type follows the initial node type in a sequence.
+
+We introduce **Hidden Markov Models** as the model that, given a sentence, will compute the most likely sequence of labels for the observation. This model has two assumptions:
+- Words only relate to their label, and not to previous words / labels.
+- bi-gram assumption: tags are only dependent on the 1 preceding tag
+
+---
+### *How does Viterbi algorithm work?*
+Viterbi uses Markov chains and Markov assumption, and is therefore a quite efficient algorithm. When we compute the algorithm we often choose to use *negative log probabilities* as they have higher precision and are more efficient (add instead of multiply!)
+
+For Viterbi we take one token at a time, considering every possible path. For each "path" we note:
+- P(w|t) : emission probability - probability of word having the tag
+- P(t|t(at -1)) : transition probability - probability of tag given previous tag
+- P(h) : probability of history (starting tag = 1, otherwise the probability of the path "thus far" at the previous step)
+
+Once we have al of these for a specific node and a specific path, we add them together to produce a probability. At each node (after step 1) we will highlight the path with the highest probability (smallest log-probability) and specify this as the most likely path up to and including the tag defined. See below pictures for example:
+![](figures/viterbi_example.PNG)
+![](figures/viterbi_example_cont.PNG)
+
+Note, that in the end we have only one link to the "stop" marker, end then we will backtrack our link to "start" to produce the most likely sequence!
 
 
 
