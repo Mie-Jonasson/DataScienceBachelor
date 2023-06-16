@@ -151,6 +151,16 @@ Some common metrics that we should consider:
 
 
 
+
+
+
+
+
+
+
+
+
+
 ---
 ---
 ## PART II - Data Collection and Basic Modelling
@@ -410,10 +420,117 @@ Note, that in the end we have only one link to the "stop" marker, end then we wi
 
 
 
+
+
+
+
+
+
 ---
 ---
 ## PART III - Basic Embedding based Methods (+Bias)
 Lectures: 6-7 + 13
+
+---
+### *How are FFNN's used with language?*
+Using Feed Forward Neural Networks (FFNNs) is often referred to as **Deep Learning** - as we use networks with many layers.
+Previously, NLP machine learning techniques have been cenetered around high-level features derived in a certain way and defined based on domain knowledge. 
+
+The **new order** of machine learning in NLP relies less on engineered features, and instead *build neural networks* which take raw words and (hopefully) learn to induce features through training.
+
+**FFNNs in short:**
+- FFNNs are layered:
+    - *n* input features = *n* input nodes
+    - *k* hidden layers, with any number of nodes in each
+    - *m* output features = *m* output nodes (usually logistic for binary, softmax for multiclass)
+- All nodes in layer i and i+1 are connected by a signal. (**fully connected**)
+    - In each neuron incoming signals (x) are summed: z = w * x + b
+    - Then the sum is *activated*: a(z) 
+    - Activation function can be sigmoid, tanh, ReLU, Leaky ReLU
+- Networks are trained using **stochastic gradient descent**!
+    - Weights are initialised at random
+    - Updated during training **back-propagation**... (after a *forward pass* has produced a *loss*)
+    - using the derivative chain-rules (as we want the derivative in terms of the parameter we want to update!)
+
+The main **benefits** of neural networks:
+- *non-linearity* : we can make non-linear (more complex) decision boundaries
+- *representational power* : we can move to a higher representational power of the initial data. (in deed a layer of sum + activate can be seen as a *projection* of data)
+
+---
+### *How do i represent words for a Neural Network?*
+Previously we talked about **Bag-of-Words**, which is a *sparse binary* sentence representation, as it is a vector in the length of the vocabulary with only few non-zero entries! 
+This method might also be reffered to as *n-hot vector* encoding.
+We might even consider *Bag-of-N-Grams* or *Bag-of-Character-N-Grams* as further options for different granularity / generality.
+
+We move into the world of **word embeddings** which creates *dense continuous* feature representations. The idea is to create a vector with *d* features for every single word in the vocabulary, initialise the feature values at random and update them through training!
+The entire collection of word embeddings for the vocabulary is usually kept in a matrix **E** of size |V| * d.
+
+When doing a **look-up** to find a word embedding vector, we usually use a 1-hot encoding vector for the word, and multiply tis with the matrix E to obtain a single embedding vector.
+Since sentences are of **variable length** we need to consider how to project them down to a single vector of length *d*. We might consider:
+- **CBOW**: we simply sum word embedding vectors for the entire sentence
+
+---
+### *What is a CRF Layer?*
+FFNN's have a huge take back, as it is not equipped to consider surrounding predictions, and we want to find a way to consider context!
+
+CRF layers is a layer placed **on top of the network** -> before outputting predictions, but after the last layer of activations... It considers the output from the network as *emission probabilities*, and withholds within itself the transistion probabilities. -> we can apply limitations by deciding on some label transistions having a probability of 0.
+
+CRF layers are *not available in PyTorch*
+
+---
+### *What is WordNet, and how does it help us model word meaning?*
+WordNet is a *thesaurus*. It is a **lexicon** containing word senses and relations between different word senses (i.e. both duck *the animal* and duck *the movement*). 
+Word senses are then grouped into **synsets**... or, sets of synonyms as a normal human being might say. 
+
+**from nltk.corpus import wordnet**
+- Each word has a varying number of synsets it might belong to, depending on the meaning. (some words have many, some few)
+- Each synset contains information about *definition* and *examples* as well as *hypernyms*
+- *hypernyms* are word senses that are more general but describe the same -> 'duck' might become 'bird' before it becomes 'animal' etc.
+
+The main **points of concern** for WordNet are:
+- The most common meaning is not correct in all contexts.
+- It is not kept up-to-date with how language evolves (new words, new meanings)
+- Does not support typos / variants of words
+- Human created - subjective and hard labor!
+- Mainly supports English
+
+---
+### *Contextual Embeddings - How does it work, and why?*
+The core idea of this comes from the fact, that meanings of words can often be derived by the words surrounding it - *the company it keeps*.
+We want to define a good representation as one that has distinct representations for each word, but also similar representations for words of similar meaning!
+
+First we want to establish how to measure **similarity** between two embedding vectors, to ensure that we excell at the goal!
+- **Hamming Distance** : We count (in slides, opposite original theory) the number of equal items in the vectors.
+    - Does not work for orthogonal vectors! (i.e. one-hot)... Distance is not defined for orthogonal vectors D:
+- **Cosine Similarity** : Cosine similarity bounds in the formula for calculating the angle between vectors. *(dot(v1,v2)/(len(v1)*len(v2)))*
+    - score of 1 = 0 degrees = identical
+    - score of -1 = 180 degrees = opposites
+    - score of 0 = 90 / 270 degrees = orthogonal
+
+The core concept of contextualized word embeddings is doing **unsupervised learning** on a large training corpus. But how do we do this?
+- **Count-Based** (traditional) : we represent a word by a vector of counts of occurrences in *d* unique documents. 
+- **Co-occurence** : We represent company of the word as a *context matrix* (entire document, paragraph, few words on either side...)
+    - This is also *count-based* method, as we count how many time word *b* occurs in the context surrounding word *a* (whether that be a paragraph, line or surrounding words)
+    - We often weight the counts using **PMI** : log2 ( P(W,c) / ( P(W) * P(c) ) )
+    - We might also use **Term Frequency - Inverse Document Frequency** (TF-IDF) that takes into account both the occurence of the word in the document and across documents.
+        - Is 'number of times term appears in document' * ('document count' / 'number of documents containing term')
+        - A higher score = less frequent and more significant to this document!
+
+**Word2Vec** is a neural network based embedding, where we turn the problem around to try to maximize: P(context|word). I.e. we want to maximize the probability of the context given the center word.
+In practice, we simply calculate the similarity of word vectors for center-word and surrounding context, which is what we attempt to maximize!
+
+We consider two algorithms for Word2Vec: 
+- *CBOW* takes context and predicts a word, 
+- *Skip-gram* takes a word and predicts context.
+    - Is done by producing one probability distribution for each word at position -2, -1, +1 and +2! (we use the SAME distribution no matter position!)
+    - we have a u-matrix for vocabulary words when used in context.
+    - we have a v-matrix for vocabulary words when used as center words.
+
+
+
+
+
+
 
 
 
