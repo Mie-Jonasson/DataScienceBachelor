@@ -555,8 +555,58 @@ We consider two algorithms for Word2Vec:
 
 ---
 ---
-## PART IV - Relation Extraction
+## PART IV - Relation Extraction (And CNNs)
 Lectures: 8
+
+---
+### *Can you give me a recap of challenges for FFNNs?*
+The main 'inhibitor' for FFNNs, is that it needs input of a *specific size*, as nodes in the first hidden layer always need the same number of inputs. 
+Another problem is that *order is not considered* in a regular FFNN, and this might make a huge difference!
+Also, deep neural nets have a *large magnitude of weights* that we need to tune during training time.
+
+---
+### *What are the basics of CNNs?*
+The idea behind CNNs comes from the computer vision field, and is especially useful for working with 2-dimensional data (matrices / images). 
+
+Essentially we use *convolutional layers* to convolute our input from it's starting size down to a fixed-size vector representation.
+In each convolution we apply a several **filters** to create several different filtered images, followed by **pooling** to combine them together.
+
+When applying **filtering**, we use a smaller matrix and multiply + sum over the image to create new output numbers that are a combination of the previous numbers.
+For filtering, we have two more concepts to consider:
+- **stride** : how much do we shift the filter at each step?
+- **padding** : layers of zeros added around the image (often used to avoid removing dimensions)
+
+When applying **pooling** we reduce the spacial size of the feature maps by *extracting dominant features*. A pooling layer looks at a specific part of the image, and aggregates the numbers in that part - max pooling and average pooling are popular choices.
+
+![](figures/cnn_setup.PNG)
+
+---
+### *Now that you told me about CNNs for images, how does this apply to text?*
+When we obtain embeddings for the words on a sequence, we can concatenate them into a matrix, simulating a similar case of the images described. Usually we handle filtering a bit differently, as we define the *size of the filter* as follows:
+- Width : is equal to the length of the embedding
+- Height : is equal to the number of words to look at in the sequence
+
+After filtering, we will apply pooling in a similar fashion as we did for images, following a structure similar to:
+
+![](figures/text_cnn_example.PNG)
+
+---
+### *Okay, makes sense thus far... but you also mentioned Relation Extraction?*
+Yes, we consider Relation Extraction (RE) as a task applied *after* Named Entity Recognition (NER), as we are trying to establish relation between entities. In a classical example we might consider RE as divided into two sub-categories:
+- **Relation Identification** : We identify that a relation is present between two entities.
+- **Relation Classification** : We establish what type of relation is present.
+
+When we evaluate Relation Extraction we might follow three different conventions, following how strict we want to be when we establish a prediction is 'correct'. All include predicting the relation type correctly, but apart from this:
+- *strict evaluation* : boundaries of spans as well as entity types are correct
+- *boundaries evaluation* : boundaries of spans are correct
+- *relaxed evaluation* : >1 token per entity span is correctly typed
+
+For metrics we might consider:
+- *macro-F1* : how much the model learn of each class
+- *micro-F1* : how the model performs in general
+
+
+
 
 
 
@@ -587,6 +637,36 @@ Lectures: 8
 ## PART V - Neural Language Models
 Lectures: 9-10
 
+---
+### *What is the idea behind Neural Language Models?*
+In general, language modelling is about learning a probability distribution over sequences of words. This means, that models will be able to distinguish some sequences as more likely than others, and generate plausible text.
+
+We talked about **Hidden Markov Models** as an N-gram estimate of modelling the entire sequence (i.e. instead of looking at entire history, we estimate history by the n-1 preceding words)
+For this we discussed estimating the parameters using a Count-based method, optionally applying smoothing like Kneser-Ney, Witten-Bell or simple Laplace.
+
+When we think of generating sequences of words following the markov assumption estimate, we create a **neural network** for which the input is the embedding vectors of the n-1 words, and we want to predict word n! See below picture for vector / matrix sizes :D
+
+![](figures/neural_lm.PNG)
+
+When we train our neural net we use **Cross-Entropy** (*Negative log-likelihood*) as our loss-function. (i.e. minimize L=-log('probability of correct word'))
+Weights of the network are updated through *stochastic gradient descent* during the back-propagation step following a forward pass.
+
+---
+### *Talk to me about Recurrent Neural Networks*
+Recurrent Neural Networks is the first solution we have seen to the problem of needing input to neural nets to be of a fixed size (i.e. markov models / convolutional).
+Neural networks are able to take **un-bounded input** without Markov Assumptions or other simplifications like this.
+
+The idea bounds on a simple idea that we know well: looping over the sequence, saving some sort of **current state** and having some function to update the current state based on the item in the sequence. 
+The **function** to update the state takes as input the current state and the next item in the sequence. Calculation functions for a single reccurrent step can be seen in below image. Note that the parameters contained in *U* are the same for each recurrent step.
+ ![](figures/rnn_calculations.PNG)
+
+ When **back-propagating**, we should be aware of reccurently backpropagating through the looped history to update but *U*, *V* and *W*.
+
+ Since we are producing an **output state** at each recurrent step, we will need some way of aggregating these;
+ - **last state** : we simply take the last state of the row as a sentence encoding.
+ - **state aggregate** : for each element we do max or average pooling to obtain a summary sentence encoding.
+ - **output as input to NN** : we might use the output of the RNN in a further NN!
+ - **loss at every time step** : we might use it for sequence labelling and calculate loss at each timestep and sum these.
 
 
 
