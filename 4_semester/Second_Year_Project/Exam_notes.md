@@ -564,6 +564,8 @@ The main 'inhibitor' for FFNNs, is that it needs input of a *specific size*, as 
 Another problem is that *order is not considered* in a regular FFNN, and this might make a huge difference!
 Also, deep neural nets have a *large magnitude of weights* that we need to tune during training time.
 
+Remember that **regularisation** is an important consideration, as all Neural Nets are prone to overfitting. We can use something called 'weight decay' (*l2-regularisation*), but for neural nets we prefer to use *drop-out* during training! **drop-out** is performed in practice by setting some probability *p* of any hidden node randomly returning 0 no matter the input. (but do not apply drop-out on recurrent layers...)
+
 ---
 ### *What are the basics of CNNs?*
 The idea behind CNNs comes from the computer vision field, and is especially useful for working with 2-dimensional data (matrices / images). 
@@ -667,6 +669,47 @@ The **function** to update the state takes as input the current state and the ne
  - **state aggregate** : for each element we do max or average pooling to obtain a summary sentence encoding.
  - **output as input to NN** : we might use the output of the RNN in a further NN!
  - **loss at every time step** : we might use it for sequence labelling and calculate loss at each timestep and sum these.
+ - **As an auto-regressive model** : where the predicted 'next word' is input to the model at the next time-step.
+
+ We might also consider using **Bi-directional RNNs**, for which we do both a forward and backward pass through the sequence. At each position in the sequence, we now have two states (one for each pass)!
+ 
+ Another spin-off are **Stacked RNNs** for which we expand bi-directional RNNs into several layers, using the output states of one layer as input to the next layer.
+
+---
+### *Why do I need to worry about vanishing / exploding gradients?*
+When we are working with really deep or wide networks, we might encounter a problem commonly known as *vanishing / exploding gradients*. 
+The problem appears in back-propagation due to the amount of parameters to tune. (The further back we derive our loss, the less is left)
+
+---
+### *Please describe Gated Recurrent Units (GRU)*
+Gated RNN architectures are different from 'vanilla' RNNs on two main factors: 
+- They have a separate memory, independent of the hidden state
+    - Thus, effectively splitting the task of carying on memory of the state and producing local information.
+- They control information flow through gates... memory updates are *selective*
+
+In a simplified view of **GRU**, we simply consider whether we want to overwrite the currently saved memory at each time step, only doing it if a value meets some criteria. View below simplified figure for explanation:
+![](figures/gru_architecture.PNG)
+
+As GRU does not always update the memory *c*, it helps limit the problem of vanishing gradients!
+
+---
+### *Please describe Long Short-Term Memory (LSTM)*
+LSTM is different from GRU, as it has several different types of gates, namely:
+- **forget gate** : what is kept and forgotten from the state
+- **input gate** : what new cell content is written to cell
+- **output gate** : what part of new cell content is written to hidden state
+
+![](figures/lstm_architecture.PNG)
+![](figures/lstm_functions.PNG)
+
+Gates are sigmoid functions that are used in calculations, so they are not solely 'open' or 'closed' but can be open to some degree (0.2, 0.6, 0.9,...)
+
+---
+### *Please describe the Attention Model*
+So far we have talked about using the last hidden state that was outputted as some kind of estimate of the entirety of a sentence. This is fra from reality, as long-range information is easily lost in the numbers.
+
+The core idea of **Attention** is, that we should find a way to attend to the most relevant hidden states from the sequence.
+We do this by creating a **weighted linear sum** of all of the hidden states, with *attention weights*. The attention score is calculated by some function taking the hidden state and a query vector.
 
 
 
