@@ -734,6 +734,47 @@ We do this by creating a **weighted linear sum** of all of the hidden states, wi
 ## PART VI - Contextualized Language Models
 Lectures: 11-12
 
+---
+### *Why do we even need Contextualized Embeddings?*
+So far all our methods only support having a single embedding per token... meaning, the token 'duck' will be represented by the same embedding vector no matter if it's used to describe the bird or the movement.
+
+We want to figure out a way to use the context that the word is used in, and derive meaning from that as well when producing an embedding vector. That is exactly what **Deep Contextualized Embeddings** is about; producing embeddings for words based on the not just the word itself, but also the context. (Embeddings as *functions of the entire input sentence*)
+
+---
+### *Explain to me, how i can use character embeddings to obtain token embeddings?*
+Sometimes keeping track of embeddings for every single word is too tedious and space consuming (and does not do well with spelling mistakes etc.)!
+What can we do? we can base our word embeddings on some sort of output we can produce based on character embeddings (as there is usually a rather fixed amount of characters, or at elast the set is smaller).
+
+The main idea is that we:
+- Find the **embeddings for each character** in a token, and concatenate them as a matrix
+- use **padding** on the right and left side (example: 3)
+- Apply **filters** with fixed height, but varying width from (example: 5) and decreasing by 1. 
+- After applying filters, we use **pooling** to find an aggregate value from each filter result.
+
+View below image for the result while seeing the last filter as applied. The resulting aggregate values are then put through a FFNN to produce an embedding vector:
+![](figures/character_embed.PNG)
+
+
+---
+### *What is 'Embeddings from Language Models' (ELMo), and how does it work?*
+ELMo is one of these Deep Contextualized Embedding Models. 
+ELMo uses one of the methods we already talked about as it's base, as it is based on **Stacked bi-LSTM hidden states**. View the below image for further details, and note that the hidden state produced in each direction of the LSTM is concatenated into a single vector for each layer of bi-LSTM:
+
+![](figures/elmo_stacked_bi-lstm.PNG)
+
+When we **train ELMo**, we use the hidden states from the last layer to put through a FFNN and predict the word (i.e. we want to minimize cross-entropy loss) **NOTE** that in practice we do this by *removing a word* and producing the vector by previous and following words;
+
+![](figures/elmo_train.PNG)
+
+Usually, we train ELMo on a huge training corpora, and then we **fit task-specific parameters** to a dataset for tuning (few-shot learning) i.e. we tweak task parameters as seen in the below image. The parameter 'gamma' and 's' can be learnt while training the model that uses the embeddings to produce predictions!
+
+![](figures/elmo_tuning.PNG)
+
+**Takeaways**:
+- Context is used both during training, but also in the final model (during inference)!
+- Contextualized token embeddings are based on *hidden states of deep BiLSTM*
+- *Scaling and layer weighting* is the only things that are updated towards solving a task. 
+
 
 
 
