@@ -526,6 +526,45 @@ We consider two algorithms for Word2Vec:
     - we have a u-matrix for vocabulary words when used in context.
     - we have a v-matrix for vocabulary words when used as center words.
 
+---
+### *Now, talk to me about Bias in NLP!*
+#### **Terminology**
+- Bias is not neccessarily bad - it is often un-intended, but they can be useful!
+- We might have some expectations, but we should not only rely on expectations.
+- There might be *outcome disparity* : the produced predictions are biased (f.ex. predicting gender based on setting)
+- There might be *error disparity* : the predictions for some demographics are more correct than for other demographics. (f.ex. newspapers written by men vs. twitter data)
+- We might also distinguish between *Normatively Wrong* (what we WANT) and *Descriptively Wrong* (comparison to FACTS)
+- NLP has un-intended uses as it often enhances stereotypes
+
+#### **Sources** (5 ways!)
+- *Data* - who does the data represent? Spoken or written by specific people
+    - *Selection Bias* - how we use language varies a lot! 
+    - Data represents an artificial sample... system assumes that what we provide is the standard for language!
+    - We might try to include demographic information and create separate encoders for each demographics (demographically aware models)
+    - We might try to include a more representative sample set... but language always changes over time! (But the best we can do, is to be honest about the data in a *data statement*)
+- *Annotate* - who annotates the data? mood/energy levels, biases, own agendas etc.
+    - *Annotator Bias* : annotators might disagree, as their background knowledge is different! (there is no single truth...)
+    - Annotators always try their best, but they follow their frame of reference!
+    - We might try training annotators even better! give them examples of different dialects...
+    - If clever annotators *systematically* disagree on a specific type of annotation, this might indicate ambiguity! (and we can use this to not penalise the model for ambiguous annotations :)
+- *Representations* - embeddings / encoding
+    - Sometimes we might have vector space biases (director is to man, as secretary is to woman...)
+    - We might try moving a vector, but it doesn't really change anything... the biases originates from the way we talk and write about things -> i.e. biases come from societal notions and stereotypes.
+    - We might try just accepting it, and learning from it.
+- *Models* - input and objective functions
+    - *Overamplification* : once the model 'learns a trick' it will repeat it over and over. 
+    - Models assume data is representative and annotations are reliable! It might find short-cuts that gives good performance (but consequently rely on modelling negative stereotypes!)
+    - Funny: Translators 'makes you sound like your father' (older and more male XD)
+    - We might try *ILP* - constraining the model to not overestimate one category over the other
+    - We might try an *Adversarial model* that tries to predict things like age, gender or location.... and then we *punish it for being correct* (i.e. reverse the gradient)
+- *Design* - who is designing the entire set-up / making all the decisions?
+    - Be honest about what data and how your model applies - give the reader your data and your model for testing reproducibility
+    - Be aware of your user and how it generalizes for a user else-where! What are consequences? How will it be used by people you don't know?
+
+#### **Consequences**
+
+#### **Countermeasures**
+
 
 
 
