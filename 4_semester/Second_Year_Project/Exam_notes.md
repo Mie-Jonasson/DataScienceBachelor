@@ -775,34 +775,60 @@ Usually, we train ELMo on a huge training corpora, and then we **fit task-specif
 - Contextualized token embeddings are based on *hidden states of deep BiLSTM*
 - *Scaling and layer weighting* is the only things that are updated towards solving a task. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
----
----
-# HIGHLIGHTS
+### *Tell me a bit about Bidirectional Encoder Representations from Transformers (BERT)*
+BERT is often used for transfer learning tasks within NLP. BERT is traditionally considered as having the following parts to be defined:
+- **Tokenization**
+- **Input Embeddings**
+- **Encoder (transformers)**
+- **Masked Language Modeling**
+- **Fine-tuning**
+
+To consider **Tokenization**, BERT uses tokenization to describe something else that what we usually describe. Tokenization for BERT generally consists of:
+- *NFD Normalization* : Decompose characters consisting of several items "Å" into it's subparts (accents are removed). Note that "do not" might become "don't" if the parameter 'use_fast' is true.
+- *Separate Punctuation and Convert Whitespaces*
+- *Subword Segmentation* : a process of creating a vocabulary of subwords.
+    - Start with vocabulary of all characters. (non-start characters should eb prefixed with '##')
+    - Rank all possible concatenations of subwords (by score defined as: (count(sub_1_2_together) / (count(sub1) * count(sub2))))
+    - The merge with the highest score is added to the subword-vocabulary
+    - Increase until desired vocabulary size is achieved.
+    - When *applying*; lookup from longest subword, until sequence is tokenized.
+- *Add Special Tokens*
+    - Special token [CLS] indicates the start of a sentence
+    - Special token [SEP] indicates the end of a sentence (for 2-sentence inputs, only a [SEP]-token is used in the middle)
+
+Here is an example of a BERT tokenizer versus a regular english tokenizer:
+![](figures/bert_tokenizer_example.PNG)
+
+To consider **Input Embeddings** we encode each *subword* by the index they correspond to. The input embeddings are produced as a sum of embeddings for different types of information; *token embeddings*, *segment embeddings* and *position embeddings*. See below example.
+![](figures/bert_embeddings.PNG)
+
+When we talk about **Encoding** or using a *BERT Encoder*, we use a model consisting of 12 transformer (encoding) layers. Each tranformer is some function mapping I -> O, and is based on *self-attention*.
+**Self-attention** is about figuring out what information from input to attend to, and we do this with three different sub-functions:
+- *Query* : what to focus on from current word?
+- *Key* : How important to context?
+- *Value* : What subword representation? (output)
+
+Each of these items is obtained through multiplying the embedding vector by a Weight matrix (Wq, Wk, Wv). View below image for further calculations on applying a transformer, along with the entire structure of a single transformer block:
+
+![](figures/bert_transformer_calculation.PNG)
+![](figures/bert_transformer_block.PNG)
+
+We might even consider **multihead self-attention**, for which we give the same input to n different self-attention transformers. Once we obtain the outputs they are concatenated and projected down to the original dimension.
+In fact, in BERT each of the **12 self-attention layers** contain **12 heads**.
+
+Here is an overview of BERT-base hyperparameters:
+- *Embedding size* : 768
+- *Transformers* : 12 layers x 12 self-attention heads
+- *max input length* : 512
+- *Vocab size* : ~ 30 000
+- *Masking* : 15%
+- *training steps* : 1 000 000
+- *batch size* : 128 000 tokens
+- *data* : Wikipedia / books
+
+**New Era of fine-tuning**:
+- common to update and tweak weights of the entire network.
+- replace 'subword prediction layer' with a FFNN for our target task.
+- *mBERT* (multilingual BERT) exists only on github (no publication) 
+    - because we cannot fine-tune to tasks not in English on regular BERT (english only!)
