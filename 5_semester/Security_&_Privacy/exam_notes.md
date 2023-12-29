@@ -221,3 +221,4 @@ Then one might create an attack tree and use pruning to eliminate threats define
 At this step we use the **Risk Management** strategies as described elsewhere to model the likelihood of each threat and move threats into a manegable likelihood and impact.
 
 #### Did we suceed?
+Who knows? lets start over!
