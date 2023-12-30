@@ -5,11 +5,13 @@ The reasons for learning abotu security and privacy is largely two-fold. We lear
 
 When considering protecting data that we work with we need to consider both storage, analysis and data management in general.
 
+---
 ### *What are the basic definitions when talking about security and privacy?*
 - **Cybersecurity**: "The process of protecting information by preventing, detecting and responding to attacks."
 - **Information**: "communication or representation of knowledge such as facts, data or opinions in any medium or form [...], that can be produced, processed or stored by any computer"
 - **Attack**: "Any kind of malicious activity that attempts to collect, disrupt, deny, degrade or destroy information system resources or the information itself."
 
+---
 ### *What different types of attackers might we consider, and what is their motivation?*
 #### Interpersonal
 Interpersonal attackers target individuals whom they know. They often lack resources and expertise, but are highly motivated in targeting the specific individual. Examples are cyberstalking, cyberbullying and doxxing.
@@ -23,6 +25,7 @@ Politically motivated attacks - often differing levels of expertise and levels o
 #### State Actors
 State-hired attackers with large amounts of ressources and expertise. Often goal is disrupting critical infrastructure to influence the political landscape in a target region.
 
+---
 ### *What are the basic goals relevant to Security?*
 - **Confidentiality**: Any information is kept secret and remains secret even with attackers trying to intercept / access.
 - **Integrity**: Any information is truthful and not altered / accessed maliciously.
@@ -30,9 +33,11 @@ State-hired attackers with large amounts of ressources and expertise. Often goal
 - **Authenticity**: Users are who they say they are.
 - **Accountability**: All actions can be traced to the source for remedial counteractions.
 
+---
 ### *Why is the attacker-defender relation asymmetrical?*
 When we create **security models** we need to think about what we believe an attacker would be able to do, and in this case also discounting protective means under the assumption of what an attacker cannot do. In this way, the defender needs to clsoe off all the ways the attacker might enter the system, while the attacker just ahve to find a single vulnerability and exploit it.
 
+---
 ### *What can you tell me about risk?*
 No system can be 100% secure against any attack, yet a secure system is secure against all plausible attacks. In order to decide what attacks are plausible and that we would like to protect against we use **Risk Estimation**. We might both use any quantitative measer or a qualitative risk matrix approach, yet the problem arises as both are often subject to uncertainty and complexity.
 
@@ -44,6 +49,7 @@ Once we have estimated the risk posed by each identified threat, we might utiliz
 - *Avoid*: Avoid having the risk manifest itself in the first place; i.e. worried about data leakage -> do not store any data.
 - *Transfer*: Pass the security concerns on to another vendor / person. Thus, the threat will be on their account to be protected.
 
+---
 ### *Can you name-drop the most important security principles?*
 - *Security by Design*: We ensure security is in place throughout development.
 - *Fail-safe Defaults*: Default settings should always be the most secure ones.
@@ -53,6 +59,7 @@ Once we have estimated the risk posed by each identified threat, we might utiliz
 - *Defense in depth*: Avoid a single point of failure.
 - *Seperation of Responsibility*: Split up privilege so no single person/device has complete power of a process and accesses.
 
+---
 ## Part I - Security
 ### *What is all this "adversarial mindset" about?*
 Often when designing or developing items or goods, we are mostly interested in what an item/service can do; i.e. we are interested in the *intended* use-functions of an item that solve some problem or challenge that we face. 
@@ -64,6 +71,7 @@ The **adversarial mindset** is about thinking the way an attacker would, as to p
 - *Capabilities* and *goals*: What do we expect the attacker to be capable of? How should we prioritize?
 - *Attack vectors* and *tools*: How do we mitigate the risks? what kind of attacks are we likely to be subject to?
 
+---
 ### *What is the Cyber Kill Chain?*
 The *Kill Chain* is a military concept, which focuses on *advanced persistent threat* models. The main idea is that a threat evolves over several necessary steps, and the defender might break any chain. The main steps of the cyber kill chain are:
 - **Reconnaissance**: Collecting information about the target to be used in possible future attacks.
@@ -88,6 +96,7 @@ Many criticise the kill chain for being too high level and not necessarily deter
 - *Mitre ATT&CK*: 14 tactics and 188 related techniques
 - *Unified kill chain*: has 3 high-level stages (in, through, out) and 18 detailed tactics for the stages.
 
+---
 ### *What is Cryptography and how is it relevant to the Security Goals?*
 Cryptography considers everything surrounding algorithms to encrypt and decrypt information. It is highly relevant to 2 out of the 3 security goals: *confidentiality* and *integrity*.
 
@@ -103,6 +112,7 @@ The **Cryptosystem** is a set of algorithms that can perform:
 - **Decryption**: Dec(cipher_text, key') -> message_text
 - **Key Generation**: KeyGen() -> key, key'
 
+---
 ### *What is Symmetric Encryption?*
 In symmetric encryption the key used to encrypt the message is the same that is used for decrypting the message. The key is secret and known to the people in communication, but the encryption/decryption mechanisms are public. The main challenge of symmetric encryption is that each person needs to store 1 key per communication channel the use, resulting in way too many keys!
 
@@ -121,6 +131,7 @@ Some Examples of symmetric encryption is:
     - DES (Broken) is an example of a block cipher
     - AES (Broken for some modes of operation). AES-CBC (cipher-block-chaining) works. other working: CFB (Cipher Feedback), CTR (Counter)
 
+---
 ### *What is Asymmentric Encryption?*
 Asymmentric encryptions relies on sender and receiver not needing to store the same key, and is largely based on *one-way functions*. 
 
@@ -146,6 +157,7 @@ Note that it is infeasible to find the secret key 'd' given that factoring N for
 
 The main **problems** encountered by RSA encryption is when the set of possible m is small: I.e. "Yes"/"No", names from a specific group of people, CPR Numbers.
 
+---
 ### *What can you tell me about Hash Functions and their utilization for Integrity?*
 Hash functions are one-way functions. For somethign to be a good function it needs to follow a set of minimum requirements:
 - **Easy to compute** H(m) given m
@@ -163,6 +175,7 @@ Builds upon the idea of asymmetric encryption, using algorithms:
 - Sign(message, sk) -> signed: can only be produced by the sender using their secret key
 - Verify(message, signed, pk) -> TRUE/FALSE: Verifies that message and signed have been produced using the secret key associated with a given public key.
 
+---
 ### *Tell me a bit about Authentication*
 There are three different levels at which we might consider verifying a user trying to access a resource:
 - *Identification*: "This is Alice"
@@ -185,6 +198,7 @@ When we talk about **Authentication** in Particular, we might consider three mai
     - Often more error-prone (false positives and negatives) - can be spoofed! Also, problematic as these are not "replaceable" in same way as a password or key-card might be!
     - Requires sampling of key features to create a template that best approximates those features.
 
+---
 ### *What about Access Control?*
 When we combine *Authentication* and *Authorisation* we end with **Access Control**. We might define the allowed accesses on various granularities considering:
 - *Discretionary Access Control*: For each user and each resource access rights are defined: very granular, but lacks flexibility!
@@ -192,6 +206,7 @@ When we combine *Authentication* and *Authorisation* we end with **Access Contro
 - *Role-Based Access Control*: Access Rights are associated to each role, and people can be assigned these roles to gain access to relevant resources.
 - *Attribute-based Access Control*: Access rights are determined based both on the subject, object and environment; i.e. does this individual who is X need access to Y for which Z and W are true? Very fine-grained!
 
+---
 ### *What is threat modelling?*
 Threat modelling is a general class of approaches towards security management, and can be used to model and prioritize different threats. the main questions we consider are cyclical as depicted below:
 
@@ -222,3 +237,189 @@ At this step we use the **Risk Management** strategies as described elsewhere to
 
 #### Did we suceed?
 Who knows? lets start over!
+
+---
+## Part II - Privacy
+### *Tell me about the Privacy Paradigms and their relevance to privacy concerns*
+Privacy is concerned with the protection of personal data in any and all cases, from processing to storage or analysis and more. We might consider three privacy paradigms as being integrate parts of these concerns:
+- **Confidentiality**: Protecting information against unwanted disclosure.
+    - Overlaps with security of data, as it is often about protection against attacks and non-authorised access.
+    - Might also concern derivation based on open data, for which it is an issue for privacy-preserving data analysis.
+- **Control**: Providing control over sharing one's data.
+    - Both concerning what data is shared and with whom, but also about purpose and further sharing.
+- **Transparency**: Providing transparency of data processing.
+    - User: information about the data shared, consequences and assurance of honoring controls provided.
+    - Authorities/Society: Being a trustworthy entity, open about how data is used, stored and processed.
+
+It should be noted that the different paradigms apply to certain contexts. Below is an overview of how some privacy related data fits into the paradigms:
+![](figures/privacy_paradigms.PNG)
+
+---
+### *Which Disclosure threats might be relevant to discuss for confidentiality?*
+A disclosure threat is related to a scenario for which private data is transferred, stored or processed. Consider the following scenarios:
+- **Trusted Curator**: You participate in a research survey, and thus transfer sensitive data to a trusted institution. The *threat* is data leakage! The following steps should further be considered:
+    - Encryption of the communication.
+    - Given Research Institution publishes data, we should consider that an individual might be identified by other attributes than just their name.
+
+#### Types of data
+When talking about disclosure threats it is very important to consider the different types of data, especially in research with publishing of open data:
+- **Sensitive non-identifyinf data**: The sensitive information about a person that an attacker might want to learn.
+- **Direct Identifiers**: Identifiers that are directly associated to an individual: name, social security no., fingerprint
+- **Quasi-identifiers / key variables**: Information about an individual that does not identify them in and of itself, yet in combination might reveal the identity of an individual.
+
+Further we might consider different types of data release:
+- Microdata (Raw data record, with each line representing an individual)
+- Tabular Data (Overview (Summary) statistics about number of people in the dataset havign a certain attribute value)
+- Query-based (Where one is able to get the results from an SQL-query or similar from the database)
+
+#### Types of disclosure
+There are different types of disclosure that we might wish to prevent, as they pose different types of threats to the data subjects / individuals.
+- **Identity Disclosure**: Identify an individual in a set of respondents. I.e. i figure out that this data record, is related to this real person Alice.
+- **Attribute Disclosure**: Learn previously unknown information about a person. I know this person is in the dataset, can i learn which disease they have? OR this un-identified individual has cancer.
+- **Membership Disclosure**: Identify whether a person is in the dataset. (A variant of attribute disclosure) Learn whether a person is present in the survey data or not.
+- **Inferential Disclosure**: Learn information about a person from data from others. I.e. study shows smokers are likely to have cancer -> Alice smokes -> Alice likely has cancer. *Not addressed by disclosure control*.
+
+---
+### *Which measures should i be aware of to avoid an adversarial performing succesful record linkage?*
+Record linkage happens when an attacker has some data about people and link records containing sensitive data to the data they have, effectively learning sensitive information about individuals.
+- **Sample Uniques**: Consider how many sample uniques are in the dataset considering different quasi-identifiers. Often Age / DoB will be the source of many sample uniques.
+- **Sample Frequency**: *x.f*: How many records within the sample have the same quasi-identifiers? Mimics the situation when an attacker knows whether a record is in the sample.
+- **Population Uniques**: *x.F*: How many records within the global population have the same quasi-identifiers? Mimics the attacker having no additional knowledge about membership, but only access to public records.
+- **Re-identification Risk**: *r*: risk of re-identification given population data: 1/x.F
+
+#### Record Linkage with noise addition
+If we add noise to a quasi-identifier, it becomes harder to match directly. Often uses Distance-based matching; which record has the closest ressemblance?
+
+Mistakes are very possible, as records can in principle match several different people due to the noise, and we would not know which is correct. 
+It is possible with other heuristics, like only considering something a match if the 'second-best' match is not too close, creating a better insurance of a guess being correct.
+
+---
+### *Why is protection against disclosure so hard?*
+One of the main challenges in disclosure control is the **presence of external data** as it can be hard to establish exactly what information about an individual is present in the public domain. This might both be public registers / address books and unofficial/self-disclosed data, like social media posts or posts by others.
+
+Another challenge is **high-dimensionality**, as we often have a lot of data connected to each individual record. This inevitably creates a higher number of population uniques as more quasi-identifiers are present! We are basically trying to find the right balance between *Utility* and *Privacy*, as it is a **trade-of** we have to consider. Some disclosure is inevitable, as the most private data is NO DATA.
+
+---
+### *Can you introduce me to disclosure control methods?*
+Disclosure control is about leaking some data while preventing too much leaking - i.e. we want to share some data, but we do not want to reveal it in a privacy-preserving manner. Here is an overview of different methodologies:
+- **Removing Direct Identifiers**: Most obviously, we do not want any direct identifiers present in our dataset. 
+    - We might do this in a variant of Pseudonymisation, where we encrypts or replace direct identifiers with IDs. 
+    - We should consider that hashing the name will still pose a threat, as membership and other disclosures can be found if we know the name(s) and hash function used.
+- **Non-pertrubative**: Preserving the truthfulness of individual records.
+    - *Generalisation / Recoding*: We replace data with a more generalised / grouped version: F.ex. DoB -> Age -> Age Group
+        - Remember top- adn bottom-coding to avoid edge case sample uniques.
+    - *Suppression*: We simply remove data (entire column or single record attribute using '*')
+- **Pertrubative**: Distorting the data, yet preserving aggregate data analysis results.
+    - *Noise Addition*: We add noise to the data, but should be aware of hiding outliers!
+        - Uncorrelated noise: preserves mean and covariance, noise from a continuous normal distribution.
+    - *Post-Randomisation Method* (PRAM): Based on a pre-defined transformation matrix, replace categorical variables by some probability distribution. 
+        - I.e. some % chance of flipping the answer or keeping the answer truthful.
+    - *Swapping*: Swap values of an attribute between records. 
+        - Danger of losing correlation: consider within-group swapping based on some condition.
+    - *Synthetic Data*: Produce a dataset with fake data, generated to a pre-defined model based on real data.
+        - Very difficult to do, and inefficient!
+
+We always need to consider the utility of the data, after apploying anonymisation techniques; We might for example consider:
+- Number of modifications
+- Counts, mean, covariance kept similar
+- Statistics specific to the research question kept
+- Other information loss metrics
+
+Below here can be seen an overview of the entire disclosure control process:
+![](figures/disclosure_control.PNG)
+
+---
+### *What risk-measures are relevant to consider when working with disclosure control?*
+Whenever we apply disclosure control methods we area attempting to minimize both the **average risk** and **maximum risk** for individuals in our sample, and possibly also the **percentage of records above some risk level**.
+All of these measures tells us something about the risk posed for individuals in our samples, and minimizing them is in the interest of our trustworthyness and their safety / privacy.
+
+When we apply disclosure control methods we might specifically ask for a certain level of privacy, depending on the nature of the data. Possible options for describing level of anonymity are:
+- **k-anonymity**: Ensure that *sample* frequency (*x.f*) is at least k for all records. Thereby also ensures that the individual risk is always *x.r <= 1/k*.
+- **l-diversity**: Ensure that for any set of samples wiht the same quasi-identifiers, there are at least l different values of the sensitive variable.
+
+Given that we are in a case where we have applied pertrubative methods to some attributes, a possible attaker would use *distance-based record linkage*, and in these cases we need to model our risk based on this approach.
+Thus, as the data processor we mimic the record linkage and review how many records are re-identified correctly.
+
+---
+### *What is Differential Privacy?*
+So far we have talked about statistical disclosure control methods. These often make assumptions about attacker knowledge, and calculates risk based on our current world picture. 
+Even for pertrubative methods it is hard to estimate whether to advice on anonymisation parameters or not, as the trade-off between risk and utility is hard to estimate.
+
+Differential privacy makes **no assumptions** on adversarial knowledge and sensitivity of the information, it has **mathematically provable guarantees**, and **reporting parameters** does not compromise the privacy of the individuals. Further, it is **better protected** agaisnt future attacks or data releases, as there exists no leakage / a bounded leakage.
+
+The slogan is:
+
+*One should not learn anything new about Alice from the output, that one couldn't also learn from the output, if Alice weren't in the database*
+
+I.e. we allow *inferential disclosure* but prevent any other kind of disclosure from happening. It should be noted that these are harsh requirements, as they should hold for **every S** and for **all neighboring D & D'**.
+
+#### The two worlds
+We might consider two different worlds / datasets:
+- D: dataset containing Alice
+- D': same dataset, but without Alice
+
+The goal of differential privacy is to ensure that an analysis output A(D) and A(D') are practically *indistinguishable*!
+
+#### Parameters and formal definition
+![](figures/differential_privacy_def.PNG)
+
+$\epsilon$ is the privacy parameter, and we might state that a specific Analysis function *A is $\epsilon$-differentially private*. It is a measure of the disclosure level. It follows that:
+- Large $\epsilon$ -> more disclosure
+- Small $\epsilon$ -> minor disclosure
+- Research suggests 0 < $\epsilon$ < 1
+- Remember that high privacy is a trade-off for low utility
+
+We might further introduce $\delta$ for allowing full disclosure in some rare cases. We give $\delta$ = 0 for no tolerance, and $\delta$ > 0 for some tolerance.
+
+#### Group Differential Privacy
+We might consider the impact on the dataset when removing a group of people instead of a single person (i.e. a household or similar), this is called Group Differential Privacy.
+Here we define the algorithms slightly differently:
+
+![](figures/group_differential.PNG)
+
+#### Challenges of Differential Privacy
+There are many notable challenges associated with differential privacy, including:
+- End users not knowing risks/benefits of sharing one's data
+- Statistical agencies not being able to apply differentially private algorithms
+- Data Analysts not knowing how to account for errors introduced på differentially private algorithms
+- No protection against inferential disclosure
+- Inconsistencies in data!
+- Complex and high-dimensional data is still a huge challenge for differential privacy!
+
+---
+### *What are some differentially private algortihms?*
+There exists a variety of differentially private algorithms that we might consider. One of the most prominent examples is the **Laplace Mechanism**.
+
+#### Laplace Mechanism
+Based on the idea idea of adding some random noise X (real number) to the query output. Specifically, we sample the noise X from a Laplace distribution with parameters $m$ (Mean) & $b$ (Variance is $2*b^2$):
+
+$$f(x|m,b) = \frac{1}{2*b} * e^{\frac{-|x-m|}{b}}$$
+
+For and $\epsilon$-differentially private algortihm we need to add noise $X \sim Laplace(0, \frac{1}{\epsilon})$
+
+#### Randomised Response
+The idea is to submit a randomised answer, such that each individual participant has plausible deniability!
+
+![](figures/randomised_response.PNG)
+
+It should be noted that the following holds in terms of an $\epsilon$-differentially private algorithm A:
+- $A(X)=X_{random} with p=\frac{1}{1+e^\epsilon}$
+- $A(X)=X_{real} with p=1-\frac{1}{1+e^\epsilon}$
+
+#### Privacy Budget
+Privacy loss is quantified via a **privacy budget**, because if we could run the same query 100 times, we would be able to estimate the most likely query result...
+
+Therefore we need to consider implications of how different combinations of differentialy private algorithm outputs impact the overall privacy guarantees!
+- **Sequential Composition**: Given to queries where Alice is present (**overlapping**), the privacy budget of $A_1$ and $A_2$ is $\epsilon_{total} = \epsilon_1 + \epsilon_2$
+- **Parallel Composition**: Given two queries of **disjoint** sets of the data, the privacy budget of $A_1$ and $A_2$ is $\epsilon_{total} = max(\epsilon_1 , \epsilon_2)$
+- **Post-processing**: It does not impact our privacy guarantees, when we apply any transformations / processing afterwards.
+
+---
+### *What is the global sensitivity in relation to differential privacy numerical queries?*
+**Global sensitivity** describes the "maximum risk" (maximum difference) associated with a single set of datasets D and D'. Here are a few examples of global sensitivity:
+- Counting Queries: 1
+- Sum over attribute x: max(x)
+    - Rating from 0-5: 5
+    - Age: not strictly, but 125 is the oldest known person alive
+
+When we then consider **Differential Privacy**, we need to consider that a single record will make a difference of up to the *global sensitivity*. This means that the **noise** should be $X \sim Laplace(0,global_sensitivity)$
