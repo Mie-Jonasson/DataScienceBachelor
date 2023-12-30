@@ -305,11 +305,11 @@ Disclosure control is about leaking some data while preventing too much leaking 
 - **Removing Direct Identifiers**: Most obviously, we do not want any direct identifiers present in our dataset. 
     - We might do this in a variant of Pseudonymisation, where we encrypts or replace direct identifiers with IDs. 
     - We should consider that hashing the name will still pose a threat, as membership and other disclosures can be found if we know the name(s) and hash function used.
-- **Non-pertrubative**: Preserving the truthfulness of individual records.
+- **Non-perturbative**: Preserving the truthfulness of individual records.
     - *Generalisation / Recoding*: We replace data with a more generalised / grouped version: F.ex. DoB -> Age -> Age Group
         - Remember top- adn bottom-coding to avoid edge case sample uniques.
     - *Suppression*: We simply remove data (entire column or single record attribute using '*')
-- **Pertrubative**: Distorting the data, yet preserving aggregate data analysis results.
+- **perturbative**: Distorting the data, yet preserving aggregate data analysis results.
     - *Noise Addition*: We add noise to the data, but should be aware of hiding outliers!
         - Uncorrelated noise: preserves mean and covariance, noise from a continuous normal distribution.
     - *Post-Randomisation Method* (PRAM): Based on a pre-defined transformation matrix, replace categorical variables by some probability distribution. 
@@ -337,13 +337,67 @@ When we apply disclosure control methods we might specifically ask for a certain
 - **k-anonymity**: Ensure that *sample* frequency (*x.f*) is at least k for all records. Thereby also ensures that the individual risk is always *x.r <= 1/k*.
 - **l-diversity**: Ensure that for any set of samples wiht the same quasi-identifiers, there are at least l different values of the sensitive variable.
 
-Given that we are in a case where we have applied pertrubative methods to some attributes, a possible attaker would use *distance-based record linkage*, and in these cases we need to model our risk based on this approach.
+Given that we are in a case where we have applied perturbative methods to some attributes, a possible attaker would use *distance-based record linkage*, and in these cases we need to model our risk based on this approach.
 Thus, as the data processor we mimic the record linkage and review how many records are re-identified correctly.
 
 ---
+### *Which Privacy Principles should i be aware of?*
+Many governing bodies issue privacy principles to be followed by any entity processing or storing data on real persons. These cover all the paradigms (confidentiality, control and transparency):
+
+![](figures/privacy_principles.PNG)
+
+---
+### *What are the main ideas behind Privacy by Design?*
+Privacy by Design is a holistic concept and not a specific set of rules/guidelines. It is there to address all three paradigms and can be used in the design of strategies and guidelines for different contexts, including legislature.
+The Privacy by Design principles contain:
+- **Proactive not reactive**: There should be a focus on preventing privacy violation as opposed to taking remedial action. Privacy harms cannot be undone!
+- **Privacy as the default**: The default options of any system should be the most privacy-preserving ones. Privacy control is a complicated topic, and users won't change anything if they don't NEED to.
+- **Privacy embedded in the design**: Implement privacy protection from the beginning of the design. Keeps the upper hand, and avoids expensive fixer-uppers later!
+- **Full functionality**: functionality of system should not be dependent on sharing of personal data / violating privacy.
+- **End-to-end security**: secure the data in all stages of its lifecycle: in-transit, storage, processing, deletion.
+- **Visibility and Transparency**: It should be transparent to users and authorities what data is collected and how it is used and stored.
+- **Respect for user's privacy**: Always put the interests of the user in mind, ensure consent and access in a user-friendly manner.
+
+---
+### *What Privacy Engineering methodologies exist other than Privacy by Design?*
+- **Privacy Threat Modelling**: Similar to threat modelling practices described earlier, but focusing on privacy concerns. LINDDUN is a framework for threat-brainstorming, but there exists many others!
+    - Read more detailed LINDDUN run-through below.
+- **Privacy Design Strategies**: A number of goals to work towards in the design of systems.
+    - ![](figures/privacy_design_strategies.PNG)
+    - **Minimise**: Ensure that only data you need is collected and stored.
+        - *Minimise Collection*: Select (What do i NEED), Exclude (What do i NOT need)
+        - *Minimise Storage*: Strip (Remove *attribute* when no longer relevant), Destroy (unnecessary data *destroyed* entirely)
+    - **Separate**: minimise disclosure risks from aggregate statistics.
+        - Isolate (Collect data in different databases), Distribute (avoid centralization by relying on client-side software)
+    - **Abstract**: Get rid of unnecessary details
+        - Summarise (generalisation / recoding of attributes), Group (report data on groups instead of individuals), Perturb (modify data)
+    - **Hide**: prevent unwanted access to the collected data.
+        - *Preventing Access*: Restrict (Least privilege, can only be accessed if required), Obfuscate (Can only be read by authorised parties)
+        - *Unlinking*: Disassociate (direct identifiers should be stored unlinked to the rest of the data), Mix (Data shuffling to prevent linkage of individual records)
+    - **Inform**: Ensure user is aware of processing/collection practices
+        - Suply (provide information to user), Explain (ensure user understands information), Notify (ensure user is aware when data is collected)
+    - **Control**: provide user with control over their data.
+        - Consent (User should give explicit consent and possibility to withdraw), Choose (control over which data is shared and purpose limitation), Update (user should be able to review and change settings), Retract (user should be able to withdraw consent)
+    - **Enforce**: ensure that privacy protection measures are implemented.
+        - Create (develop and commit to privacy policies), Maintain (ensure following policies by implementation and education), Uphold (Review and update policies when necessary)
+    - **Demonstrate**: Demonstrate adherence to privacy protection.
+        - Record (keep track of steps taken, decisions and observations), Audit (audit logs and processes), Report (report steps taken and sudit results to authorities / public)
+
+
+#### LINDDUN
+LINDDUN is a threat-modelling framework for privacy concerns and contains the following steps:
+- **Linking**: Learning information about individuals / groups from disclosed data.
+- **Identifying**: Learning the identity of an individual / data subject from a disclosed dataset (identity disclosure threat)
+- **Non-Repudiation**: Making plausible deniability impossible, I can provably demonstrate a certain action done by an individual.
+- **Detecting**: Being able to detect that a certain action heppened, but not necessarily further contents. Yet, here plausible deniability might still remain.
+- **Data Disclosure**: Collecting excessive amounts of data (i.e. not following Data Minimization).
+- **Unawareness/Unintervenability**: Not providing sufficient transparency and/or control to the end users.
+- **Non-compliance**: Not ensuring compliance to all relevant regulation and standards.
+
+## Part III - Differential Privacy
 ### *What is Differential Privacy?*
 So far we have talked about statistical disclosure control methods. These often make assumptions about attacker knowledge, and calculates risk based on our current world picture. 
-Even for pertrubative methods it is hard to estimate whether to advice on anonymisation parameters or not, as the trade-off between risk and utility is hard to estimate.
+Even for perturbative methods it is hard to estimate whether to advice on anonymisation parameters or not, as the trade-off between risk and utility is hard to estimate.
 
 Differential privacy makes **no assumptions** on adversarial knowledge and sensitivity of the information, it has **mathematically provable guarantees**, and **reporting parameters** does not compromise the privacy of the individuals. Further, it is **better protected** agaisnt future attacks or data releases, as there exists no leakage / a bounded leakage.
 
