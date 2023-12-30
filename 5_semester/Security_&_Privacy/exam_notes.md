@@ -477,3 +477,77 @@ Therefore we need to consider implications of how different combinations of diff
     - Age: not strictly, but 125 is the oldest known person alive
 
 When we then consider **Differential Privacy**, we need to consider that a single record will make a difference of up to the *global sensitivity*. This means that the **noise** should be $X \sim Laplace(0,global_sensitivity)$
+
+## Part IV - Human Factors
+### *Why is it relevant to discuss human factors in security and privacy?*
+W might have an expectation that users take care of their security an privacy, but in reality users are often not motivated or not capable of doing so... We might consider this as a **privacy paradox** as users care about their privacy (surveys show this), yet they do not utilize privacy-enhancing tools or pay attention to policies and notices.
+
+A good example of the mismatch between system designer's expectation and user behavior is *passwords*. Passwords are common and relatively low-cost authenticationg tool. A system designer will assume that users:
+- Select strong passwords
+- Manage passwords securely
+
+Yet, in reality passwords are often easier to guess and obtain; Default password not changed, Phishing to obtain credentials etc.
+
+---
+### *What are the different factors that might impact how we make decisions as users?*
+- **Risk**: What are the consequences if i dont act?
+    - Might be underestimated due to a certain world-view: "only large companies get hacked" and "I have nothing to hide"
+- **Efficacy**: Will the risks be less if i choose to act?
+    - Might misunderstand effectiveness of some action: "there is nothing one can do anyway" and "I don't understand technology anyway"
+- **Cost**: cost of acting.
+    - Monetary Costs of security controls
+    - Time required
+    - Mental effort required
+    - Loss of functionality (by refusing to hand over personal data and similar)
+- **Norms**: How will other people think about whether i act or dont act?
+- **Attitude**: How do I personally feel about whether i act or dont act?
+
+#### The task-oriented user
+Often users are highly task-oriented, meaning they are largely focusing on the task at hand. This means that they are focused solely on the main goal of the task, f.ex. accessing an email account.
+Yet, in reality a lot of tasks come in between; i.e. remembering a password, entering the password, possibly multi-factor authentication. Thus we distinguish between:
+- **Primary Tasks**: The task the user actually want to do
+- **Enabling Tasks**: The tasks the user has to complete in order to do the primary task. Most security / privacy tasks fall within this category.
+    - Often perceived as annoying, boring and as a *non-efficient* use of time.
+    - Often users will try to avoid or have work-arounds to avoid "wasting time" on enabling tasks.
+
+---
+### *What biases should we be aware of when considering human factors?*
+- *Availability heuristic*: 
+    - "I haven't heard about it recently, so it is not relevant."
+    - all relevant things are brought up frequently.
+- *Anchoring / Framing*: 
+    - "My friends share everything on Facebook, so it is ok"
+    - other people do it, so it is not problematic.
+- *Optimism bias*: 
+    - "Bad things cannot happen to me"
+    - refusing to take care because it deems unrealistic.
+- *Hyperbolic discounting*: 
+    - "immediate gains are more important then possible consequences in the future" 
+    - we care more abotu what we get out of it now than what happens in the future.
+- *Status-quo bias*: 
+    - "This is the default option, so it must be the best one"
+    - believing defaults are always the best
+
+---
+### *Which mental capabilities are important to keep in mind when designing for security and privacy?*
+- **Signal Detection**: People are only able to pay attention to one main task at a time. Weak signals should be avoided!
+    - *Habituation effect* / *Alarm fatique*: too many false alarm makes the user neglect warnings as unreliable.
+- **Memory Constraint**: People are only able to remember a certain number of things at any time.
+    - *Short-term*: strings < 6 digits
+    - *Long-term*: hard to remember many similar items.
+- **Predictability**: humans a predictable in their choice of passwords and patterns, as it is often common to have easy-to-remember passwords and predictable substitutions.
+
+---
+### *Which structural challenges are relevant in terms of human factors?*
+- **Complexity of Information**: Service providers keep controls complicated and complex -> it is hard and time-consuming for the user to be aware of all risks and consequences!
+- **Complexity of risk estimation**: Users often underestimate risks, yet in general it is just hard to estimate risk! Consider the metaphor "death by a thousand paper cuts" in terms of sharing small amounts of data many times!
+- **Inference from others**: Users are highly impacted by other users' choices, thus it becomes hard to protect ones' privacy by individual choice only.
+
+---
+### *How do we account for human factors in our systems?*
+- **Make Systems Usable**: Users should be able to obtain the desired output *effectively* (accurately and completeness), *efficiently* (with minimal resource expenditure) and *satisfactory* (wiht comfort and acceptability of use)
+- **Make it harder to fail**: Reduce human error by making choices on behalf of the user (blocking, changing authentication channelse) and make security and privacy the default!
+- **Educate the user**: Make users aware of consequences on different levels: *awareness* (alerting people), *education* (informing abotu risks) or *training* (concrete skills for protection)
+- **Practice Responsible Data Handling**: Data processors need to take responsibility, as users are not always educated enough to make the decision that suits them best! Ethical concerns should lie with the collector.
+- **Privacy as contextual integrity**: Privacy as determined by contextual norms of information flow. A unifying network for other paradigms / definition, as it considers all data in a certain context and scenario.
+- **Involve the user in the development process**: Human-centered security by design ensures that the system is designed as user-friendly as possible with human factors and feedback in mind!
