@@ -551,3 +551,81 @@ Yet, in reality a lot of tasks come in between; i.e. remembering a password, ent
 - **Practice Responsible Data Handling**: Data processors need to take responsibility, as users are not always educated enough to make the decision that suits them best! Ethical concerns should lie with the collector.
 - **Privacy as contextual integrity**: Privacy as determined by contextual norms of information flow. A unifying network for other paradigms / definition, as it considers all data in a certain context and scenario.
 - **Involve the user in the development process**: Human-centered security by design ensures that the system is designed as user-friendly as possible with human factors and feedback in mind!
+
+## Part V - Legal Aspects
+### *What is GDPR, and how does it relate to security and privacy?*
+GDPR (**G**eneral **D**ata **P**rotection **R**egulation) are fundamental rights for individuals located in EU.
+It is important to consider what data and which types of data you both collect and store, to realise which laws and regulations apply to your data processing. GDPR is specifically concerned with **personal data**, and you should remember that not all data is personal!
+
+A fundamental principle is also that data subjects should be informed by the controller in a manner that is concise (brief yet comprehensive) transparent (easy to perceive) and intelligible (comprehensible).
+
+Applies to personal data of any **data subject who is in EU**.
+
+#### Charter of Fundamental Rights of the European Union (2012)
+Describes the fundamental rights of individual within EU, and has two articles of interest: 
+- Article 7: Respect for private and family life
+    - Everyone has the right to respect for his or her private and family life, home and communications. 
+- Article 8: Protection of personal data
+    - Everyone has the right to the protection of personal data concerning him or her.
+    - Such data must be processed *fairly* for *specified purposes* and on the basis of the consent of the person concerned *or some other legitimate basis laid down by law*. Everyone has the right of access to data which has been collected concerning him or her, and the right to have it rectified.
+    - Compliance with these rules shall be subject to control by an independent authority.
+
+#### Anti-money Laundering
+It is complicated to use personal data, as some laws are contradictory; i.e. the AML-directive contradicts privacy protection, as it states:
+- the information on the beneficial ownership of companies incorporated within the territory of the Member States is accessible in all cases to *any member of the general public*
+
+Yet this was found by courts to be invalid, and should be limited to strictly necessary purposes, as opposed to "in all cases to any member of the general public".
+
+### *What is Legal Basis in terms of GDPR?*
+Legal basis is the interpretation of other laws an regulations to create "*legitimate basis laid down by law*" for processing personal data without consent needed. 
+These should always be **interpreted restrictively**, yet **sensitive data** always takes precedent over any legal basis you might find. This means that if you collect even a single item of sensitive data, the whole dataset should be considered and treated as sensitive.
+
+Legal basis takes three forms:
+- **Consent**
+    - Needs to be *freely given*, *specific*, *informed* and *unambiguous indication*. I.e. should be a *statement* or *clear affirmative action*!
+    - Must contain the controller's identity, purpose of proessing and inform about rights to withdrawal. 
+- **Performance of a contract**
+    - Should follow *reasonable expectations* of the data subjects based on *their relationship* with the controller (i.e. services related to the personal data or similar)
+    - The interests / expectations of a data subject may be *overridden* when processing is strictly necessary for the purposes of *preventing fraud*!
+- **Compliance with a legal obligation**
+
+### *Who are the key players and the main principles within GDPR?*
+It is important to consider who is intertwined within the processing of personal data, as well as the main points of the regulation thaty we should be aware of. Here we go:
+
+#### Key Players
+- **Data Subjects**: The subjects whom the personal data you have collected is about. **Personal Data** means any information relating to an *identified* or *identifiable* natural person.
+- **Controller**: The person / entitiy conducting and responsible for collection and/or storage of personal data.
+- **Processor**: A third-party vendor doing work *on behalf of* the controller.
+
+#### Main Principles to comply with
+- **Lawfulness, fairness and transparency**: Considering how we should handle collection, storage and processing of personal data.
+    - *Controller* should act in relation to *data subjects* in a lawful, fair and transparent manner!
+- **Purpose limitation**: Considering how we should ensure to limit our purposes to only a specific and defined use case.
+    - *Controller* collects data for a **specified**, **explicit** and **legitimate** purpose(s), and does not process or collect data in ways incompatible with these.
+- **Data minimization**: Considering how we should go about determining what data should be collected and kept.
+    - *Controller* shall minimize data to only what is **necessary**, **adequate**, **relevant** and **limited** for the purpose!
+- **Accuracy**: Considering how accurate the collected data is.
+    - *Controller* shall keep the personal data up-tp-date, and take *every reasonable* step to ensure that inaccurate personal data are **erased** or **rectified** *without delay*.
+- **Storage Limitations**: Considering both how long and how much data should be stored.
+    - *Controller* must not keep personal data from which data subjects can be identified for longer than *necessary*.
+- **Integrity and Confidentiality**: Ensuring proper mechanisms for protection and integrity of the data.
+    - *Controller **and** processor* processing in a manner that ensures apropriate *security* of personal data, including protection against:
+    - **unauthorised** or **unlawful** processing and **accidental** *loss*, *destruction* or *damage*
+
+#### Data Types
+- **Genetic Data**: Personal Data relating to inherited or acquired genetic characteristics.
+- **Biometric Data**: Personal Data from technical processing of physical, physio logical or behavioral characteristics of a person.
+- **Health Data**: Personal Data related to the physical or mental health of a natural person.
+
+### *Tell me about the rights of data subjects relied in GDPR*
+An individual has a number of rights under GDPR when concerned with their personal data, which includes:
+- **The right to be informed**: Exercised by the controller in properly informing the data subject about purpose and scope of any data collection *at the time when personal data is obtained*.
+- **The right to access and rectification**: Exercised by the data subject, to obtain information about the purpose, categories of personal data and recipients whom it will be disclosed to. Further also retention period and additional rights.
+- **The right to object**: Exercised by the data subject to oppose any processing / further processing of their personal data.
+- **The right to erasure**: Exercised by the data subject, yet only applies for specific applications.
+    - When personal data is no longer required for the purpose provided upon collection.
+    - Upon withdrawal of consent given no other legal basis.
+    - Upon objection to processing, given that there exists no overriding legitimate interests.
+    - When data must be erased in order to comply with a legal obligation.
+- **the right to data portability**: Exercised by the data subject to obtain all data concerning them in a structured, commonly used machine-readable format.
+    - You have the right to obtain a copy of your own data, yet this cannot affect rights of other people, thus on video, photos and other files other people need be deleted prior to providing the copy.
