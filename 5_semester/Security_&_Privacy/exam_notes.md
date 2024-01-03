@@ -284,7 +284,7 @@ There are different types of disclosure that we might wish to prevent, as they p
 Record linkage happens when an attacker has some data about people and link records containing sensitive data to the data they have, effectively learning sensitive information about individuals.
 - **Sample Uniques**: Consider how many sample uniques are in the dataset considering different quasi-identifiers. Often Age / DoB will be the source of many sample uniques.
 - **Sample Frequency**: *x.f*: How many records within the sample have the same quasi-identifiers? Mimics the situation when an attacker knows whether a record is in the sample.
-- **Population Uniques**: *x.F*: How many records within the global population have the same quasi-identifiers? Mimics the attacker having no additional knowledge about membership, but only access to public records.
+- **Population Frequency**: *x.F*: How many records within the global population have the same quasi-identifiers? Mimics the attacker having no additional knowledge about membership, but only access to public records.
 - **Re-identification Risk**: *r*: risk of re-identification given population data: 1/x.F
 
 #### Record Linkage with noise addition
@@ -375,7 +375,7 @@ The Privacy by Design principles contain:
         - *Preventing Access*: Restrict (Least privilege, can only be accessed if required), Obfuscate (Can only be read by authorised parties)
         - *Unlinking*: Disassociate (direct identifiers should be stored unlinked to the rest of the data), Mix (Data shuffling to prevent linkage of individual records)
     - **Inform**: Ensure user is aware of processing/collection practices
-        - Suply (provide information to user), Explain (ensure user understands information), Notify (ensure user is aware when data is collected)
+        - Supply (provide information to user), Explain (ensure user understands information), Notify (ensure user is aware when data is collected)
     - **Control**: provide user with control over their data.
         - Consent (User should give explicit consent and possibility to withdraw), Choose (control over which data is shared and purpose limitation), Update (user should be able to review and change settings), Retract (user should be able to withdraw consent)
     - **Enforce**: ensure that privacy protection measures are implemented.
@@ -463,8 +463,8 @@ It should be noted that the following holds in terms of an $\epsilon$-differenti
 #### Privacy Budget
 Privacy loss is quantified via a **privacy budget**, because if we could run the same query 100 times, we would be able to estimate the most likely query result...
 
-Therefore we need to consider implications of how different combinations of differentialy private algorithm outputs impact the overall privacy guarantees!
-- **Sequential Composition**: Given to queries where Alice is present (**overlapping**), the privacy budget of $A_1$ and $A_2$ is $\epsilon_{total} = \epsilon_1 + \epsilon_2$
+Therefore we need to consider implications of how different combinations of differentialy private algorithm outputs impact the overall privacy guarantees! **NOTE**: If there MIGHT be an overlap, we do sequential. Only if we KNOW they are disjoint, it will be parallel :)
+- **Sequential Composition**: Given two queries where Alice is present (**overlapping**), the privacy budget of $A_1$ and $A_2$ is $\epsilon_{total} = \epsilon_1 + \epsilon_2$
 - **Parallel Composition**: Given two queries of **disjoint** sets of the data, the privacy budget of $A_1$ and $A_2$ is $\epsilon_{total} = max(\epsilon_1 , \epsilon_2)$
 - **Post-processing**: It does not impact our privacy guarantees, when we apply any transformations / processing afterwards.
 
@@ -476,7 +476,7 @@ Therefore we need to consider implications of how different combinations of diff
     - Rating from 0-5: 5
     - Age: not strictly, but 125 is the oldest known person alive
 
-When we then consider **Differential Privacy**, we need to consider that a single record will make a difference of up to the *global sensitivity*. This means that the **noise** should be $X \sim Laplace(0,global_sensitivity)$
+When we then consider **Differential Privacy**, we need to consider that a single record will make a difference of up to the *global sensitivity*. This means that the **noise** should be $X \sim Laplace(0,global\_ sensitivity)$
 
 ## Part IV - Human Factors
 ### *Why is it relevant to discuss human factors in security and privacy?*
@@ -523,7 +523,7 @@ Yet, in reality a lot of tasks come in between; i.e. remembering a password, ent
     - refusing to take care because it deems unrealistic.
 - *Hyperbolic discounting*: 
     - "immediate gains are more important then possible consequences in the future" 
-    - we care more abotu what we get out of it now than what happens in the future.
+    - we care more about what we get out of it now than what happens in the future.
 - *Status-quo bias*: 
     - "This is the default option, so it must be the best one"
     - believing defaults are always the best
@@ -589,6 +589,7 @@ Legal basis takes three forms:
     - The interests / expectations of a data subject may be *overridden* when processing is strictly necessary for the purposes of *preventing fraud*!
 - **Compliance with a legal obligation**
 
+---
 ### *Who are the key players and the main principles within GDPR?*
 It is important to consider who is intertwined within the processing of personal data, as well as the main points of the regulation thaty we should be aware of. Here we go:
 
