@@ -1,0 +1,27 @@
+-------------------------------------------------------------------------------
+Tweet A: (280 chars including spaces and short-link)
+A new study screens Danish adults for dyslexia with eye movement-tracking during natural reading 📖
+This differs from usual method, testing for common symptoms. The results show promise in improving dyslexia diagnosis;
+False negatives remain an obstacle 🚧
+Read it here: t.ly/Syi8w
+
+<insert tweetimage_1.jpg>
+
+-------------------------------------------------------------------------------
+Tweet B: (279 chars with spaces and short-link)
+We have to rethink how we diagnose dyslexia! ✍
+A study on Danish adults used eye tracking 👀 to detect dyslexia.
+They discover feature correlations which confirm the faults ❌ of the testing regime and a direction for future research.
+That’s pretty cool! 😎
+Read it here: t.ly/Syi8w
+
+-------------------------------------------------------------------------------
+Tweet C: (278 chars with spaces and short-link)
+Something needs to change. 🗣
+Dyslexia tests leave too many people in the gray area ⬜️ without the help and support they need 🤲 and testing decreases as we get older…
+New research using eye tracking Data 👀 from Danish adults hopes to change this. 
+Read the paper here: t.ly/Syi8w
+
+<insert tweetimage_2.jpg>
+
+-------------------------------------------------------------------------------

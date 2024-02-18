@@ -601,7 +601,7 @@ It is important to consider who is intertwined within the processing of personal
 #### Main Principles to comply with
 - **Lawfulness, fairness and transparency**: Considering how we should handle collection, storage and processing of personal data.
     - *Controller* should act in relation to *data subjects* in a lawful, fair and transparent manner!
-- **Purpose limitation**: Considering how we should ensure to limit our purposes to only a specific and defined use case.
+- **Purpose limitation**: Considering how we should ensure to li'mit our purposes to only a specific and defined use case.
     - *Controller* collects data for a **specified**, **explicit** and **legitimate** purpose(s), and does not process or collect data in ways incompatible with these.
 - **Data minimization**: Considering how we should go about determining what data should be collected and kept.
     - *Controller* shall minimize data to only what is **necessary**, **adequate**, **relevant** and **limited** for the purpose!

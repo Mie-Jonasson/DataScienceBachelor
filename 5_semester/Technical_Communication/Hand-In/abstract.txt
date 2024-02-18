@@ -1,0 +1,39 @@
+-------------------------------------------------------------------------------
+Abstract:
+
+Dyslexia screening in adults is an open challenge since difficulties may not align with standardized tests designed for children. 
+We collect eye-tracking data from natural reading of Danish texts from readers with dyslexia while closely following the experimental design of a corpus of readers without dyslexia. 
+To our knowledge, this is the first attempt to classify dyslexia from eye movements during reading in Danish. 
+We experiment with various machine-learning methods, and our best model yields a 0.85 macro F1 score.
+
+-------------------------------------------------------------------------------
+Divided into categories:
+
+Introduction: 
+Dyslexia screening in adults is an open challenge
+
+Background: 
+We collect eye-tracking data from natural reading of Danish texts from readers with dyslexia while closely following the experimental design of a corpus of readers without dyslexia. 
+
+General Problem:
+since difficulties may not align with standardized tests designed for children. 
+
+Main Result: 
+We experiment with various machine-learning methods, and our best model yields a 0.85 macro F1 score.
+
+Discussion:
+<empty>
+
+General Context: 
+To our knowledge, this is the first attempt to classify dyslexia from eye movements during reading in Danish. 
+
+-------------------------------------------------------------------------------
+Discussion:
+
+The abstract is in general well-written but cut to the bone. 
+It only consists of four concise sentences describing the motivation, experimental setup and the final result, but does not go in depth with main takeaways or discussion points for the result. 
+It does not follow the nature template, but opens up with specifying a field challenge and ending on the main result. 
+The abstract could benefit from including discussion of the results and a general context in terms of specifying the impact of their research for society. 
+We would improve this abstract by rearranging the sentences and adding some more in-depth take-home messages.
+
+-------------------------------------------------------------------------------
