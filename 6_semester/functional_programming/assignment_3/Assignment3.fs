@@ -69,7 +69,7 @@
     let (.>=.) a b = ~~(a .<. b)                (* numeric greater than or equal to *)
     let (.>.) a b = ~~(a .=. b) .&&. (a .>=. b) (* numeric greater than *)
 
-    let allVowels = ['a'; 'e'; 'i'; 'o'; 'u'; 'y']
+    let allVowels = ['a'; 'e'; 'i'; 'o'; 'u'; 'A'; 'E'; 'I'; 'O'; 'U']
     let rec boolEval (e:bExp) (word:list<char*int>) (st:Map<string,int>) = 
        match e with
          | TT -> true
