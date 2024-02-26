@@ -1,0 +1,13 @@
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/bin/Debug/net7.0/Assignment4.deps.json
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/bin/Debug/net7.0/Assignment4.dll
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/bin/Debug/net7.0/Assignment4.pdb
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/bin/Debug/net7.0/Assignment4.xml
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/Assignment4.fsproj.AssemblyReference.cache
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/Assignment4.AssemblyInfoInputs.cache
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/Assignment4.AssemblyInfo.fs
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/Assignment4.fsproj.CoreCompileInputs.cache
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/Assignment4.dll
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/refint/Assignment4.dll
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/Assignment4.xml
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/Assignment4.pdb
+/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2024/Assignments/Assignments/Assignment4/obj/Debug/net7.0/ref/Assignment4.dll

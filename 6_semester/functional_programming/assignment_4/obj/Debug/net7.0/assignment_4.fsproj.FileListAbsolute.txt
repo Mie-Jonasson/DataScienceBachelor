@@ -1,0 +1,4 @@
+C:\Users\jonas\Desktop\DataScienceBachelor\6_semester\functional_programming\assignment_4\obj\Debug\net7.0\assignment_4.fsproj.AssemblyReference.cache
+C:\Users\jonas\Desktop\DataScienceBachelor\6_semester\functional_programming\assignment_4\obj\Debug\net7.0\assignment_4.AssemblyInfoInputs.cache
+C:\Users\jonas\Desktop\DataScienceBachelor\6_semester\functional_programming\assignment_4\obj\Debug\net7.0\assignment_4.AssemblyInfo.fs
+C:\Users\jonas\Desktop\DataScienceBachelor\6_semester\functional_programming\assignment_4\obj\Debug\net7.0\assignment_4.fsproj.CoreCompileInputs.cache
