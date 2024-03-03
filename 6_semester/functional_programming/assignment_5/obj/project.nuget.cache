@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "xLcy0DJ+fsbirc0cKW8rjNxo78iove4SvcR5YcdF1O4iWk0VBRdfd7RtJkP9laETIzGtxV5rwF+JqgV5PXFCDA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jonas\\Desktop\\DataScienceBachelor\\6_semester\\functional_programming\\assignment_5\\assignment_5.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jonas\\.nuget\\packages\\fsharp.core\\7.0.403\\fsharp.core.7.0.403.nupkg.sha512"
+  ],
+  "logs": []
+}
