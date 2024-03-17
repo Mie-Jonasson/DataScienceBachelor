@@ -45,7 +45,11 @@
     let push : SM<unit> = 
         S (fun s -> Success ((), {s with vars = Map.empty :: s.vars}))
 
-    let pop : SM<unit> = S (fun s -> Success (failwith "Not implemented", s))
+    let pop : SM<unit> = S (fun s ->
+        match s.vars with
+        | s1::ss -> Success ((), {s with vars = ss}) 
+        | _ -> Failure IndexOutOfBounds
+        )
 
     let wordLength : SM<int> = S (fun s -> Success (failwith "Not implemented", s))      
 

@@ -13,6 +13,15 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "assignment_4", "assignment_
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "assignment_5", "assignment_5\assignment_5.fsproj", "{D88DFCDA-1BE1-448C-B8DC-32222F139316}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment6_Template", "Assignment6_Template", "{F657E74D-7A0A-4D47-833F-BA7551509746}"
+	ProjectSection(SolutionItems) = preProject
+		Assignment6_Template\Assignment6_Template.sln = Assignment6_Template\Assignment6_Template.sln
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Assignment6_Template", "Assignment6_Template\Assignment6_Template\Assignment6_Template.fsproj", "{FC9CD36B-662C-4FB6-B5D4-B0FA13A27322}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "assignment_6", "assignment_6\assignment_6.fsproj", "{7B9D3A0A-66E0-4AB2-93D9-56243C84C468}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +51,17 @@ Global
 		{D88DFCDA-1BE1-448C-B8DC-32222F139316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D88DFCDA-1BE1-448C-B8DC-32222F139316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D88DFCDA-1BE1-448C-B8DC-32222F139316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC9CD36B-662C-4FB6-B5D4-B0FA13A27322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC9CD36B-662C-4FB6-B5D4-B0FA13A27322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC9CD36B-662C-4FB6-B5D4-B0FA13A27322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC9CD36B-662C-4FB6-B5D4-B0FA13A27322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9D3A0A-66E0-4AB2-93D9-56243C84C468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9D3A0A-66E0-4AB2-93D9-56243C84C468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9D3A0A-66E0-4AB2-93D9-56243C84C468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9D3A0A-66E0-4AB2-93D9-56243C84C468}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F657E74D-7A0A-4D47-833F-BA7551509746} = {F657E74D-7A0A-4D47-833F-BA7551509746}
+		{FC9CD36B-662C-4FB6-B5D4-B0FA13A27322} = {F657E74D-7A0A-4D47-833F-BA7551509746}
 	EndGlobalSection
 EndGlobal
