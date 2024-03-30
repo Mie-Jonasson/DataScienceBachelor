@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "kybuSEiTSlUtM0WYKhDajzr+J1yNWzX393OCDFEdD0VrRo0wxabrMZ05F0sJX6p3scORvhFxUSqJ39ScwHvkNw==",
+  "success": true,
+  "projectFilePath": "/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2023/Lecture 7/Assignment 7/Assignment7_Template/Assignment7_Template/Assignment7_Template.fsproj",
+  "expectedPackageFiles": [
+    "/Users/jebe/.nuget/packages/fparsec/1.1.1/fparsec.1.1.1.nupkg.sha512",
+    "/Users/jebe/.nuget/packages/fsharp.core/7.0.0/fsharp.core.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
