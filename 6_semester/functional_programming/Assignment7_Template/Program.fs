@@ -94,6 +94,7 @@ let main argv =
     run pid "x1" |> printfn "%A"
     run pid "1x" |> printfn "%A"
     run pid "longVariableName" |> printfn "%A"
+    run pid "_pos_" |> printfn "%A"
 
     printfn "\n\nTesting 7.6\n"
 
@@ -121,9 +122,11 @@ let main argv =
     printfn "\n\nTesting 7.9\n"
 
     run CexpParse "'x'"                                    |> printfn "%A"
+    run CexpParse "' '"                                    |> printfn "%A"
     run CexpParse "toLower (toUpper( 'x'))"                |> printfn "%A"
     run CexpParse "toLower (toUpper 'x')"                  |> printfn "%A"
     run CexpParse "intToChar (charToInt (' '))"            |> printfn "%A"
+    run CexpParse "intToChar (charToInt ('1'))"            |> printfn "%A"
     run AexpParse "charToInt (charValue (pointValue (5)))" |> printfn "%A"
 
 

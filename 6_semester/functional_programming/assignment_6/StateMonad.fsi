@@ -1,6 +1,5 @@
 ﻿module StateMonad
 
-    type SM<'a>
     type State
 
     type Result<'a, 'b>  =
@@ -13,6 +12,8 @@
         | IndexOutOfBounds of int
         | DivisionByZero 
         | ReservedName of string
+
+    type SM<'a> = S of (State -> Result<'a * State, Error>)
 
     val mkState : (string * int) list -> (char * int) list -> string list -> State
 

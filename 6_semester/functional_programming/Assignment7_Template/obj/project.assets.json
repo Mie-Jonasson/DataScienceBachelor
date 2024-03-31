@@ -24,7 +24,7 @@
           }
         }
       },
-      "FSharp.Core/7.0.0": {
+      "FSharp.Core/7.0.403": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/FSharp.Core.dll": {
@@ -104,15 +104,15 @@
         "lib/netstandard2.0/FParsecCS.xml"
       ]
     },
-    "FSharp.Core/7.0.0": {
-      "sha512": "UcPaa9FW4civPrXL059dEa6Pk8ZMfllEf9RRcChv0reBLnM1WfcXXn7pW357FxGb+CUosq0W93TevJQ6z8G93g==",
+    "FSharp.Core/7.0.403": {
+      "sha512": "QYCYEhAj3GccfPdK6EDZu3Yz7I8p75nVHmNnV/9duxTAcqmstbG87waXDC4LBz0/8Jb0teb0ry/xLM2pjk/UAw==",
       "type": "package",
-      "path": "fsharp.core/7.0.0",
+      "path": "fsharp.core/7.0.403",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "fsharp.core.7.0.0.nupkg.sha512",
+        "fsharp.core.7.0.403.nupkg.sha512",
         "fsharp.core.nuspec",
         "lib/netstandard2.0/FSharp.Core.dll",
         "lib/netstandard2.0/FSharp.Core.xml",
@@ -150,29 +150,29 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "FParsec >= 1.1.1",
-      "FSharp.Core >= 7.0.0"
+      "FSharp.Core >= 7.0.403"
     ]
   },
   "packageFolders": {
-    "/Users/jebe/.nuget/packages/": {}
+    "C:\\Users\\jonas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2023/Lecture 7/Assignment 7/Assignment7_Template/Assignment7_Template/Assignment7_Template.fsproj",
+      "projectUniqueName": "C:\\Users\\jonas\\Desktop\\DataScienceBachelor\\6_semester\\functional_programming\\Assignment7_Template\\Assignment7_Template.fsproj",
       "projectName": "Assignment7_Template",
-      "projectPath": "/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2023/Lecture 7/Assignment 7/Assignment7_Template/Assignment7_Template/Assignment7_Template.fsproj",
-      "packagesPath": "/Users/jebe/.nuget/packages/",
-      "outputPath": "/Users/jebe/Library/CloudStorage/OneDrive-ITU/teaching/courses/FP2023/Lecture 7/Assignment 7/Assignment7_Template/Assignment7_Template/obj/",
+      "projectPath": "C:\\Users\\jonas\\Desktop\\DataScienceBachelor\\6_semester\\functional_programming\\Assignment7_Template\\Assignment7_Template.fsproj",
+      "packagesPath": "C:\\Users\\jonas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jonas\\Desktop\\DataScienceBachelor\\6_semester\\functional_programming\\Assignment7_Template\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/jebe/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\jonas\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/Users/jebe/.dotnet/sdk/7.0.101/FSharp/library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.405\\FSharp\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -194,7 +194,7 @@
           "FSharp.Core": {
             "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
             "target": "Package",
-            "version": "[7.0.0, )",
+            "version": "[7.0.403, )",
             "generatePathProperty": true
           }
         },
@@ -214,7 +214,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/Users/jebe/.dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }

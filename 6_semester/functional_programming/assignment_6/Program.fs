@@ -25,47 +25,6 @@ let main argv =
                   evalSM state)
     printfn ""
 
-    printfn "Testing update:"
-    printfn "%A" (update "x" 7 >>>= lookup "x" |> 
-                  evalSM state)
-    printfn "%A" (push >>>= update "x" 7 >>>= lookup "x" |>
-                  evalSM state)
-    printfn "%A" (push >>>= update "x" 7 >>>= pop >>>= lookup "x" |> 
-                  evalSM state)
-    printfn "%A" (pop >>>= update "x" 7 >>>= push >>>= lookup "x" |> 
-                  evalSM state)
-    printfn "%A" (lookup "x" >>= 
-                  (fun v1 -> lookup "y" >>= 
-                             (fun v2 -> update "x" (v1 + v2))) >>>= 
-                  lookup "x" |> 
-                  evalSM state)
-    printfn "%A" (lookup "x" >>= 
-                  (fun v1 -> lookup "y" >>= 
-                             (fun v2 -> update "x" (v1 + v2))) >>>= 
-                  lookup "y" |> 
-                  evalSM state)
-    printfn ""
-
-    printfn "Testing declare:"
-    printfn "%A" (declare "z" >>>= lookup "z" |> 
-                  evalSM state)
-    printfn "%A" (declare "z" >>>= update "z" 123 >>>= lookup "z" |> 
-                  evalSM state)
-    printfn "%A" (declare "x" >>>= lookup "x" |> 
-                  evalSM state)
-    printfn "%A" (declare "z" >>>= declare "z" |> 
-                  evalSM state)
-    printfn "%A" (declare "z" >>>= update "z" 123 >>>= push >>>= 
-                  declare "z" >>>= update "z" 456 >>>= lookup "z" |> 
-                  evalSM state)
-    printfn "%A" (declare "z" >>>= update "z" 123 >>>= push >>>= 
-                  declare "z" >>>= update "z" 456 >>>= pop >>>= 
-                  lookup "z" |> 
-                  evalSM state)
-    printfn "%A" (declare "_pos_" >>>= lookup "_pos_" |> 
-                  evalSM state)
-    printfn ""
-
     printfn "Testing wordLength:"
     printfn "%A" (wordLength |> 
                   evalSM state)
@@ -108,15 +67,22 @@ let main argv =
                   evalSM state)
     printfn "%A" (div wordLength (lookup "z")  |> 
                   evalSM state)
+    printfn "%A" (div (ret 7) (ret 0)  |> 
+                  evalSM state)
     printfn "%A" (declare "z" >>>= div (lookup "x") (lookup "z")  |> 
                   evalSM state)
     printfn ""
 
-
     printfn "Testing arithEval:"
     printfn "%A" (arithEval (V "x" .+. N 10)  |> 
                   evalSM state)
+    printfn "%A" (arithEval (V "x" .-. N 10)  |> 
+                  evalSM state)
     printfn "%A" (arithEval (WL .*. N 10)  |> 
+                  evalSM state)
+    printfn "%A" (arithEval (V "x" ./. N 5)  |> 
+                  evalSM state)
+    printfn "%A" (arithEval (V "x" ./. N 0)  |> 
                   evalSM state)
     printfn "%A" (arithEval (CharToInt (CV (N 0)))  |> 
                   evalSM state)
@@ -136,6 +102,8 @@ let main argv =
                   evalSM state)
     printfn "%A" (charEval (CV (V "x" .-. N 1))  |> 
                   evalSM state)
+    printfn "%A" (charEval (IntToChar (N 10))  |> 
+                  evalSM state)
     printfn ""
 
 
@@ -143,6 +111,8 @@ let main argv =
     printfn "%A" (boolEval TT  |> 
                   evalSM state)
     printfn "%A" (boolEval FF  |> 
+                  evalSM state)
+    printfn "%A" (boolEval ((~~) FF)  |> 
                   evalSM state)
     printfn "%A" (boolEval ((V "x" .+. V "y") .=. (V "y" .+. V "x"))  |> 
                   evalSM state)
@@ -165,6 +135,46 @@ let main argv =
 
     printfn ""
 
+    printfn "Testing update:"
+    printfn "%A" (update "x" 7 >>>= lookup "x" |> 
+                  evalSM state)
+    printfn "%A" (push >>>= update "x" 7 >>>= lookup "x" |>
+                  evalSM state)
+    printfn "%A" (push >>>= update "x" 7 >>>= pop >>>= lookup "x" |> 
+                  evalSM state)
+    printfn "%A" (pop >>>= update "x" 7 >>>= push >>>= lookup "x" |> 
+                  evalSM state)
+    printfn "%A" (lookup "x" >>= 
+                  (fun v1 -> lookup "y" >>= 
+                             (fun v2 -> update "x" (v1 + v2))) >>>= 
+                  lookup "x" |> 
+                  evalSM state)
+    printfn "%A" (lookup "x" >>= 
+                  (fun v1 -> lookup "y" >>= 
+                             (fun v2 -> update "x" (v1 + v2))) >>>= 
+                  lookup "y" |> 
+                  evalSM state)
+    printfn ""
+
+    printfn "Testing declare:"
+    printfn "%A" (declare "z" >>>= lookup "z" |> 
+                  evalSM state)
+    printfn "%A" (declare "z" >>>= update "z" 123 >>>= lookup "z" |> 
+                  evalSM state)
+    printfn "%A" (declare "x" >>>= lookup "x" |> 
+                  evalSM state)
+    printfn "%A" (declare "z" >>>= declare "z" |> 
+                  evalSM state)
+    printfn "%A" (declare "z" >>>= update "z" 123 >>>= push >>>= 
+                  declare "z" >>>= update "z" 456 >>>= lookup "z" |> 
+                  evalSM state)
+    printfn "%A" (declare "z" >>>= update "z" 123 >>>= push >>>= 
+                  declare "z" >>>= update "z" 456 >>>= pop >>>= 
+                  lookup "z" |> 
+                  evalSM state)
+    printfn "%A" (declare "_pos_" >>>= lookup "_pos_" |> 
+                  evalSM state)
+    printfn ""
 
     printfn "Testing stmntEval:"
     printfn "%A" (stmntEval (Ass ("x", N 5)) >>>= lookup "x"  |> 

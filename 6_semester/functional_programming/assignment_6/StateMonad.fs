@@ -48,14 +48,23 @@
     let pop : SM<unit> = S (fun s ->
         match s.vars with
         | s1::ss -> Success ((), {s with vars = ss}) 
-        | _ -> Failure IndexOutOfBounds
+        | _ -> Failure (IndexOutOfBounds 0)
         )
 
-    let wordLength : SM<int> = S (fun s -> Success (failwith "Not implemented", s))      
+    let wordLength : SM<int> = S (fun s -> Success (s.word.Length, s))      
 
-    let characterValue (pos : int) : SM<char> = failwith "Not implemented"      
+    let characterValue (pos : int) : SM<char> = S (fun s ->
+        if s.word.Length > pos // if there are enough characters to fetch item at position
+            then Success (fst s.word[pos], s) // First in tuple is char
+            else Failure (IndexOutOfBounds pos)
+        )      
 
-    let pointValue (pos : int) : SM<int> = failwith "Not implemented"      
+    let pointValue (pos : int) : SM<int> = S (fun s ->
+        // A peculiar note; i did not initially think of ALL negative numbers as invalid indices as they are perfectly valid in python (indexing from end of list)
+        if s.word.Length > pos && pos >= 0 // if there are enough characters to fetch item at position 
+            then Success (snd s.word[pos], s) // Second in tuple is pointvalue
+            else Failure (IndexOutOfBounds pos)
+        )          
 
     let lookup (x : string) : SM<int> = 
         let rec aux =
@@ -71,8 +80,42 @@
               | Some v -> Success (v, s)
               | None   -> Failure (VarNotFound x))
 
-    let declare (var : string) : SM<unit> = failwith "Not implemented"   
-    let update (var : string) (value : int) : SM<unit> = failwith "Not implemented"      
+    let declare (var : string) : SM<unit> = 
+        let rec aux =
+            function
+            | []      -> None
+            | m :: ms -> 
+                match Map.tryFind var m with
+                | Some v -> Some v
+                | None   -> aux ms
+
+        S (fun s -> 
+              match aux (s.vars) with
+              | Some v -> Failure (VarExists var) // Case when we found the variable
+              | None when Set.contains var s.reserved -> Failure (ReservedName var) // Case when variable name is reserved
+              | _ -> // Case when we need to add it to top map
+                match s.vars with
+                | x::xs -> Success ((), {s with vars = (Map.add var 0 x) :: xs}) // Adding to top map
+                | _ -> Failure (IndexOutOfBounds 0) // Failure for empty stack
+            )
+
+    let update (var : string) (value : int) : SM<unit> =
+        let rec aux =
+            function
+            | []      -> None
+            | m :: ms -> 
+                match Map.tryFind var m with
+                | Some v -> Some v
+                | None   -> aux ms
+
+        S (fun s -> 
+              match aux (s.vars) with
+              | Some v -> 
+                match s.vars with
+                | x::xs -> Success ((), {s with vars = (Map.add var value x) :: xs}) // Adding to top map
+                | _ -> Failure (IndexOutOfBounds 0) // Failure for empty stack
+              | _ -> Failure (VarNotFound var) // Case when we need to add it to top map
+            ) 
               
 
     
