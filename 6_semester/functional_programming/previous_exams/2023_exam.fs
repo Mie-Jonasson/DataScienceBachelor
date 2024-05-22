@@ -189,7 +189,7 @@ module exam_2023
         
         List.fold f_folder Map.empty all
     
-    // 3.5 TODO
+    // 3.5
     let asyncMaxCollatz a b : Async<int*int> =
         async {return (maxCollatz a b)}
     
@@ -306,9 +306,11 @@ module exam_2023
 
     let rec evalStmnt2 s =
         match s with
-        | Assign (e1, e2)                                                               -> (evalExpr2 e1) >>= fun x -> (evalExpr2 e2) >>= fun y -> assign2 x y
-        // | While (e, p) when (match (evalExpr2 e) with | Some (0,_) -> true | _ -> false)-> ret () // TODO : I have no clue how to get this to work 
-        | While (e, p)                                                                  -> evalProg2 (p @ [While(e,p)])
+        | Assign (e1, e2)   -> (evalExpr2 e1) >>= fun x -> (evalExpr2 e2) >>= fun y -> assign2 x y
+        | While (e, p)      -> ((evalExpr2 e) >>= fun x -> match x with 
+                                | 0    -> ret () 
+                                | _    -> evalProg2 (p @ [While(e,p)])
+                                ) 
     
     and evalProg2 p =
         match p with
