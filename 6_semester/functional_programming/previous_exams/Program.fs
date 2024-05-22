@@ -1,5 +1,9 @@
-open exam_2023
 open JParsec.TextParser
+
+printfn "======================================================================="
+printfn "============================== EXAM 2023 =============================="
+printfn "======================================================================="
+open exam_2023
 
 let p01 = TT
 let p02 = FF
@@ -138,11 +142,26 @@ printfn "Testing State Monad Expr. Eval of (Num 5): %A" ( (Num 5) |> evalExpr2 |
 printfn "Testing State Monad Expr. Eval of lookup at 2: %A" ( Lookup (Num 2) |> evalExpr2 |> evalSM test_other_mem |> Option.map fst)
 printfn "Testing State Monad Expr. Eval of addition and lookup: %A" ( Plus (Lookup (Num 2), Num 5) |> evalExpr2 |> evalSM test_other_mem |> Option.map fst)
 printfn "Testing State Monad Stmnt. Eval of assign: %A" ( Assign (Num 4, Num 5) |> evalStmnt2 |> evalSM test_other_mem |> Option.map snd)
-// printfn "Testing State Monad Prog. Eval of : %A" ( evalProg2 (fibProg 10) |> evalSM test_empty_mem |> Option.map snd)
-// printfn "Testing State Monad Prog. Eval of : %A" (  evalProg2 (fibProg 10) >>>= lookup2 2 |> evalSM test_empty_mem |> Option.map fst)
+printfn "Testing State Monad Prog. Eval of : %A" ( evalProg2 (fibProg 10) |> evalSM test_empty_mem |> Option.map snd)
+printfn "Testing State Monad Prog. Eval of : %A" (  evalProg2 (fibProg 10) >>>= lookup2 2 |> evalSM test_empty_mem |> Option.map fst)
 printfn ""
 
 // 4.5
 printfn "Testing parser for 5+4 \tGot result: %A" ("5+4" |> run parseExpr |> getSuccess)
 printfn "Testing parser for [4+[3]] \tGot result: %A" ("[4+[3]]" |> run parseExpr |> getSuccess)
 printfn "Testing parser for [5 + 4] \tGot result: %A" ("[5 + 4]" |> run parseExpr |> getSuccess)
+printfn ""
+
+
+
+printfn "======================================================================="
+printfn "============================= REEXAM 2023 ============================="
+printfn "======================================================================="
+open reexam_2023
+
+// 1
+let p11 = Num 42
+let p22 = Add (Num 5, Num 3)
+let p33 = Add (Add(Num 5, Num 3), Add(Num 7, Num (-9)))
+
+// 1.1

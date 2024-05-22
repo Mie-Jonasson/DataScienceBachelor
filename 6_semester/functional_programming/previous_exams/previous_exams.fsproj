@@ -9,6 +9,7 @@
     <ItemGroup>
       <Compile Include="JParsec.fs" />
       <Compile Include="2023_exam.fs" />
+      <Compile Include="2023_reexam.fs" />
       <Compile Include="Program.fs" />
     </ItemGroup>
 
