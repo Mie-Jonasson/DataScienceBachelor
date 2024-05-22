@@ -107,6 +107,7 @@ open JParsec.TextParser
 // printfn "Parallel Max Collats 1-1001 in 200 threads %A" (parallelMaxCollatz 1 1001 200)
 // printfn ""
 
+// ///////////////////////////////////////////////////////////////////////////////
 // // 4.1
 // printfn "test Empty Memory Block: %A" (emptyMem 4)
 // printfn "test Finding value at address 2: %A" (lookup (emptyMem 4) 2)
@@ -198,3 +199,27 @@ printfn "Iterating negate on p1, p2 times: %A" (iterate negate p1 p2)
 printfn "Iterating negate on p1, (p2-1) times: %A" (iterate negate p1 (subtract p2 (Num 1)))
 printfn "Finding 2 to the power of 8 NON-RECURSIVE: %A" (pow (Num 2) (Num 8))
 printfn "Evaluating finding p2 to the power of 3 NON-RECURSIVE: %A" (eval (pow p2 (Num 3)))
+printfn ""
+
+///////////////////////////////////////////////////////////////////////////////
+// 2
+printfn "Testing foo with 0: %A" (foo 0)
+printfn "Testing foo with 3: %A" (foo 3)
+printfn "Testing foo with 6: %A" (foo 6)
+printfn "Testing bar with 6: %A" (bar 0)
+printfn "Testing bar with 6: %A" (bar 3)
+printfn "Testing bar with 6: %A" (bar 6)
+printfn "Testing baz with [0 .. 10]: %A" (baz [0 .. 10])
+printfn "Testing baz with [3 .. 17]: %A" (baz [3 .. 17])
+printfn ""
+printfn "Testing foo2 with 0: %A" (foo2 0)
+printfn "Testing foo2 with 3: %A" (foo2 3)
+printfn "Testing foo2 with 6: %A" (foo2 6)
+printfn "Testing bar2 with 6: %A" (bar2 0)
+printfn "Testing bar2 with 6: %A" (bar2 3)
+printfn "Testing bar2 with 6: %A" (bar2 6)
+printfn "Testing baz2 with [0 .. 10]: %A" (baz2 [0 .. 10])
+printfn "Testing baz2 with [3 .. 17]: %A" (baz2 [3 .. 17])
+printfn ""
+printfn "Testing bazTail with [0 .. 10]: %A" (bazTail [0 .. 10])
+printfn "Testing bazTail with [3 .. 17]: %A" (bazTail [3 .. 17])
