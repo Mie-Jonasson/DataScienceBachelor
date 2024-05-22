@@ -190,8 +190,23 @@ module exam_2023
         List.fold f_folder Map.empty all
     
     // 3.5 TODO
+    let asyncMaxCollatz a b : Async<int*int> =
+        async {return (maxCollatz a b)}
+    
+    let asyncMaxCollatzAll a b n : Async<(int*int) []> =
+        let each_call = List.map (fun x -> asyncMaxCollatz x (x+n)) [a .. n .. (b-n)]
+        Async.Parallel each_call
+
     let parallelMaxCollatz a b n =
-        maxCollatz a b // Look into how to spawn threads :)
+        let thread_out = Async.RunSynchronously (asyncMaxCollatzAll a b n)
+
+        let f_find s x = if (snd x) > s then (snd x) else s
+        let max_length = Array.fold f_find 0 thread_out
+
+        let f_filter x = if (snd x) = max_length then true else false // Filtering to that of max length
+        let longest_options = Array.filter f_filter thread_out
+        
+        longest_options[0]
 
     ///////////////////////////////////////////////////////////////////////////
     type expr =

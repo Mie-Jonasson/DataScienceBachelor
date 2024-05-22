@@ -96,6 +96,13 @@ printfn "Collect Collatz Sequence for 20-30: %A" (collect 20 30)
 printfn "Collect Collatz Sequence for 100-110: %A" (collect 100 110)
 printfn ""
 
+// 3.5
+printfn "Parallel Max Collats 1-1001 in 10 threads %A" (parallelMaxCollatz 1 1001 10)
+printfn "Parallel Max Collats 1-1001 in 100 threads %A" (parallelMaxCollatz 1 1001 100)
+printfn "Parallel Max Collats 1-1001 in 20 threads %A" (parallelMaxCollatz 1 1001 20)
+printfn "Parallel Max Collats 1-1001 in 200 threads %A" (parallelMaxCollatz 1 1001 200)
+printfn ""
+
 // 4.1
 printfn "test Empty Memory Block: %A" (emptyMem 4)
 printfn "test Finding value at address 2: %A" (lookup (emptyMem 4) 2)
