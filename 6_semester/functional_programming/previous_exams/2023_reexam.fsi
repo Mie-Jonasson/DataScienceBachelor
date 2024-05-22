@@ -2,16 +2,15 @@ module reexam_2023
 
     type arith
 
-    // val eval : prop -> bool
+    val eval : arith -> int
 
-    // val negate : prop -> prop
-    // val implies : prop -> prop -> prop
+    val negate : arith -> arith
+    val subtract : arith -> arith -> arith
+    val multiply : arith -> arith -> arith
+    val pow : arith -> arith -> arith
 
-    // val forall : ('a -> prop) -> 'a list -> prop 
-
-    // val exists : ('a -> prop) -> 'a list -> prop
-
-    // val existsOne : ('a -> prop) -> 'a list -> prop
+    val iterate : ('a -> 'a) -> 'a -> arith -> 'a
+    val pow2 : arith -> arith -> arith
 
     // ///////////////////////////////////////////////////////////////////////////
     // val foo : char list -> char list -> SM<char list>
