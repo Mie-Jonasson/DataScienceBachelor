@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <Tailcalls>true</Tailcalls>
+        <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="ExamInteractive.fsx" />
+    <Compile Include="JParsec.fsi" />
+    <Compile Include="JParsec.fs" />
+    <Compile Include="Exam.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+      <PackageReference Include="FParsec" Version="1.1.1" />
+  </ItemGroup>
+</Project>
