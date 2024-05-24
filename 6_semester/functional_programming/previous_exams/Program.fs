@@ -223,3 +223,98 @@ printfn "Testing baz2 with [3 .. 17]: %A" (baz2 [3 .. 17])
 printfn ""
 printfn "Testing bazTail with [0 .. 10]: %A" (bazTail [0 .. 10])
 printfn "Testing bazTail with [3 .. 17]: %A" (bazTail [3 .. 17])
+printfn ""
+
+///////////////////////////////////////////////////////////////////////////////
+// 3
+
+let b1 = "()"
+let b2 = "(){([])}"
+let b3 = "(){([])}("
+
+// 3.1
+printfn "Testing Balanced on b1: %A" (balanced b1)
+printfn "Testing Balanced on b2: %A" (balanced b2)
+printfn "Testing Balanced on b3: %A" (balanced b3)
+printfn ""
+
+// 3.2
+printfn "Testing Balanced 2 with arbitrary delimiters on abcb: %A" (balanced2 (Map.ofList [('a', 'b'); ('b', 'c')]) "abcb")
+printfn "Testing Balanced 2 with arbitrary delimiters on abacb: %A" (balanced2 (Map.ofList [('a', 'b'); ('b', 'c')]) "abacb")
+printfn ""
+
+// 3.3
+printfn "Testing Balanced 3 on b1: %A" (balanced3 b1)
+printfn "Testing Balanced 3 on b2: %A" (balanced3 b2)
+printfn "Testing Balanced 3 on b3: %A" (balanced3 b3)
+printfn ""
+printfn "Testing Symmetric on aabbaa: %A" (symmetric "aabbaa")
+printfn "Testing Symmetric on '': %A" (symmetric "")
+printfn "Testing Symmetric on Dromedaren Alpotto planerade mord!!!: %A" (symmetric "Dromedaren Alpotto planerade mord!!!")
+printfn "Testing Symmetric on Dromedaren Alpotto skadar ingen: %A" (symmetric "Dromedaren Alpotto skadar ingen")
+printfn ""
+
+// 3.4
+// printfn "Tetsing ParseBalanced: %A" (parseBalanced "{([]())}{}**END**")
+
+// 3.5
+let lst = [for i in 1..10000 do
+            yield! ["()"; "({})"; "()({[]})";
+                    "(";"{{}"; "{(})"]]
+printfn "Testing Async Balanced counting with 1 thread: %A" (countBalanced lst 1)
+printfn "Testing Async Balanced counting with 10 threads: %A" (countBalanced lst 10)
+printfn "Testing Async Balanced counting with 1000 threads: %A" (countBalanced lst 1000)
+printfn "Testing Async Balanced counting with 10000 threads: %A" (countBalanced lst 10000)
+printfn ""
+
+///////////////////////////////////////////////////////////////////////////////
+// 4
+let fp = 10 |> fibProg |> mkBasicProgram
+
+// 4.1
+printfn "Testing mkBasicProgram: %A" (mkBasicProgram [(10u, End)])
+printfn "Testing get on fibonacci Program: %A" (getStmnt 50u fp)
+printfn "Testing next on fibonacci Program: %A" (nextLine 50u fp)
+printfn "Testing first on fibonacci Program: %A" (firstLine fp)
+printfn ""
+
+// 4.2 
+printfn "Testign empty state: %A" (emptyState fp)
+printfn "Testing goto state on fibonacci: %A" (goto 50u (emptyState fp))
+printfn "Testing current state on fibonacci: %A" (getCurrentStmnt fp (emptyState fp))
+printfn "Testing current state on fibonacci: %A" (getCurrentStmnt fp (goto 50u (emptyState fp)))
+printfn "Testing update state on fibonacci: %A" (update "x" 42 (emptyState fp))
+printfn "Testing lookup state on fibonacci: %A" (lookup "x" (update "x" 42 (emptyState fp)))
+printfn ""
+
+// 4.3
+let st = emptyState fp
+let st' = update "x" 42 st
+printfn "Testing evalExpr on Num 5: %A" (evalExpr (Numx 5) st)
+printfn "Testing evalExpr on lookup x: %A" (evalExpr (Lookup "x") st')
+printfn "Testing evalExpr on lookup x: %A" (evalExpr (Plus (Lookup "x", Numx 5)) st')
+
+let smallProg = [(10u, Let ("x", Numx 42)); (20u, End)] |> mkBasicProgram
+let st'' = emptyState smallProg
+
+printfn "Testing step on smallProg: %A" (step smallProg st'')
+printfn "Evaluating SmallProg: %A" (evalProg smallProg)
+printfn "Evaluating Fibonacci Program: %A" (evalProg fp)
+printfn "Evaluating Result of Fibonacci Program: %A" (fp |> evalProg |> lookup "result")
+printfn ""
+
+// 4.4
+printfn "Testing State Monad goto: %A" (goto2 50u |> evalSM fp)
+printfn "Testing State Monad goto and current stmnt: %A" (goto2 50u >>>= getCurrentStmnt2 |> evalSM fp)
+printfn "Testing State Monad update: %A" (update2 "x" 42 |> evalSM fp)
+printfn "Testing State Monad update and lookup: %A" (update2 "x" 42 >>>= lookup2 "x" |> evalSM fp)
+printfn "Testing State Monad goto and step: %A" (goto2 50u >>>= step2 |> evalSM fp)
+printfn ""
+
+// 4.5
+printfn "Testing State Monad Expression Eval on num 5: %A" (Numx 5 |> evalExpr2 |> evalSM fp)
+printfn "Testing State Monad Expression Eval on update and lookup: %A" (update2 "x" 42 >>>= evalExpr2 (Lookup "x") |> evalSM fp)
+printfn "Testing State Monad Expression Eval: %A" (update2 "x" 42 >>>= evalExpr2 (Plus(Lookup "x", Numx 5)) |> evalSM fp)
+// printfn "Testing State Monad Program Eval: %A" (evalProg2 |> evalSM smallProg)
+// printfn "Testing State Monad Program Eval: %A" (evalProg2 |> evalSM fp)
+// printfn "Testing State Monad Program Eval: %A" (evalProg2 >>>= lookup2 "result" |> evalSM fp)
